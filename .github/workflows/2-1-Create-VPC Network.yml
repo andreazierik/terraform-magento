@@ -15,7 +15,7 @@ jobs:
         shell: bash
     steps:
     - name: Checkout
-      uses: actions/checkout@v4    
+      uses: actions/checkout@v4
     - name: Create backend file
       env:
         REGION: "us-east-1"
@@ -26,6 +26,6 @@ jobs:
         cat backend.tfvars
     - name: Terraform Apply
       run: |
-        cd ./2-VPC Network
+        cd "./2-VPC Network"
         terraform init -backend-config=../backend.tfvars
         terraform plan
