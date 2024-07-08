@@ -23,7 +23,8 @@ jobs:
         KEY: "vpc-configuration"
       run: |
         cd ./2-create-network
-        chmod 755 ./generate_backend.sh && ./generate_backend.sh        
+        chmod 755 ./generate_backend.sh && ./generate_backend.sh
+        cat backend.tf
     - name: Terraform Apply
       run: |
         cd ./2-create-network
