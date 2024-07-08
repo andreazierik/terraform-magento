@@ -14,7 +14,7 @@ data "terraform_remote_state" "remote-state-information" {
   config = {
     region = var.regiao
     bucket = var.remote-state-bucket
-    key    = "Remote state/terraform.tfstate"
+    key    = "Remote State/terraform.tfstate"
   }
 }
 

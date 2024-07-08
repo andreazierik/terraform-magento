@@ -19,7 +19,7 @@ jobs:
       uses: actions/checkout@v4
     - name: "Remote State: Run terraform init and apply."
       env:
-        KEY_TF_STATE: "Remote state"
+        KEY_TF_STATE: "Remote State/terraform.tfstate"
         LOCAL_FOLDER: "1-Remote State"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
