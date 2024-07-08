@@ -74,7 +74,7 @@ output "vpcs-vpc-1-sg-alb-id" {
   value       = module.vpcs.vpc-1-sg-alb-id
 }
 
-output "vpcs-vpc-1-sg-alb-odoo-name" {
-  description = "VPC-1: Security group para ALB Odoo, Name"
-  value       = module.vpcs.vpc-1-sg-alb-odoo-name
+output "vpcs-vpc-1-sg-alb-name" {
+  description = "VPC-1: Security group para ALB Name"
+  value       = module.vpcs.vpc-1-sg-alb-name
 }
