@@ -21,7 +21,8 @@ jobs:
       env:
         LOCAL_FOLDER: "1-Remote State"
       run: |
-        cd "./${{env.LOCAL_FOLDER}}"
-        chmod 755 ./generate_tfvars.sh && ./generate_tfvars.sh
-        terraform init
+        cd "./${{env.LOCAL_FOLDER}}"        
+        terraform init -backend=false \ 
+          -var "regiao=${{env.REGION}}" 
+          -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
         terraform apply -auto-approve
