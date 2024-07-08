@@ -18,13 +18,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Create backend file
+    - name: Setup backend file
       env:
         KEY_TF_STATE: "VPC-Network"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cat backend.tfvars
-    - name: Terraform Apply
+    - name: "Create: VPC Network"
       run: |
         cd "./2-VPC Network"
         terraform init -backend-config=../backend.tfvars
