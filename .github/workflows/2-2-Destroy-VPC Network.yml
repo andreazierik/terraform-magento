@@ -1,4 +1,4 @@
-name: 2-1 | Create | VPC Network
+name: 2-2 | Destroy | VPC Network
 on: 
   workflow_dispatch
 env:
