@@ -1,10 +1,10 @@
 name: 1-1 | Create | Remote state
-on: 
+on:
   workflow_dispatch
 env:
-  REGION: ${{ vars.REGIAO }}
   REMOTE_STATE_BUCKET: ${{ vars.REMOTE_STATE_BUCKET }}
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_DEV_CLI_ADMIN_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_CLI_ADMIN_SECRET }}
 
 jobs:
   main_job:
@@ -17,9 +17,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: "Remote State: Run terraform init and apply."
-      env:        
-        LOCAL_FOLDER: "1.1-Remote State"
+      env:
+        LOCAL_FOLDER: "1-Remote State"
       run: |
-        cd "./${{env.LOCAL_FOLDER}}"        
+        cd "./${{env.LOCAL_FOLDER}}"
+        chmod 755 ./generate_tfvars.sh && ./generate_tfvars.sh
         terraform init
         terraform apply -auto-approve

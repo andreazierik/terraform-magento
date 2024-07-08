@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3-remote-state" {
-  bucket = "${REMOTE_STATE_BUCKET}"
+  bucket = var.remote-state-bucket
 }
 
 resource "aws_s3_bucket_versioning" "versionamento-s3-remote-state" {
