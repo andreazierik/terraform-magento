@@ -18,11 +18,11 @@ jobs:
       uses: actions/checkout@v4    
     - name: Terraform Apply
       env:
-        REGION: ${{ env.AWS_REGION }}
-        REMOTE_STATE_BUCKET: ${{ env.REMOTE_STATE_BUCKET }}
+        REGION: "us-east-1"
+        REMOTE_STATE_BUCKET: "remote-state-magento"
         KEY: "vpc-configuration"
       run: |
         cd ./2-create-network
         chmod 755 ./generate_backend.sh && ./generate_backend.sh        
-        terraform init
+        terraform init -backend-config=backend.tf
         terraform apply -auto-approve
