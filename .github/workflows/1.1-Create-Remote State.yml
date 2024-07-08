@@ -19,9 +19,9 @@ jobs:
       uses: actions/checkout@v4
     - name: "Remote State: Run terraform init and apply."
       env:
-        LOCAL_FOLDER: 1-Remote State
+        LOCAL_FOLDER: "1-Remote State"
       run: |
-        cd ./"${{env.LOCAL_FOLDER}}"
+        cd "./${{env.LOCAL_FOLDER}}"
         terraform init -backend=false \ 
           -var "regiao=${{env.REGION}}" 
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
