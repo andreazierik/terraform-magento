@@ -24,11 +24,13 @@ jobs:
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"
+        cp -f ./main.tf.local ./main.tf
         terraform init          
         terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
-        terraform init -backend-config=backend.tfvars -force-copy
+        cp -f ./main.tf.s3 ./main.tf
+        terraform init -backend-config=backend.tfvars
         terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
