@@ -17,8 +17,6 @@ resource "aws_instance" "vm-1" {
   user_data_replace_on_change = true
   user_data = templatefile(
     "${path.module}/ec2-userdata-magento.tftpl", {
-      efs-odoo-mountpoint    = data.terraform_remote_state.remote-state-efs.outputs.efs-odoo-endpoint,
-      rds-postgres-endpoint    = split(":", data.terraform_remote_state.remote-state-rds-postgres.outputs.rds-postgres-rds-1-endpoint)[0]
     }
   )
 
