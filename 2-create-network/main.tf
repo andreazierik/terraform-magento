@@ -6,11 +6,7 @@ terraform {
       version = "5.40.0"
     }
   }
-  backend "s3" {
-    region = "${REGIAO}"
-    bucket = "${REMOTE_STATE_BUCKET}"
-    key    = "create-network/terraform.tfstate"    
-  }
+  backend "s3" {}
 }
 
 provider "aws" {  

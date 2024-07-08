@@ -4,7 +4,7 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_DEV_CLI_ADMIN_KEY }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_CLI_ADMIN_SECRET }}
-  AWS_SSH_PUBLIC_KEY: ${{ secrets.AWS_DEV_CLI_ADMIN_SSH_PUBLIC_KEY }}
+  AWS_SSH_PUBLIC_KEY: ${{ secrets.AWS_DEV_CLI_ADMIN_SSH_PUBLIC_KEY }}  
 
 jobs:
   terraform_apply:
@@ -16,6 +16,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+    - name: Generate backend configuration
+      env:
+        REGION: ${{ env.AWS_REGION }}
+        REMOTE_STATE_BUCKET: ${{ env.REMOTE_STATE_BUCKET }}
+        KEY: "vpc-configuration"
+      run: ./generate_backend.sh
     - name: Terraform Apply
       run: |
         cd ./2-create-network
