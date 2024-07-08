@@ -6,13 +6,13 @@ variable "regiao" {
 
 variable "projeto" {
   type        = string
-  description = "Autor de edição."
-  default     = "oficina-18"
+  description = "Descrição do projeto."
+  default     = "oficina-19-magento"
 }
 
 variable "cliente" {
   type        = string
-  description = "Autor de edição."
+  description = "Cliente do projeto."
   default     = "Cloud Treinamentos"
 }
 
