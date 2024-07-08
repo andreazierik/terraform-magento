@@ -4,7 +4,9 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_DEV_CLI_ADMIN_KEY }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_CLI_ADMIN_SECRET }}
-  AWS_SSH_PUBLIC_KEY: ${{ secrets.AWS_DEV_CLI_ADMIN_SSH_PUBLIC_KEY }}  
+  AWS_SSH_PUBLIC_KEY: ${{ secrets.AWS_DEV_CLI_ADMIN_SSH_PUBLIC_KEY }}
+  REGION: "us-east-1"
+  REMOTE_STATE_BUCKET: "remote-state-magento"
 
 jobs:
   terraform_apply:
@@ -18,9 +20,7 @@ jobs:
       uses: actions/checkout@v4
     - name: Create backend file
       env:
-        REGION: "us-east-1"
-        REMOTE_STATE_BUCKET: "remote-state-magento"
-        KEY: "vpc-configuration"
+        KEY_TF_STATE: "VPC-Network"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cat backend.tfvars
