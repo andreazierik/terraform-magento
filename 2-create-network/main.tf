@@ -7,8 +7,8 @@ terraform {
     }
   }
   backend "s3" {
-    region = "us-east-1"
-    bucket = "remote-state-odoo"
+    region = var.regiao
+    bucket = var.remote-state-bucket
     key    = "create-network/terraform.tfstate"
     
   }
@@ -32,6 +32,6 @@ module "vpcs" {
 
   allowed-iplist = ["0.0.0.0/0"]
 
-  vpc-1-name = "vpc-odoo"  
+  vpc-1-name = "vpc-magento"
 }
 
