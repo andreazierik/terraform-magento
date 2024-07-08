@@ -9,6 +9,3 @@ cliente = "Cloud Treinamento"
 
 # Autor das edições
 autor = "Bruno Ferreira"
-
-# Bucket name onde está o remote state
-remote-state-bucket = "remote-state-magento"

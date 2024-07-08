@@ -21,9 +21,3 @@ variable "autor" {
   description = "Autor de edição."
   default     = "Bruno Ferreira"
 }
-
-variable "bucket-remote-state" {
-  type        = string
-  description = "Nome do bucket do remote-state."
-  default     = "remote-state-magento"
-}
