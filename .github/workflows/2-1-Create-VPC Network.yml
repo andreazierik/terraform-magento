@@ -9,8 +9,8 @@ env:
   REMOTE_STATE_BUCKET: "remote-state-magento"
 
 jobs:
-  terraform_apply:
-    name: Terraform Apply
+  main_job:
+    name: "Create: VPC Network"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,14 +18,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Setup backend file
+    - name: Setup backend and run terraform init and apply.
       env:
-        KEY_TF_STATE: "VPC-Network"
+        KEY_TF_STATE: "VPC Network"
+        LOCAL_FOLDER: "2-VPC Network"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
-        cat backend.tfvars
-    - name: "Create: VPC Network"
-      run: |
-        cd "./2-VPC Network"
-        terraform init -backend-config=../backend.tfvars
+        cd "./${{env.LOCAL_FOLDER}}"
+        cat ./backend.tfvars        
+        terraform init -backend-config=./backend.tfvars
         terraform plan
