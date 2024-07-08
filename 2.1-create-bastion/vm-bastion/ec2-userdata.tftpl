@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "### Iniciado user data ###"
+
+touch /home/ubuntu/.ssh/rsa.key
+chmod 600 /home/ubuntu/.ssh/rsa.key
+echo "${private_key_base64}" | base64 -d >> /home/ubuntu/.ssh/rsa.key
+
+echo "### Finalizado user data ###"
+
+# Informa fim do user data para autorizar Terraform a prosseguir instalação.
+touch /tmp/userdata_finished
