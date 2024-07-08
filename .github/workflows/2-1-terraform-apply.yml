@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4    
-    - name: Terraform Apply
+    - name: Create backend file
       env:
         REGION: "us-east-1"
         REMOTE_STATE_BUCKET: "remote-state-magento"
@@ -24,5 +24,8 @@ jobs:
       run: |
         cd ./2-create-network
         chmod 755 ./generate_backend.sh && ./generate_backend.sh        
+    - name: Terraform Apply
+      run: |
+        cd ./2-create-network
         terraform init -backend-config=backend.tf
         terraform apply -auto-approve
