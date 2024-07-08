@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3-remote-state" {
-  bucket = "remote-state-magento"
+  bucket = var.bucket-remote-state
 }
 
 resource "aws_s3_bucket_versioning" "versionamento-s3-remote-state" {
