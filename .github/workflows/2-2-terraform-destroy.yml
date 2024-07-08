@@ -20,3 +20,4 @@ jobs:
         cd ./2-create-network
         terraform init
         terraform destroy -auto-approve
+        
