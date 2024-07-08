@@ -17,7 +17,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: "VPC Network: Setup backend, run terraform init and apply."
+    - name: "VPC Network: Setup backend, run terraform init and destroy."
       env:
         KEY_TF_STATE: "VPC Network"
         LOCAL_FOLDER: "2-VPC Network"
@@ -26,4 +26,4 @@ jobs:
         cd "./${{env.LOCAL_FOLDER}}"
         cat ./backend.tfvars        
         terraform init -backend-config=./backend.tfvars
-        terraform apply -auto-approve
+        terraform destroy -auto-approve
