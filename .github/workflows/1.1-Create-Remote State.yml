@@ -23,6 +23,6 @@ jobs:
       run: |
         cd "./${{env.LOCAL_FOLDER}}"
         terraform init -backend=false \ 
-          -var "regiao=${{env.REGION}}" 
+          -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
         terraform apply -auto-approve
