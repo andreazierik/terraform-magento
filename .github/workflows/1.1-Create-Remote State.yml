@@ -24,7 +24,11 @@ jobs:
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"
-        terraform init -backend-config=./backend.tfvars \
+        terraform init \
+          -var "regiao=${{env.REGION}}" \
+          -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
+        terraform apply -auto-approve
+        terraform init -backend-config=backend.tfvars -force-copy
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
         terraform apply -auto-approve
