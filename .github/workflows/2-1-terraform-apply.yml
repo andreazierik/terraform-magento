@@ -28,5 +28,5 @@ jobs:
     - name: Terraform Apply
       run: |
         cd ./2-create-network
-        terraform init -backend-config=backend.tf
+        terraform init -backend-config=backend.tfvars
         terraform apply -auto-approve
