@@ -1,4 +1,4 @@
-name: 3b-1 | Destroy | RDS
+name: 3b-1 | Create | RDS
 on: 
   workflow_dispatch
 env:
@@ -9,7 +9,7 @@ env:
 
 jobs:
   main_job:
-    name: "Destroy: RDS Database"
+    name: "Create: RDS Database"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -17,7 +17,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: "RDS Database: Setup backend, run terraform init and destroy."
+    - name: "RDS Database: Setup backend, run terraform init and apply."
       env:
         KEY_TF_STATE: "RDS Database/terraform.tfstate"
         LOCAL_FOLDER: "3b-RDS Database"
@@ -25,6 +25,6 @@ jobs:
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"
         terraform init -backend-config=./backend.tfvars
-        terraform destroy -auto-approve \
+        terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
