@@ -23,7 +23,6 @@ jobs:
         LOCAL_FOLDER: "2-VPC Network"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
-        cd "./${{env.LOCAL_FOLDER}}"
-        cat ./backend.tfvars        
+        cd "./${{env.LOCAL_FOLDER}}"        
         terraform init -backend-config=./backend.tfvars
         terraform apply -auto-approve

@@ -1,3 +1,15 @@
+provider "aws" {
+  region = var.regiao  
+  default_tags {
+    tags = {
+      "owner"      = var.autor
+      "project"    = var.projeto
+      "customer"   = var.cliente
+      "managed-by" = "terraform"
+    }
+  }
+}
+
 resource "aws_s3_bucket" "s3-remote-state" {
   bucket = var.remote-state-bucket
 }
