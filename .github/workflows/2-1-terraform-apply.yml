@@ -15,15 +15,14 @@ jobs:
         shell: bash
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
-    - name: Generate backend configuration
+      uses: actions/checkout@v4    
+    - name: Terraform Apply
       env:
         REGION: ${{ env.AWS_REGION }}
         REMOTE_STATE_BUCKET: ${{ env.REMOTE_STATE_BUCKET }}
         KEY: "vpc-configuration"
-      run: ./generate_backend.sh
-    - name: Terraform Apply
       run: |
         cd ./2-create-network
+        ./generate_backend.sh
         terraform init
         terraform apply -auto-approve

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cat <<EOF > backend.tf
+cat <<EOF > ./backend.tf
 region = "${REGION}"
 bucket = "${REMOTE_STATE_BUCKET}"
-key    = "create-network/terraform.tfstate"
+key    = "${KEY}"
 EOF
