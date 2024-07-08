@@ -1,34 +1,24 @@
 variable "regiao" {
   type        = string
-  description = "Região onde a infraestrutura será criada."
-}
-
-variable "credential-path" {
-  type        = set(string)
-  description = "Caminho do arquivo de credenciais"
-}
-
-variable "credential-profile" {
-  type        = string
-  description = "Profile das credenciais"
+  description = "Região onde a infraestrutura será criada."  
 }
 
 variable "projeto" {
   type        = string
-  description = "Autor de edição."
+  description = "Descrição do projeto."  
 }
 
 variable "cliente" {
   type        = string
-  description = "Autor de edição."
+  description = "Cliente do projeto."  
 }
 
 variable "autor" {
   type        = string
-  description = "Autor de edição."
+  description = "Autor de edição."  
 }
 
 variable "remote-state-bucket" {
   type        = string
-  description = "Bucket name onde está o remote state"
+  description = "Nome do bucket do remote-state."  
 }
