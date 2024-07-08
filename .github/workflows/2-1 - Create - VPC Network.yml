@@ -1,4 +1,4 @@
-name: 2-1-Create Network-Terraform Apply
+name: 2-1 | Create | VPC Network
 on: 
   workflow_dispatch
 env:
@@ -22,11 +22,10 @@ jobs:
         REMOTE_STATE_BUCKET: "remote-state-magento"
         KEY: "vpc-configuration"
       run: |
-        cd ./2-create-network
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cat backend.tfvars
     - name: Terraform Apply
       run: |
         cd ./2-create-network
-        terraform init -backend-config=backend.tfvars
-        terraform apply -auto-approve
+        terraform init -backend-config=../backend.tfvars
+        terraform plan
