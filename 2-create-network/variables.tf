@@ -17,8 +17,3 @@ variable "autor" {
   type        = string
   description = "Autor de edição."  
 }
-
-variable "remote-state-bucket" {
-  type        = string
-  description = "Nome do bucket do remote-state."  
-}

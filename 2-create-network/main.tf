@@ -9,8 +9,7 @@ terraform {
   backend "s3" {
     region = "${REGIAO}"
     bucket = "${REMOTE_STATE_BUCKET}"
-    key    = "create-network/terraform.tfstate"
-    
+    key    = "create-network/terraform.tfstate"    
   }
 }
 

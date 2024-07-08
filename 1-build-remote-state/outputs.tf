@@ -27,8 +27,3 @@ output "autor" {
   description = "Autor de edição."
   value       = "Bruno Ferreira"
 }
-
-output "bucket-remote-state" {  
-  description = "Nome do bucket do remote-state."
-  value       = "remote-state-magento"
-}
