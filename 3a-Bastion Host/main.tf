@@ -33,5 +33,7 @@ provider "aws" {
 
 module "vm-bastion" {
   source = "./vm-bastion"
-  AWS_SSH_PRIVATE_KEY = var.AWS_SSH_PRIVATE_KEY  
+  regiao = var.regiao
+  remote-state-bucket = var.remote-state-bucket
+  AWS_SSH_PRIVATE_KEY = var.AWS_SSH_PRIVATE_KEY
 }
