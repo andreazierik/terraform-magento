@@ -23,6 +23,6 @@ jobs:
         KEY: "vpc-configuration"
       run: |
         cd ./2-create-network
-        ./generate_backend.sh
+        chmod 755 ./generate_backend.sh && ./generate_backend.sh        
         terraform init
         terraform apply -auto-approve
