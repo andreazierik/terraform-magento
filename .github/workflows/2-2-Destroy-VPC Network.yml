@@ -9,7 +9,7 @@ env:
 
 jobs:
   main_job:
-    name: "Create: VPC Network"
+    name: "Destroy: VPC Network"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -24,6 +24,7 @@ jobs:
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"
-        cat ./backend.tfvars        
         terraform init -backend-config=./backend.tfvars
-        terraform destroy -auto-approve
+        terraform destroy -auto-approve \
+          -var "regiao=${{env.REGION}}" \
+          -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
