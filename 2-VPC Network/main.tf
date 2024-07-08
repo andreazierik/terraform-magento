@@ -23,9 +23,9 @@ provider "aws" {
 
   default_tags {
     tags = {
-      "owner"      = var.autor
-      "project"    = var.projeto
-      "customer"   = var.cliente
+      "owner"      = data.terraform_remote_state.remote-state-information.outputs.autor
+      "project"    = data.terraform_remote_state.remote-state-information.outputs.projeto
+      "customer"   = data.terraform_remote_state.remote-state-information.outputs.cliente
       "managed-by" = "terraform"
     }
   }
