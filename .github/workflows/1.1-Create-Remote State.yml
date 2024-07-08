@@ -30,7 +30,7 @@ jobs:
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
         cp -f ./main.tf.s3 ./main.tf
-        terraform init -backend-config=backend.tfvars
+        terraform init -backend-config=backend.tfvars -input=false -force-copy
         terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
