@@ -19,7 +19,7 @@ jobs:
       uses: actions/checkout@v4
     - name: "VPC Network: Setup backend, run terraform init and destroy."
       env:
-        KEY_TF_STATE: "VPC Network"
+        KEY_TF_STATE: "VPC Network/terraform.tfstate"
         LOCAL_FOLDER: "2-VPC Network"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
