@@ -69,9 +69,9 @@ output "vpcs-vpc-1-sg-efs-mountpoints-name" {
   value       = module.vpcs.vpc-1-sg-efs-mountpoints-name
 }
 
-output "vpcs-vpc-1-sg-alb-odoo-id" {
-  description = "VPC-1: Security group para ALB Odoo, ID"
-  value       = module.vpcs.vpc-1-sg-alb-odoo-id
+output "vpcs-vpc-1-sg-alb-id" {
+  description = "VPC-1: Security group para ALB ID"
+  value       = module.vpcs.vpc-1-sg-alb-id
 }
 
 output "vpcs-vpc-1-sg-alb-odoo-name" {

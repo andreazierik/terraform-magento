@@ -69,12 +69,12 @@ output "vpc-1-sg-efs-mountpoints-name" {
   value       = aws_security_group.vpc-1-sg-efs-mountpoints.name
 }
 
-output "vpc-1-sg-alb-odoo-id" {
-  description = "VPC-1: Security group para ALB Odoo, ID"
-  value       = aws_security_group.vpc-1-sg-alb-odoo.id
+output "vpc-1-sg-alb-id" {
+  description = "VPC-1: Security group para ALB ID"
+  value       = aws_security_group.vpc-1-sg-alb.id
 }
 
-output "vpc-1-sg-alb-odoo-name" {
-  description = "VPC-1: Security group para ALB Odoo, Name"
-  value       = aws_security_group.vpc-1-sg-alb-odoo.name
+output "vpc-1-sg-alb-name" {
+  description = "VPC-1: Security group para ALB Name"
+  value       = aws_security_group.vpc-1-sg-alb.name
 }

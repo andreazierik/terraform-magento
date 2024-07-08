@@ -442,7 +442,7 @@ resource "aws_security_group" "vpc-1-sg-efs-mountpoints" {
   }
 }
 
-resource "aws_security_group" "vpc-1-sg-alb-odoo" {
+resource "aws_security_group" "vpc-1-sg-alb" {
   name        = "vpc_1_sg_alb-odoo"
   description = "Security group para os ALB Odoo"
   vpc_id      = aws_vpc.vpc-1.id
@@ -472,7 +472,7 @@ resource "aws_security_group" "vpc-1-sg-alb-odoo" {
   }
 
   tags = {
-    Name = "${var.vpc-1-name}-sg-alb-odoo"
+    Name = "${var.vpc-1-name}-sg-alb"
   }
 }
 

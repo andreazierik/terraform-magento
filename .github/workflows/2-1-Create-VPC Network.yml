@@ -26,6 +26,6 @@ jobs:
         cat backend.tfvars
     - name: Terraform Apply
       run: |
-        cd ./2-create-network
+        cd ./2-VPC Network
         terraform init -backend-config=../backend.tfvars
         terraform plan
