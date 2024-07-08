@@ -1,4 +1,4 @@
-name: 3b-1 | Destroy | EFS
+name: 3c-1 | Destroy | EFS
 on: 
   workflow_dispatch
 env:

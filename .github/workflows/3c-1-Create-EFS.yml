@@ -1,4 +1,4 @@
-name: 3b-1 | Create | EFS
+name: 3c-1 | Create | EFS
 on: 
   workflow_dispatch
 env:
