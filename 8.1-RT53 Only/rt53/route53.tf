@@ -12,7 +12,7 @@ resource "aws_route53_record" "odoo_record_A" {
   name            = "brunoferreira86dev.com"
   type            = "A"
   ttl             = 300
-  records         = ["44.211.223.163"]  
+  records         = ["52.87.239.14"]  
 
 
   # alias {
@@ -30,7 +30,7 @@ resource "aws_route53_record" "odoo_record_WWW" {
   name            = "www.brunoferreira86dev.com"
   type            = "A"
   ttl             = 300
-  records         = ["44.211.223.163"]  
+  records         = ["52.87.239.14"]  
 
   # alias {
   #   name                   = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-dns-name
