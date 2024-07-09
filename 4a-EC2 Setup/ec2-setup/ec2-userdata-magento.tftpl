@@ -72,7 +72,7 @@ cd /var/www/magento2
 sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
 sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
 
-chown -R :www-data .
+chown -R :www-data ./
 chmod u+x bin/magento
 
 sudo -u ubuntu bin/magento setup:install \
