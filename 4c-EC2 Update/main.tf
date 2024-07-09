@@ -31,8 +31,8 @@ provider "aws" {
   }
 }
 
-module "ec2-setup" {
-  source = "./ec2-setup"
+module "ec2-update" {
+  source = "./ec2-update"
   regiao = var.regiao
   remote-state-bucket = var.remote-state-bucket  
 }
