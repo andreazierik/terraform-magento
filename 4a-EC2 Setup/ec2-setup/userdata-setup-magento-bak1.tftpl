@@ -53,8 +53,14 @@ sed -i 's/^;\?xpack.security.enabled\s*:.*/xpack.security.enabled: false/' /etc/
 systemctl restart elasticsearch.service
 
 # Instalando Composer
-sudo -u ubuntu curl -sS https://getcomposer.org/installer | php
+echo "#### Instalando Composer"
+curl -sS https://getcomposer.org/installer | php
+# sudo -u ubuntu curl -sS https://getcomposer.org/installer | php
+echo "#### sleep 5"
+sleep 5
+echo "#### Move composer.phat"
 mv composer.phar /usr/local/bin/composer
+echo "#### chmod composer"
 #sudo -u ubuntu chmod +x /usr/local/bin/composer
 chmod +x /usr/local/bin/composer
 
@@ -66,7 +72,7 @@ rm -rf /var/www/*
 
 chown -R ubuntu:ubuntu /var/www
 chmod -R 755 /var/www
-sudo -u ubuntu composer config --global http-basic.repo.magento.com sua-public-key sua-private-key
+sudo -u ubuntu composer config --global http-basic.repo.magento.com e17f795adcead3b145eb2b14b7e1fbc9 90c634853ce26fa0ec3b0efc46cfab70
 # Usando versão mais recente - compative com php 8.3
 sudo -u ubuntu composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition /var/www/magento2 --no-interaction
 
