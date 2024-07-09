@@ -1,4 +1,4 @@
-name: 3b-2 | Destroy | RDS
+name: 3b-2 | Destroy | RDS Database
 on: 
   workflow_dispatch
 env:

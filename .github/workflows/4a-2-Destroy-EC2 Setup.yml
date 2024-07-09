@@ -23,7 +23,7 @@ jobs:
         ssh-private-key: ${{ secrets.AWS_DEV_CLI_ADMIN_SSH_PRIVATE_KEY }}
     - name: "EC2 Setup: Setup backend, run terraform init and destroy."
       env:
-        KEY_TF_STATE: "EFS/terraform.tfstate"
+        KEY_TF_STATE: "EC2 Setup/terraform.tfstate"
         LOCAL_FOLDER: "4a-EC2 Setup"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
