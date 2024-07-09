@@ -1,9 +1,12 @@
 #!/bin/bash
 echo "### Iniciado user data ###"
 
+cd /home/ubuntu
+
 # Instalando Composer
 echo "#### Instalando Composer"
 export HOME=/home/ubuntu
+cd /home/ubuntu
 
 sudo -u ubuntu curl -sS https://getcomposer.org/installer | sudo -u ubuntu php
 mv composer.phar /usr/local/bin/composer
