@@ -55,7 +55,8 @@ systemctl restart elasticsearch.service
 # Instalando Composer
 sudo -u ubuntu curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
-sudo -u ubuntu chmod +x /usr/local/bin/composer
+#sudo -u ubuntu chmod +x /usr/local/bin/composer
+chmod +x /usr/local/bin/composer
 
 # Instalando Magento
 # 1. Installing Magento using the Marketplace by creating an access key is recommended.
@@ -76,7 +77,28 @@ sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type d -e
 chown -R www-data:www-data /var/www/magento2
 chmod u+x bin/magento
 
-sudo -u ubuntu bin/magento setup:install \
+# bin/magento setup:install \
+#   --base-url=http://brunoferreira86dev.com \
+#   --db-host=terraform-20240709141242681100000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
+#   --db-name=magentodb \
+#   --db-user=magentoadmin \
+#   --db-password=pass123456789 \
+#   --admin-firstname=bruno \
+#   --admin-lastname=ferreira \
+#   --admin-email=brunoferreira86dev@gmail.com \
+#   --admin-user=magentouser \
+#   --admin-password=pass12345678 \
+#   --language=en_US \
+#   --currency=USD \
+#   --timezone=America/Chicago \
+#   --use-rewrites=1 \
+#   --search-engine=opensearch \
+#   --opensearch-host=http://brunoferreira86dev.com \
+#   --opensearch-port=9200 \
+#   --opensearch-index-prefix=magento2 \
+#   --opensearch-timeout=15
+
+bin/magento setup:install \
   --base-url=http://brunoferreira86dev.com \
   --db-host=terraform-20240709141242681100000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
   --db-name=magentodb \
@@ -95,7 +117,12 @@ sudo -u ubuntu bin/magento setup:install \
   --opensearch-host=http://brunoferreira86dev.com \
   --opensearch-port=9200 \
   --opensearch-index-prefix=magento2 \
-  --opensearch-timeout=15
+  --opensearch-timeout=15 2>&1 | tee magento_install_output.log
+
+echo $(cat magento_install_output.log | 
+  grep '\[SUCCESS\]: Magento Admin URI:' | 
+  awk -F': ' '{print $3}' | 
+  sed 's#^/##') > admin_url_output.txt
 
 # Configurar nginx para magento
 bash -c 'cat <<EOF > /etc/nginx/conf.d/magento2.conf
@@ -115,7 +142,8 @@ systemctl restart nginx
 
 # Desabilitr 2FA
 bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
-sudo -u ubuntu bin/magento cache:flush 
+#sudo -u ubuntu bin/magento cache:flush 
+bin/magento cache:flush 
 
 # Informa fim do user data para autorizar Terraform a prosseguir instalação.
 echo "### Finalizado user data ###"
