@@ -33,8 +33,8 @@ resource "aws_network_acl" "vpc-1-nacl-private-subnets" {
   ingress {    
     rule_no    = 200
     protocol   = "tcp"
-    from_port  = 5432
-    to_port    = 5432
+    from_port  = 3306
+    to_port    = 3306
     action     = "allow"
     cidr_block = "0.0.0.0/0"    
   }
@@ -390,8 +390,8 @@ resource "aws_security_group" "vpc-1-sg-rds" {
 
   ingress {
     description = "Allow PostgreSQL access"
-    from_port   = 5432
-    to_port     = 5432
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/0"]
   }

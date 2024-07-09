@@ -115,7 +115,7 @@ sudo chmod -R 755 /var/www/magento2
 
 bin/magento setup:install \
 --base-url=http://your-domain.com \
---db-host=localhost \
+--db-host=terraform-20240709022102196500000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
 --db-name=magentodb \
 --db-user=magentouser \
 --db-password=12345678 \
