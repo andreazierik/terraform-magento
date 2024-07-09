@@ -1,0 +1,130 @@
+
+# Atualizando linux
+sudo apt update -y && sudo apt upgrade -y
+
+# Remover apache
+sudo systemctl stop apache2
+sudo systemctl disable apache2
+sudo apt-get remove apache2 -y
+
+# Instalação inicial nginx
+sudo apt install -y nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+
+# Instalar PHP e PHP extensions
+sudo apt-get install -y php php-dev php-fpm php-bcmath php-intl php-soap php-zip php-curl php-mbstring php-mysql php-gd php-xml
+
+# Atualizar php.ini
+# Recuperar local do arquivo de configuração e salvar como variável de ambiente.
+export PHP_INI_PATH=$(php --ini | grep "Loaded Configuration File" | awk '{print $4}')
+
+# Set file_uploads to On
+# Set allow_url_fopen to On
+# Set short_open_tag to On
+# Increase memory_limit to 512M
+# Set upload_max_filesize to 128M
+# Increase max_execution_time to 3600
+sudo sed -i 's/^;\?file_uploads\s*=.*/file_uploads = On/' "$PHP_INI_PATH"
+sudo sed -i 's/^;\?allow_url_fopen\s*=.*/allow_url_fopen = On/' "$PHP_INI_PATH"
+sudo sed -i 's/^;\?short_open_tag\s*=.*/short_open_tag = On/' "$PHP_INI_PATH"
+sudo sed -i 's/^;\?memory_limit\s*=.*/memory_limit = 512M/' "$PHP_INI_PATH"
+sudo sed -i 's/^;\?upload_max_filesize\s*=.*/upload_max_filesize = 128M/' "$PHP_INI_PATH"
+sudo sed -i 's/^;\?max_execution_time\s*=.*/max_execution_time = 3600/' "$PHP_INI_PATH"
+
+sudo systemctl restart nginx
+
+# Pulando o MySql
+
+# Instalando ElasticSearch
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+sudo apt update -y
+sudo apt install -y elasticsearch
+sudo systemctl daemon-reload
+sudo systemctl start elasticsearch
+sudo systemctl enable elasticsearch
+
+# sudo nano  /etc/elasticsearch/elasticsearch.yml
+# Replace the following setting with 'false' to disable Magento security features:
+# xpack.security.enabled: false
+sudo sed -i 's/^;\?xpack.security.enabled\s*:.*/xpack.security.enabled: false/' /etc/elasticsearch/elasticsearch.yml
+
+sudo systemctl restart elasticsearch.service
+
+# Para verificação
+# curl -X GET "localhost:9200/"
+
+# Resultado esperado
+#{
+#  "name" : "ubuntu",
+#  "cluster_name" : "elasticsearch",
+#  "cluster_uuid" : "KPbFKCVLT9uu-RFxzxH_Bw",
+#  "version" : {
+#    "number" : "8.6.2",
+#    "build_flavor" : "default",
+#    "build_type" : "deb",
+#    "build_hash" : "2d58d0f136141f03239816a4e360a8d17b6d8f29",
+#    "build_date" : "2023-02-13T09:35:20.314882762Z",
+#    "build_snapshot" : false,
+#    "lucene_version" : "9.4.2",
+#    "minimum_wire_compatibility_version" : "7.17.0",
+#    "minimum_index_compatibility_version" : "7.0.0"
+#  },
+#  "tagline" : "You Know, for Search"
+#}
+
+# Instalando Composer
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar  /usr/local/bin/composer
+chmod +x   /usr/local/bin/composer
+
+# Checar versão
+# composer --version 
+# Composer version 2.5.4 2023-02-15 13:10:06
+
+# Instalando Magento
+
+# 1. Installing Magento using the Marketplace by creating an access key is recommended.
+# 2. Generate Access keys by navigating to: My profile > Marketplace > My products > Access Keys.
+# 3. **Download Magento **2.4.6 data with the following command:
+
+# Original
+# composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.6 /var/www/magento2
+
+# Opção 1
+# export COMPOSER_AUTH='{"http-basic":{"repo.magento.com":{"username":"<public-key>","password":"<private-key>"}}}'
+# composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.6 /var/www/magento2 --no-interaction
+
+# Opção 2
+# composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.6 /var/www/magento2 --no-interaction --http-basic.repo.magento.com sua-public-key sua-private-key
+
+# Opção 3
+sudo
+sudo chown -R ubuntu:ubuntu /var/www
+sudo chmod -R 755 /var/www
+composer config --global http-basic.repo.magento.com sua-public-key sua-private-key
+# Usando versão mais recente
+composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition /var/www/magento2 --no-interaction
+
+# Continuando
+cd /var/www/magento2
+find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
+sudo chown -R www-data:www-data /var/www/magento2
+sudo chmod -R 755 /var/www/magento2
+
+bin/magento setup:install \
+--base-url=http://your-domain.com \
+--db-host=localhost \
+--db-name=magentodb \
+--db-user=magentouser \
+--db-password=12345678 \
+--admin-firstname=bruno \
+--admin-lastname=ferreira \
+--admin-email=brunoferreira86dev@gmail.com \
+--admin-user=magentoadmin \
+--admin-password=123456789 \
+--language=pf_BR \
+--currency=BRL \
+--timezone=America/East \
+--use-rewrites=1
