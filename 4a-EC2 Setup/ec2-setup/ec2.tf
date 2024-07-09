@@ -17,8 +17,17 @@ resource "aws_instance" "vm-1" {
   user_data_replace_on_change = true
   user_data = templatefile(
     "${path.module}/userdata-setup-magento.tftpl", {
+      # rds-endpoint= "terraform-20240709141242681100000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com",
+      rds-endpoint= split(":", data.terraform_remote_state.remote-state-rds.outputs.rds-database-rds-1-endpoint)[0]
+      #magento-public-key = "e17f795adcead3b145eb2b14b7e1fbc9",
+      #magento-private-key = "90c634853ce26fa0ec3b0efc46cfab70",
+      magento-public-key = var.magento-public-key,
+      magento-private-key = var.magento-private-key,
+      my-domain = "http://brunoferreira86dev.com",
+      admin-email = "brunoferreira86dev@gmail.com",
     }
   )
+  # split(":", data.terraform_remote_state.remote-state-rds-postgres.outputs.rds-postgres-rds-1-endpoint)[0]
 
   provisioner "remote-exec" {
   

@@ -5,7 +5,7 @@ env:
   REGION: ${{ vars.REGIAO }}
   REMOTE_STATE_BUCKET: ${{ vars.REMOTE_STATE_BUCKET }}
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_DEV_CLI_ADMIN_KEY }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_CLI_ADMIN_SECRET }}  
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_CLI_ADMIN_SECRET }}
 
 jobs:
   main_job:
@@ -33,4 +33,6 @@ jobs:
         terraform init -backend-config=./backend.tfvars
         terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
-          -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
+          -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}" \
+          -var "magento-public-key=${{secrets.MAGENTO_PUBLIC_KEY}}" \
+          -var "magento-private-key=${{secrets.MAGENTO_PUBLIC_KEY}}"

@@ -74,7 +74,7 @@ chown -R ubuntu:ubuntu /var/www
 chmod -R 755 /var/www
 
 echo "#### sudo config"
-sudo -u ubuntu composer config --global http-basic.repo.magento.com e17f795adcead3b145eb2b14b7e1fbc9 90c634853ce26fa0ec3b0efc46cfab70
+sudo -u ubuntu composer config --global http-basic.repo.magento.com ${magento-public-key} ${magento-private-key}
 
 echo "#### sudo create"
 # Usando versão mais recente - compative com php 8.3
@@ -89,22 +89,22 @@ chown -R www-data:www-data /var/www/magento2
 chmod u+x bin/magento
 
 bin/magento setup:install \
-  --base-url=http://brunoferreira86dev.com \
-  --db-host=terraform-20240709141242681100000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
+  --base-url=${my-domain} \
+  --db-host=${rds-endpoint} \
   --db-name=magentodb \
   --db-user=magentoadmin \
   --db-password=pass123456789 \
   --admin-firstname=bruno \
   --admin-lastname=ferreira \
-  --admin-email=brunoferreira86dev@gmail.com \
+  --admin-email=${admin-email} \
   --admin-user=magentouser \
   --admin-password=pass12345678 \
-  --language=en_US \
-  --currency=USD \
-  --timezone=America/Chicago \
+  --language=pt_BR \
+  --currency=BRL \
+  --timezone=America/Sao_Paulo \
   --use-rewrites=1 \
   --search-engine=opensearch \
-  --opensearch-host=http://brunoferreira86dev.com \
+  --opensearch-host=localhost \
   --opensearch-port=9200 \
   --opensearch-index-prefix=magento2 \
   --opensearch-timeout=15 2>&1 | tee magento_install_output.log
