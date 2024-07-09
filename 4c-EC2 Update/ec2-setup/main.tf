@@ -16,14 +16,14 @@ data "terraform_remote_state" "remote-state-rds" {
   }
 }
 
-data "terraform_remote_state" "remote-state-efs" {
-  backend = "s3"
-  config = {
-    region = var.regiao
-    bucket = var.remote-state-bucket
-    key    = "EFS/terraform.tfstate"
-  }
-}
+# data "terraform_remote_state" "remote-state-efs" {
+#   backend = "s3"
+#   config = {
+#     region = var.regiao
+#     bucket = var.remote-state-bucket
+#     key    = "EFS/terraform.tfstate"
+#   }
+# }
 
 data "terraform_remote_state" "remote-ami" {
   backend = "s3"
