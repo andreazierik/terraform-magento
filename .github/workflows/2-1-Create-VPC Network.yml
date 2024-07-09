@@ -17,6 +17,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      
     - name: "VPC Network: Setup backend, run terraform init and apply."
       env:
         KEY_TF_STATE: "VPC Network/terraform.tfstate"

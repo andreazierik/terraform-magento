@@ -17,6 +17,19 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      
+    - name: "VPC Network: Setup backend, run terraform init and apply."
+      env:
+        KEY_TF_STATE: "VPC Network/terraform.tfstate"
+        LOCAL_FOLDER: "2-VPC Network"
+      run: |
+        chmod 755 ./generate_backend.sh && ./generate_backend.sh
+        cd "./${{env.LOCAL_FOLDER}}"
+        terraform init -backend-config=./backend.tfvars
+        terraform apply -auto-approve \
+          -var "regiao=${{env.REGION}}" \
+          -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
+
     - name: "RDS Database: Setup backend, run terraform init and apply."
       env:
         KEY_TF_STATE: "RDS Database/terraform.tfstate"
