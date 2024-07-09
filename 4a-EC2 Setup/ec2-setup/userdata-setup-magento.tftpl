@@ -53,10 +53,14 @@ sed -i 's/^;\?xpack.security.enabled\s*:.*/xpack.security.enabled: false/' /etc/
 systemctl restart elasticsearch.service
 
 # Instalando Composer
+echo "#### Instalando Composer"
 curl -sS https://getcomposer.org/installer | php
 # sudo -u ubuntu curl -sS https://getcomposer.org/installer | php
+echo "#### sleep 5"
 sleep 5
+echo "#### Move composer.phat"
 mv composer.phar /usr/local/bin/composer
+echo "#### chmod composer"
 #sudo -u ubuntu chmod +x /usr/local/bin/composer
 chmod +x /usr/local/bin/composer
 
