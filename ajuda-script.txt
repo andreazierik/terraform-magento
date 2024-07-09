@@ -2,11 +2,6 @@
 # Atualizando linux
 sudo apt update -y && sudo apt upgrade -y
 
-# Remover apache
-sudo systemctl stop apache2
-sudo systemctl disable apache2
-sudo apt-get remove apache2 -y
-
 # Instalação inicial nginx
 sudo apt install -y nginx
 sudo systemctl start nginx
@@ -14,6 +9,12 @@ sudo systemctl enable nginx
 
 # Instalar PHP e PHP extensions
 sudo apt-get install -y php php-dev php-fpm php-bcmath php-intl php-soap php-zip php-curl php-mbstring php-mysql php-gd php-xml
+
+# Remover apache
+# sudo systemctl status apache2
+# sudo systemctl stop apache2
+# sudo systemctl disable apache2
+# sudo apt-get remove apache2 -y
 
 # Atualizar php.ini
 # Recuperar local do arquivo de configuração e salvar como variável de ambiente.
@@ -100,9 +101,9 @@ chmod +x   /usr/local/bin/composer
 # composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.6 /var/www/magento2 --no-interaction --http-basic.repo.magento.com sua-public-key sua-private-key
 
 # Opção 3
-cd ~
+# cd ~
 sudo apt install -y unzip
-sudo rm -rf /var/www
+sudo rm -rf /var/www/*
 
 sudo chown -R ubuntu:ubuntu /var/www
 sudo chmod -R 755 /var/www
@@ -119,7 +120,7 @@ sudo chown -R :www-data .
 #sudo chmod -R 755 /var/www/magento2
 chmod u+x bin/magento
 
-
+# Teste 1
 bin/magento setup:install \
 --base-url=http://44.211.223.163 \
 --db-host=terraform-20240709022102196500000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
@@ -141,12 +142,35 @@ bin/magento setup:install \
 --opensearch-index-prefix=magento2 \
 --opensearch-timeout=15
 
+# Teste 2
+bin/magento setup:install \
+--base-url=http://brunoferreira86dev.com \
+--db-host=terraform-20240709141242681100000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
+--db-name=magentodb \
+--db-user=magentoadmin \
+--db-password=pass123456789 \
+--admin-firstname=bruno \
+--admin-lastname=ferreira \
+--admin-email=brunoferreira86dev@gmail.com \
+--admin-user=magentouser \
+--admin-password=pass12345678 \
+--language=en_US \
+--currency=USD \
+--timezone=America/Chicago \
+--use-rewrites=1 \
+--search-engine=opensearch \
+--opensearch-host=http://brunoferreira86dev.com \
+--opensearch-port=9200 \
+--opensearch-index-prefix=magento2 \
+--opensearch-timeout=15
+
 # Configurar nginx para magento
 
 cd /etc/nginx/conf.d
 
 # nano /etc/nginx/conf.d/magento2.conf
 
+# Teste 1
 sudo bash -c 'cat <<EOF > /etc/nginx/conf.d/magento2.conf
 upstream fastcgi_backend {
   server unix:/run/php/php8.3-fpm.sock;
@@ -160,6 +184,7 @@ server {
 }
 EOF'
 
+# Teste 2
 sudo bash -c 'cat <<EOF > /etc/nginx/conf.d/magento2.conf
 upstream fastcgi_backend {
   server unix:/run/php/php8.3-fpm.sock;
@@ -174,3 +199,6 @@ server {
 EOF'
 
 sudo systemctl restart nginx
+
+sudo bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
+bin/magento cache:flush 
