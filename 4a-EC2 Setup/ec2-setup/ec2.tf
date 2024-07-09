@@ -38,7 +38,7 @@ resource "aws_instance" "vm-1" {
   }
 
   tags = {
-    Name = "vm-odoo-setup"
+    Name = "vm-magento-setup"
   }
 }
 

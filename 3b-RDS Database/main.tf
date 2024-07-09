@@ -31,8 +31,8 @@ provider "aws" {
   }
 }
 
-module "rds-postgres" {
-  source = "./rds-postgres"
+module "rds-database" {
+  source = "./rds-database"
   regiao = var.regiao
   remote-state-bucket = var.remote-state-bucket
 }
