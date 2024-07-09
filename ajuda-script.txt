@@ -100,7 +100,10 @@ chmod +x   /usr/local/bin/composer
 # composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.6 /var/www/magento2 --no-interaction --http-basic.repo.magento.com sua-public-key sua-private-key
 
 # Opção 3
-sudo
+cd ~
+sudo apt install -y unzip
+sudo rm -rf /var/www
+
 sudo chown -R ubuntu:ubuntu /var/www
 sudo chmod -R 755 /var/www
 composer config --global http-basic.repo.magento.com sua-public-key sua-private-key
@@ -110,11 +113,14 @@ composer create-project --repository-url=https://repo.magento.com/ magento/proje
 # Continuando
 cd /var/www/magento2
 find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
-sudo chown -R www-data:www-data /var/www/magento2
-sudo chmod -R 755 /var/www/magento2
+find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
+#sudo chown -R www-data:www-data /var/www/magento2
+sudo chown -R :www-data .
+#sudo chmod -R 755 /var/www/magento2
+chmod u+x bin/magento
 
 bin/magento setup:install \
---base-url=http://your-domain.com \
+--base-url=http://44.211.223.163 \
 --db-host=terraform-20240709022102196500000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
 --db-name=magentodb \
 --db-user=magentouser \
@@ -124,7 +130,28 @@ bin/magento setup:install \
 --admin-email=brunoferreira86dev@gmail.com \
 --admin-user=magentoadmin \
 --admin-password=123456789 \
---language=pf_BR \
---currency=BRL \
---timezone=America/East \
+--language=en_US \
+--currency=USD \
+--timezone=America/Chicago \
 --use-rewrites=1
+
+bin/magento setup:install \
+--base-url=http://44.211.223.163 \
+--db-host=terraform-20240709022102196500000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
+--db-name=magentodb \
+--db-user=magentouser \
+--db-password=pass12345678 \
+--admin-firstname=bruno \
+--admin-lastname=ferreira \
+--admin-email=brunoferreira86dev@gmail.com \
+--admin-user=magentoadmin \
+--admin-password=pass123456789 \
+--language=en_US \
+--currency=USD \
+--timezone=America/Chicago \
+--use-rewrites=1 \
+--search-engine=opensearch \
+--opensearch-host=os-host.example.com \
+--opensearch-port=9200 \
+--opensearch-index-prefix=magento2 \
+--opensearch-timeout=15
