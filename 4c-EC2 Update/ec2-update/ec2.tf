@@ -1,7 +1,7 @@
 resource "aws_instance" "vm-1" {
   # Ubuntu Server 24.04 LTS (HVM), SSD Volume Type
   # Odoo preconfigurado
-  ami           = data.terraform_remote_state.remote-ami.outputs.ami-id
+  ami           = data.terraform_remote_state.remote-ami.outputs.ami-ec2-ami-id
   instance_type = "t3a.large"
   key_name      = "aws-dev-console-admin"
   subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-public-1a-id
