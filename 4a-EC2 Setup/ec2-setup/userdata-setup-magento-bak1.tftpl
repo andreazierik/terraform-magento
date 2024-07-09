@@ -54,14 +54,13 @@ systemctl restart elasticsearch.service
 
 # Instalando Composer
 echo "#### Instalando Composer"
-curl -sS https://getcomposer.org/installer | php
-# sudo -u ubuntu curl -sS https://getcomposer.org/installer | php
-echo "#### sleep 5"
-sleep 5
-echo "#### Move composer.phat"
+export HOME=/home/ubuntu
+cd /home/ubuntu
+
+sudo -u ubuntu curl -sS https://getcomposer.org/installer | sudo -u ubuntu php
 mv composer.phar /usr/local/bin/composer
+
 echo "#### chmod composer"
-#sudo -u ubuntu chmod +x /usr/local/bin/composer
 chmod +x /usr/local/bin/composer
 
 # Instalando Magento
@@ -70,12 +69,18 @@ chmod +x /usr/local/bin/composer
 apt install -y unzip
 rm -rf /var/www/*
 
+echo "#### chown ubuntu"
 chown -R ubuntu:ubuntu /var/www
 chmod -R 755 /var/www
+
+echo "#### sudo config"
 sudo -u ubuntu composer config --global http-basic.repo.magento.com e17f795adcead3b145eb2b14b7e1fbc9 90c634853ce26fa0ec3b0efc46cfab70
+
+echo "#### sudo create"
 # Usando versão mais recente - compative com php 8.3
 sudo -u ubuntu composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition /var/www/magento2 --no-interaction
 
+echo "#### mv magento 2"
 cd /var/www/magento2
 sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
 sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
@@ -153,4 +158,3 @@ bin/magento cache:flush
 
 # Informa fim do user data para autorizar Terraform a prosseguir instalação.
 echo "### Finalizado user data ###"
-touch /tmp/userdata_finished

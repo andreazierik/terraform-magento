@@ -71,12 +71,12 @@ bin/magento setup:install \
   --admin-email=brunoferreira86dev@gmail.com \
   --admin-user=magentouser \
   --admin-password=pass12345678 \
-  --language=en_US \
-  --currency=USD \
-  --timezone=America/Chicago \
+  --language=pt_BR \
+  --currency=BRL \
+  --timezone=America/Sao_Paulo \
   --use-rewrites=1 \
   --search-engine=opensearch \
-  --opensearch-host=http://brunoferreira86dev.com \
+  --opensearch-host=localhost \
   --opensearch-port=9200 \
   --opensearch-index-prefix=magento2 \
   --opensearch-timeout=15 2>&1 | tee magento_install_output.log
@@ -109,3 +109,4 @@ bin/magento cache:flush
 
 # Informa fim do user data para autorizar Terraform a prosseguir instalação.
 echo "### Finalizado user data ###"
+touch /tmp/userdata_finished
