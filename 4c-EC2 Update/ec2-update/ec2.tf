@@ -21,6 +21,23 @@ resource "aws_instance" "vm-1" {
     }
   )
 
+  provisioner "remote-exec" {
+  
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"      
+      host        = self.public_ip
+      timeout     = 600
+    }
+
+    inline = [
+      "while [ ! -f /tmp/userdata_finished ]; do",
+      "tail -n 10 /var/log/cloud-init-output.log",
+      "sleep 15",
+      "done"
+    ]
+  }
+
   tags = {
     Name = "vm-magento-update"
   }

@@ -1,4 +1,4 @@
-name: 4c-1 | Create | EC2 Update
+name: 4c-2 | Destroy | EC2 Update
 on: 
   workflow_dispatch
 env:
@@ -9,7 +9,7 @@ env:
 
 jobs:
   main_job:
-    name: "Create: EC2 Update"
+    name: "Destroy: EC2 Update"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,7 +18,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: "EC2 Update: Setup backend, run terraform init and apply."
+    - name: Set up SSH agent
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.AWS_DEV_CLI_ADMIN_SSH_PRIVATE_KEY }}      
+
+    - name: "EC2 Update: Setup backend, run terraform init and destroy."
       env:
         KEY_TF_STATE: "EC2 Update/terraform.tfstate"
         LOCAL_FOLDER: "4c-EC2 Update"
@@ -26,6 +31,6 @@ jobs:
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"
         terraform init -backend-config=./backend.tfvars
-        terraform apply -auto-approve \
+        terraform destroy -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
