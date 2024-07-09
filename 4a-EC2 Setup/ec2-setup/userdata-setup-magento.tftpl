@@ -67,7 +67,7 @@ rm -rf /var/www/*
 
 chown -R ubuntu:ubuntu /var/www
 chmod -R 755 /var/www
-sudo -u ubuntu composer config --global http-basic.repo.magento.com sua-public-key sua-private-key
+sudo -u ubuntu composer config --global http-basic.repo.magento.com e17f795adcead3b145eb2b14b7e1fbc9 90c634853ce26fa0ec3b0efc46cfab70
 # Usando versão mais recente - compative com php 8.3
 sudo -u ubuntu composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition /var/www/magento2 --no-interaction
 
