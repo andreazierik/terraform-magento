@@ -31,8 +31,8 @@ provider "aws" {
   }
 }
 
-module "ec2-odoo-setup" {
-  source = "./ec2-odoo-setup"
+module "ec2-setup" {
+  source = "./ec2-setup"
   regiao = var.regiao
   remote-state-bucket = var.remote-state-bucket
 }
