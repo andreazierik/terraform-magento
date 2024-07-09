@@ -5,9 +5,9 @@ echo "### Iniciado user data ###"
 echo "#### Instalando Composer"
 export HOME=/home/ubuntu
 
-sudo -u ubuntu curl -sS https://getcomposer.org/installer | php
+curl -sS https://getcomposer.org/installer | php
 # sudo -u ubuntu curl -sS https://getcomposer.org/installer | php
-sudo -u ubuntu mv composer.phar /usr/local/bin/composer
+mv composer.phar /usr/local/bin/composer
 echo "#### chmod composer"
 #sudo -u ubuntu chmod +x /usr/local/bin/composer
 chmod +x /usr/local/bin/composer
