@@ -16,7 +16,7 @@ resource "aws_instance" "vm-1" {
 
   user_data_replace_on_change = true
   user_data = templatefile(
-    "${path.module}/ec2-userdata-magento.tftpl", {
+    "${path.module}/userdata-setup-magento.tftpl", {
     }
   )
 
