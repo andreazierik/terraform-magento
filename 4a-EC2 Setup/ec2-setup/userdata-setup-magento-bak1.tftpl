@@ -2,7 +2,7 @@
 echo "### Iniciado user data ###"
 
 # Atualizando linux
-sudo apt update -y && sudo apt upgrade -y
+apt update -y && apt upgrade -y
 
 # Instalação inicial nginx
 apt install -y nginx
@@ -19,7 +19,7 @@ apt-get remove apache2 -y
 
 # Atualizar php.ini
 # Recuperar local do arquivo de configuração e salvar como variável de ambiente.
-sudo -u ubuntu export PHP_INI_PATH=$(php --ini | grep "Loaded Configuration File" | awk '{print $4}')
+export PHP_INI_PATH=$(php --ini | grep "Loaded Configuration File" | awk '{print $4}')
 
 # Set file_uploads to On
 # Set allow_url_fopen to On
@@ -37,6 +37,7 @@ sed -i 's/^;\?max_execution_time\s*=.*/max_execution_time = 3600/' "$PHP_INI_PAT
 systemctl restart nginx
 
 # Instalando ElasticSearch
+cd /home/ubuntu
 sudo -u ubuntu wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
 sudo -u ubuntu echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 apt update -y
