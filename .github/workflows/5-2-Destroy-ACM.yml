@@ -1,4 +1,4 @@
-name: 5-2 | Destroy | ACM
+name: 5-2 | Destroy | ACM-SSL
 on: 
   workflow_dispatch
 env:
@@ -9,7 +9,7 @@ env:
 
 jobs:
   main_job:
-    name: "Destroy: ACM"
+    name: "Destroy: ACM-SSL"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -17,10 +17,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4    
-    - name: "ACM: Setup backend, run terraform init and destroy."
+    - name: "ACM-SSL: Setup backend, run terraform init and destroy."
       env:
         KEY_TF_STATE: "EFS/terraform.tfstate"
-        LOCAL_FOLDER: "5-ACM"
+        LOCAL_FOLDER: "5-ACM-SSL"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"

@@ -6,20 +6,26 @@ terraform {
       version = "5.40.0"
     }
   }
-  backend "s3" {
-    region = "us-east-1"
-    bucket = "remote-state-odoo"
-    key    = "setup-rt53-only/terraform.tfstate"
+  backend "s3" {}
+}
+
+data "terraform_remote_state" "remote-state-information" {
+  backend = "s3"
+  config = {
+    region = var.regiao
+    bucket = var.remote-state-bucket
+    key    = "Remote State/terraform.tfstate"
   }
 }
 
-provider "aws" {
-  region                   = var.regiao
+provider "aws" {  
+  region    = var.regiao 
+
   default_tags {
     tags = {
-      "owner"      = var.autor
-      "project"    = var.projeto
-      "customer"   = var.cliente
+      "owner"      = data.terraform_remote_state.remote-state-information.outputs.autor
+      "project"    = data.terraform_remote_state.remote-state-information.outputs.projeto
+      "customer"   = data.terraform_remote_state.remote-state-information.outputs.cliente
       "managed-by" = "terraform"
     }
   }
@@ -27,4 +33,6 @@ provider "aws" {
 
 module "rt53" {
   source = "./rt53"
+  regiao = var.regiao
+  remote-state-bucket = var.remote-state-bucket
 }
