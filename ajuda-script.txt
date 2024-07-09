@@ -159,3 +159,18 @@ server {
   include /var/www/magento2/nginx.conf.sample;
 }
 EOF'
+
+sudo bash -c 'cat <<EOF > /etc/nginx/conf.d/magento2.conf
+upstream fastcgi_backend {
+  server unix:/run/php/php8.3-fpm.sock;
+}
+
+server {
+  listen 80;
+  server_name brunoferreira86dev.com www.brunoferreira86dev.com;
+  set \$MAGE_ROOT /var/www/magento2;
+  include /var/www/magento2/nginx.conf.sample;
+}
+EOF'
+
+sudo systemctl restart nginx
