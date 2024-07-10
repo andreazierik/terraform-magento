@@ -1,7 +1,7 @@
 // Target group
 resource "aws_lb_target_group" "tgrp-alb-1" {
   name     = "tgrp-alb-1"
-  port     = 8069
+  port     = 80
   protocol = "HTTP"
   vpc_id   = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-id
 
@@ -13,7 +13,7 @@ resource "aws_lb_target_group" "tgrp-alb-1" {
   health_check {
     enabled             = true
     protocol            = "HTTP"    
-    port                = 8069
+    port                = 80
     interval            = 20
     timeout             = 10
     healthy_threshold   = 2
