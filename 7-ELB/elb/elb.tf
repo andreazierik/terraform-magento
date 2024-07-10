@@ -5,10 +5,10 @@ resource "aws_lb_target_group" "tgrp-alb-1" {
   protocol = "HTTP"
   vpc_id   = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-id
 
-  # stickiness {
-  #   type            = "lb_cookie"
-  #   cookie_duration = 3600
-  # }
+  stickiness {
+    type            = "lb_cookie"
+    cookie_duration = 3600
+  }
 
   health_check {
     enabled             = true
