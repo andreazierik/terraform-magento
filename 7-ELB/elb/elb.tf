@@ -80,7 +80,7 @@ resource "aws_lb_listener_rule" "rule-fw-to-alb" {
 }
 
 resource "aws_lb_listener" "listener-https-alb-1" {
-  load_balancer_arn = aws_lb.alb-odoo-ecommerce-prod.arn
+  load_balancer_arn = aws_lb.alb-1.arn
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"

@@ -1,7 +1,7 @@
 // Odoo launch template
-resource "aws_launch_template" "ltplt-odoo-v1" {
+resource "aws_launch_template" "ltplt-1" {
 
-  name                   = "ltplt-odoo-v1"
+  name                   = "ltplt-1"
   update_default_version = true
 
   // Application and OS Images (Amazon Machine Image) 
@@ -35,7 +35,7 @@ resource "aws_launch_template" "ltplt-odoo-v1" {
     resource_type = "instance"
 
     tags = {
-      Name = "elb-odoo-v1"
+      Name = "elb-1"
     }
   }
 
@@ -43,7 +43,7 @@ resource "aws_launch_template" "ltplt-odoo-v1" {
     resource_type = "volume"
 
     tags = {
-      Name = "ebs-elb-odoo-v1"
+      Name = "ebs-elb-1"
     }
   }
 
@@ -51,7 +51,7 @@ resource "aws_launch_template" "ltplt-odoo-v1" {
     resource_type = "network-interface"
 
     tags = {
-      Name = "eni-elb-odoo-v1"
+      Name = "eni-elb-1"
     }
   }
 
