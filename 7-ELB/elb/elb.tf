@@ -111,7 +111,8 @@ resource "aws_lb_listener" "listener-https-alb-1" {
 resource "aws_autoscaling_group" "asg-alb-1" {
 
   // Group Details
-  capacity_rebalance = true
+  #capacity_rebalance = true
+  capacity_rebalance = false
   desired_capacity   = 1
   max_size           = 4
   min_size           = 1
