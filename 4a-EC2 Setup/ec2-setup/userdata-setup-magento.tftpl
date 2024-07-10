@@ -108,12 +108,12 @@ sudo -u ubuntu bin/magento setup:install \
   --opensearch-host=localhost \
   --opensearch-port=9200 \
   --opensearch-index-prefix=magento2 \
-  --opensearch-timeout=15 2>&1 | tee magento_install_output.log
+  --opensearch-timeout=15 2>&1 | sudo -u ubuntu tee magento_install_output.log
 
-echo $(cat magento_install_output.log | 
-  grep '\[SUCCESS\]: Magento Admin URI:' | 
-  awk -F': ' '{print $3}' | 
-  sed 's#^/##') > admin_url_output.txt
+sudo -u ubuntu bash -c 'echo $(cat magento_install_output.log |
+  grep "\[SUCCESS\]: Magento Admin URI:" |
+  awk -F": " "{print \$3}" | sed "s#^/##") > admin_url_output.txt'
+
 
 # Configurar nginx para magento
 bash -c 'cat <<EOF > /etc/nginx/conf.d/magento2.conf
