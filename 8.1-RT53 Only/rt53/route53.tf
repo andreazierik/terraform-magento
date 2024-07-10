@@ -32,7 +32,7 @@ resource "aws_route53_record" "odoo_record_WWW" {
   # records         = [data.terraform_remote_state.remote-state-base-ec2.outputs.ec2-base-ami-public-ip]
 
   alias {
-    name                   = data.terraform_remote_state.remote-computing.outputs.elb-alb-1-name
+    name                   = data.terraform_remote_state.remote-computing.outputs.elb-alb-1-dns-name
     zone_id                = data.terraform_remote_state.remote-computing.outputs.elb-alb-1-zone-id
     evaluate_target_health = true
   }
