@@ -21,6 +21,6 @@ data "terraform_remote_state" "remote-computing" {
   config = {
     region = var.regiao
     bucket = var.remote-state-bucket
-    key    = "create-computing/terraform.tfstate"
+    key    = "ELB/terraform.tfstate"
   }
 }
