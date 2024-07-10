@@ -6,7 +6,7 @@ resource "aws_launch_template" "ltplt-1" {
 
   // Application and OS Images (Amazon Machine Image) 
   // AMI criada na etata de setup.
-  image_id = data.terraform_remote_state.remote-ami.outputs.ami-id
+  image_id = data.terraform_remote_state.remote-ami.outputs.ami-ec2-ami-id
 
   // Instance type
   instance_type = "c7a.medium"
