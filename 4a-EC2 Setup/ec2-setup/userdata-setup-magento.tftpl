@@ -85,10 +85,11 @@ cd /var/www/magento2
 sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
 sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
 
-chown -R www-data:www-data /var/www/magento2
+#chown -R www-data:www-data /var/www/magento2
+chown -R ubuntu:ubuntu /var/www/magento2
 chmod u+x bin/magento
 
-bin/magento setup:install \
+sudo -u ubuntu bin/magento setup:install \
   --base-url=${my-domain} \
   --db-host=${rds-endpoint} \
   --db-name=magentodb \
@@ -131,9 +132,9 @@ EOF'
 systemctl restart nginx
 
 # Desabilitar 2FA
-bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
-bin/magento cache:flush 
+sudo -u ubuntu bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
+sudo -u ubuntu bin/magento cache:flush 
 
 # Informa fim do user data para autorizar Terraform a prosseguir instalação.
 echo "### Finalizado user data ###"
-touch /tmp/userdata_finished
+sudo -u ubuntu touch /tmp/userdata_finished
