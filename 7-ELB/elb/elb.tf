@@ -5,15 +5,15 @@ resource "aws_lb_target_group" "tgrp-alb-1" {
   protocol = "HTTP"
   vpc_id   = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-id
 
-  stickiness {
-    type            = "lb_cookie"
-    cookie_duration = 3600
-  }
+  # stickiness {
+  #   type            = "lb_cookie"
+  #   cookie_duration = 3600
+  # }
 
   health_check {
     enabled             = true
     protocol            = "HTTP"    
-    port                = 80
+    port                = "traffic-port"
     interval            = 20
     timeout             = 10
     healthy_threshold   = 2
@@ -51,38 +51,11 @@ resource "aws_lb_listener" "listener-http-alb-1" {
   port              = "80"
   protocol          = "HTTP"
 
-  # default_action {
-  #   type = "redirect"
-
-  #   redirect {
-  #     port        = "443"
-  #     protocol    = "HTTPS"
-  #     status_code = "HTTP_301"
-  #   }
-  # }
-
   default_action {    
     type             = "forward"
     target_group_arn = aws_lb_target_group.tgrp-alb-1.arn  
   }
 }
-
-# resource "aws_lb_listener_rule" "rule-fw-to-alb" {
-#   listener_arn = aws_lb_listener.listener-https-alb-1.arn
-#   priority     = 1
-
-#   action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.tgrp-alb-1.arn
-#   }
-
-#   condition {
-#     http_header {
-#       http_header_name = "from_cdn_header"
-#       values = ["from_cdn_value"]
-#     }
-#   }
-# }
 
 resource "aws_lb_listener" "listener-https-alb-1" {
   load_balancer_arn = aws_lb.alb-1.arn
@@ -91,16 +64,6 @@ resource "aws_lb_listener" "listener-https-alb-1" {
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   certificate_arn   = data.terraform_remote_state.remote-ssl-certificate.outputs.acm-acm-odoo-certificate-arn
 
-  # default_action {
-  #   type = "fixed-response"
-
-  #   fixed_response {
-  #     content_type = "text/plain"
-  #     message_body = "Acesso negado"
-  #     status_code  = "503"
-  #   }
-  # }
-
   default_action {    
     type             = "forward"
     target_group_arn = aws_lb_target_group.tgrp-alb-1.arn  
@@ -108,52 +71,52 @@ resource "aws_lb_listener" "listener-https-alb-1" {
 }
 
 // Auto-scaling
-resource "aws_autoscaling_group" "asg-alb-1" {
+# resource "aws_autoscaling_group" "asg-alb-1" {
 
-  // Group Details
-  #capacity_rebalance = true
-  capacity_rebalance = false
-  desired_capacity   = 1
-  max_size           = 4
-  min_size           = 1
+#   // Group Details
+#   #capacity_rebalance = true
+#   capacity_rebalance = false
+#   desired_capacity   = 1
+#   max_size           = 1
+#   min_size           = 1
 
-  lifecycle {
-    create_before_destroy = true
-  }
+#   lifecycle {
+#     create_before_destroy = true
+#   }
 
-  // Launch template
-  launch_template {
-    id      = aws_launch_template.ltplt-1.id
-    version = "$Latest"
-  }
+#   // Launch template
+#   launch_template {
+#     id      = aws_launch_template.ltplt-1.id
+#     version = "$Latest"
+#   }
 
-  // Network
-  vpc_zone_identifier = [
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-private-1a-id,
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-private-1b-id
-  ]    
+#   // Network
+#   vpc_zone_identifier = [
+#     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-private-1a-id,
+#     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-private-1b-id
+#   ]    
 
-  // Load balancing
-  target_group_arns = [
-    aws_lb_target_group.tgrp-alb-1.arn
-  ]
+#   // Load balancing
+#   target_group_arns = [
+#     aws_lb_target_group.tgrp-alb-1.arn
+#   ]
 
-  // Health checks
-  health_check_type = "ELB"
-  health_check_grace_period = 60
+#   // Health checks
+#   health_check_type = "ELB"
+#   health_check_grace_period = 60
 
-  // Advanced configuration
-  default_cooldown = 180
+#   // Advanced configuration
+#   default_cooldown = 180
 
-  // Metrics
-  enabled_metrics = [
-    "GroupMinSize",
-    "GroupMaxSize",
-    "GroupDesiredCapacity",
-    "GroupInServiceInstances",
-    "GroupTotalInstances"
-  ]
+#   // Metrics
+#   enabled_metrics = [
+#     "GroupMinSize",
+#     "GroupMaxSize",
+#     "GroupDesiredCapacity",
+#     "GroupInServiceInstances",
+#     "GroupTotalInstances"
+#   ]
 
-  metrics_granularity = "1Minute"
+#   metrics_granularity = "1Minute"
   
-}
+# }
