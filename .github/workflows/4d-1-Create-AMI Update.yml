@@ -1,4 +1,4 @@
-name: 4b-1 | Create | AMI Update
+name: 4d-1 | Create | AMI Update
 on: 
   workflow_dispatch
 env:
