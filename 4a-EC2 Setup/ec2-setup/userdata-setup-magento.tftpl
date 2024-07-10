@@ -130,9 +130,8 @@ EOF'
 
 systemctl restart nginx
 
-# Desabilitr 2FA
+# Desabilitar 2FA
 bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
-#sudo -u ubuntu bin/magento cache:flush 
 bin/magento cache:flush 
 
 # Informa fim do user data para autorizar Terraform a prosseguir instalação.

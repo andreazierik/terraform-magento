@@ -35,4 +35,4 @@ jobs:
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}" \
           -var "magento-public-key=${{secrets.MAGENTO_PUBLIC_KEY}}" \
-          -var "magento-private-key=${{secrets.MAGENTO_PUBLIC_KEY}}"
+          -var "magento-private-key=${{secrets.MAGENTO_PRIVATE_KEY}}"
