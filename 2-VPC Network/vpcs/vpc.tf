@@ -24,8 +24,8 @@ resource "aws_network_acl" "vpc-1-nacl-private-subnets" {
   ingress {    
     rule_no    = 100
     protocol   = "tcp"
-    from_port  = 8069
-    to_port    = 8069
+    from_port  = 80
+    to_port    = 80
     action     = "allow"
     cidr_block = "0.0.0.0/0"
   }
@@ -140,14 +140,14 @@ resource "aws_network_acl" "vpc-1-nacl-public-subnets" {
     cidr_block = "0.0.0.0/0"    
   }
 
-  egress {
-    rule_no    = 100
-    protocol   = "tcp"
-    from_port  = 8069
-    to_port    = 8069
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"    
-  }
+  # egress {
+  #   rule_no    = 100
+  #   protocol   = "tcp"
+  #   from_port  = 80
+  #   to_port    = 80
+  #   action     = "allow"
+  #   cidr_block = "0.0.0.0/0"    
+  # }
 
   egress {    
     rule_no    = 200
@@ -356,8 +356,8 @@ resource "aws_security_group" "vpc-1-sg-instances" {
 
   ingress {
     description = "Allow Odoo access"
-    from_port   = 8069
-    to_port     = 8069
+    from_port   = 80
+    to_port     = 80
     protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/0"]
   }
