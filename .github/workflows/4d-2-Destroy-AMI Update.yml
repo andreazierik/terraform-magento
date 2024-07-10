@@ -1,4 +1,4 @@
-name: 4b-2 | Destroy | AMI Update
+name: 4d-2 | Destroy | AMI Update
 on: 
   workflow_dispatch
 env:

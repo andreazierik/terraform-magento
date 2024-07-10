@@ -1,0 +1,112 @@
+#!/bin/bash
+echo "### Iniciado user data ###"
+
+cd /home/ubuntu
+
+# Instalando Composer
+echo "#### Instalando Composer"
+export HOME=/home/ubuntu
+cd /home/ubuntu
+
+sudo -u ubuntu curl -sS https://getcomposer.org/installer | sudo -u ubuntu php
+mv composer.phar /usr/local/bin/composer
+
+echo "#### chmod composer"
+chmod +x /usr/local/bin/composer
+
+# Instalando Magento
+# 1. Installing Magento using the Marketplace by creating an access key is recommended.
+# 2. Generate Access keys by navigating to: My profile > Marketplace > My products > Access Keys.
+apt install -y unzip
+rm -rf /var/www/*
+
+echo "#### chown ubuntu"
+chown -R ubuntu:ubuntu /var/www
+chmod -R 755 /var/www
+
+echo "#### sudo config"
+sudo -u ubuntu composer config --global http-basic.repo.magento.com e17f795adcead3b145eb2b14b7e1fbc9 90c634853ce26fa0ec3b0efc46cfab70
+
+echo "#### sudo create"
+# Usando versão mais recente - compative com php 8.3
+sudo -u ubuntu composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition /var/www/magento2 --no-interaction
+
+echo "#### mv magento 2"
+cd /var/www/magento2
+sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
+sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
+
+chown -R www-data:www-data /var/www/magento2
+chmod u+x bin/magento
+
+# bin/magento setup:install \
+#   --base-url=http://brunoferreira86dev.com \
+#   --db-host=terraform-20240709141242681100000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
+#   --db-name=magentodb \
+#   --db-user=magentoadmin \
+#   --db-password=pass123456789 \
+#   --admin-firstname=bruno \
+#   --admin-lastname=ferreira \
+#   --admin-email=brunoferreira86dev@gmail.com \
+#   --admin-user=magentouser \
+#   --admin-password=pass12345678 \
+#   --language=en_US \
+#   --currency=USD \
+#   --timezone=America/Chicago \
+#   --use-rewrites=1 \
+#   --search-engine=opensearch \
+#   --opensearch-host=http://brunoferreira86dev.com \
+#   --opensearch-port=9200 \
+#   --opensearch-index-prefix=magento2 \
+#   --opensearch-timeout=15
+
+bin/magento setup:install \
+  --base-url=http://brunoferreira86dev.com \
+  --db-host=terraform-20240709141242681100000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
+  --db-name=magentodb \
+  --db-user=magentoadmin \
+  --db-password=pass123456789 \
+  --admin-firstname=bruno \
+  --admin-lastname=ferreira \
+  --admin-email=brunoferreira86dev@gmail.com \
+  --admin-user=magentouser \
+  --admin-password=pass12345678 \
+  --language=pt_BR \
+  --currency=BRL \
+  --timezone=America/Sao_Paulo \
+  --use-rewrites=1 \
+  --search-engine=opensearch \
+  --opensearch-host=localhost \
+  --opensearch-port=9200 \
+  --opensearch-index-prefix=magento2 \
+  --opensearch-timeout=15 2>&1 | tee magento_install_output.log
+
+echo $(cat magento_install_output.log | 
+  grep '\[SUCCESS\]: Magento Admin URI:' | 
+  awk -F': ' '{print $3}' | 
+  sed 's#^/##') > admin_url_output.txt
+
+# Configurar nginx para magento
+bash -c 'cat <<EOF > /etc/nginx/conf.d/magento2.conf
+upstream fastcgi_backend {
+  server unix:/run/php/php8.3-fpm.sock;
+}
+
+server {
+  listen 80;
+  server_name brunoferreira86dev.com www.brunoferreira86dev.com;
+  set \$MAGE_ROOT /var/www/magento2;
+  include /var/www/magento2/nginx.conf.sample;
+}
+EOF'
+
+systemctl restart nginx
+
+# Desabilitr 2FA
+bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
+#sudo -u ubuntu bin/magento cache:flush 
+bin/magento cache:flush 
+
+# Informa fim do user data para autorizar Terraform a prosseguir instalação.
+echo "### Finalizado user data ###"
+touch /tmp/userdata_finished
