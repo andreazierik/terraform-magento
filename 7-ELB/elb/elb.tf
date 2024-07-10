@@ -62,22 +62,22 @@ resource "aws_lb_listener" "listener-http-alb-1" {
   }
 }
 
-resource "aws_lb_listener_rule" "rule-fw-to-alb" {
-  listener_arn = aws_lb_listener.listener-https-alb-1.arn
-  priority     = 1
+# resource "aws_lb_listener_rule" "rule-fw-to-alb" {
+#   listener_arn = aws_lb_listener.listener-https-alb-1.arn
+#   priority     = 1
 
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.tgrp-alb-1.arn
-  }
+#   action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.tgrp-alb-1.arn
+#   }
 
-  condition {
-    http_header {
-      http_header_name = "from_cdn_header"
-      values = ["from_cdn_value"]
-    }
-  }
-}
+#   condition {
+#     http_header {
+#       http_header_name = "from_cdn_header"
+#       values = ["from_cdn_value"]
+#     }
+#   }
+# }
 
 resource "aws_lb_listener" "listener-https-alb-1" {
   load_balancer_arn = aws_lb.alb-1.arn
@@ -86,14 +86,19 @@ resource "aws_lb_listener" "listener-https-alb-1" {
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   certificate_arn   = data.terraform_remote_state.remote-ssl-certificate.outputs.acm-acm-odoo-certificate-arn
 
-  default_action {
-    type = "fixed-response"
+  # default_action {
+  #   type = "fixed-response"
 
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "Acesso negado"
-      status_code  = "503"
-    }
+  #   fixed_response {
+  #     content_type = "text/plain"
+  #     message_body = "Acesso negado"
+  #     status_code  = "503"
+  #   }
+  # }
+
+  default_action {    
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.tgrp-alb-1.arn  
   }
 }
 
