@@ -1,15 +1,15 @@
-output "alb-odoo-ecommerce-id" {
-  value = aws_lb.alb-odoo-ecommerce-prod.id
+output "alb-1-id" {
+  value = aws_lb.alb-1.id
 }
 
-output "alb-odoo-ecommerce-name" {
-  value = aws_lb.alb-odoo-ecommerce-prod.name
+output "alb-1-name" {
+  value = aws_lb.alb-1.name
 }
 
-output "alb-odoo-ecommerce-dns-name" {
-  value = aws_lb.alb-odoo-ecommerce-prod.dns_name
+output "alb-1-dns-name" {
+  value = aws_lb.alb-1.dns_name
 }
 
-output "alb-odoo-ecommerce-zone-id" {
-  value = aws_lb.alb-odoo-ecommerce-prod.zone_id
+output "alb-1-id" {
+  value = aws_lb.alb-1.zone_id
 }
