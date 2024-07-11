@@ -13,7 +13,7 @@ resource "aws_lb_target_group" "tgrp-alb-1" {
   health_check {
     enabled             = true
     protocol            = "HTTP"    
-    port                = "traffic-port"
+    port                = 80
     interval            = 20
     timeout             = 10
     healthy_threshold   = 2
