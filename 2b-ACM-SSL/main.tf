@@ -35,4 +35,5 @@ module "acm" {
   source = "./acm"
   regiao = var.regiao
   remote-state-bucket = var.remote-state-bucket
+  shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid
 }

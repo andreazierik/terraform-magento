@@ -1,3 +1,3 @@
-output "acm-acm-odoo-certificate-arn" {
-  value = module.acm.acm-odoo-certificate-arn
+output "acm-certificate-1-arn" {
+  value = module.acm.certificate-1-arn
 }

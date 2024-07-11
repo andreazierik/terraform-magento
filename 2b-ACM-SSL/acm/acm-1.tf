@@ -1,11 +1,11 @@
 // DNS
-data "aws_route53_zone" "odoo_hosted_zone" {
+data "aws_route53_zone" "hosted-zone" {
   name         = "brunoferreira86dev.com"
   private_zone = false
 }
 
 // ACM SSL Certificate
-resource "aws_acm_certificate" "odoo-certificate" {
+resource "aws_acm_certificate" "certificate-1" {
   domain_name       = "brunoferreira86dev.com"
   validation_method = "DNS"
 
@@ -18,17 +18,21 @@ resource "aws_acm_certificate" "odoo-certificate" {
   }
 
   tags = {
-    Name = "acm-odoo-certificate"
+    Name = "certificate-${var.shortnameid}-1"
   }
 }
 
 // DNS Record - Certificate validation
-resource "aws_route53_record" "acm-record-validation-odoo" {
+resource "aws_route53_record" "validation-records-certificate-1" {
   for_each = {
-    for dvo in aws_acm_certificate.odoo-certificate.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.certificate-1.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
+
+      tags = {
+        Name = "certificate-${var.shortnameid}-1-${resource_record_name}"
+      }
     }
   }
 
@@ -37,13 +41,14 @@ resource "aws_route53_record" "acm-record-validation-odoo" {
   records         = [each.value.record]
   ttl             = 60
   type            = each.value.type
-  zone_id         = data.aws_route53_zone.odoo_hosted_zone.zone_id
+  zone_id         = data.aws_route53_zone.hosted-zone.zone_id
+  
 }
 
 // Certificate validation
-resource "aws_acm_certificate_validation" "odoo-certificate-validation" {
-  certificate_arn = aws_acm_certificate.odoo-certificate.arn
+resource "aws_acm_certificate_validation" "certificate-1-validation" {
+  certificate_arn = aws_acm_certificate.certificate.arn
   validation_record_fqdns = [
-    for record in aws_route53_record.acm-record-validation-odoo : record.fqdn
+    for record in aws_route53_record.validation-records-certificate-1 : record.fqdn
   ]
 }
