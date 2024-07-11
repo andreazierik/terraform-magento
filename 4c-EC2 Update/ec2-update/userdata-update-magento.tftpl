@@ -4,7 +4,7 @@ echo "### Iniciado user data ###"
 
 cd /var/www/magento2
 
-bin/magento setup:install \
+sudo -u www-data bin/magento setup:install \
   --base-url=${my-domain} \
   --db-host=${rds-endpoint} \
   --db-name=magentodb \
@@ -23,15 +23,14 @@ bin/magento setup:install \
   --opensearch-host=localhost \
   --opensearch-port=9200 \
   --opensearch-index-prefix=magento2 \
-  --opensearch-timeout=15 2>&1 | tee magento_update_output.log
+  --opensearch-timeout=15 2>&1 | sudo -u www-data tee magento_update_output.log
 
-echo $(cat magento_update_output.log | 
-  grep '\[SUCCESS\]: Magento Admin URI:' | 
-  awk -F': ' '{print $3}' | 
-  sed 's#^/##') > admin_url_output_update.txt
+sudo -u www-data bash -c 'echo $(cat magento_install_output.log |
+  grep "\[SUCCESS\]: Magento Admin URI:" |
+  awk -F": " "{print \$3}" | sed "s#^/##") > update_admin_url_output.txt'
 
 systemctl restart nginx
-bin/magento cache:flush 
+sudo -u www-data bin/magento cache:flush
 
 # Informa fim do user data para autorizar Terraform a prosseguir instalação.
 echo "### Finalizado user data ###"
