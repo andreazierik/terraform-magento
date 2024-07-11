@@ -31,45 +31,45 @@ output "vpcs-subnet-vpc-1-private-1b-id" {
 
 output "sg-vpc-1-allow-all-name" {
   description = "VPC-1: Security group tudo liberado Name"
-  value       = module.vpcs.sg-vpc-1-allow-all.name
+  value       = module.vpcs.sg-vpc-1-allow-all-name
 }
 
 output "sg-vpc-1-alb-1-tgrp-1-id" {
   description = "VPC-1: Security group para instancias no Target group1 do ALB 1, ID"
-  value       = module.vpcs.sg-vpc-1-alb-1-tgrp-1.id
+  value       = module.vpcs.sg-vpc-1-alb-1-tgrp-1-id
 }
 
 output "sg-vpc-1-alb-1-tgrp-1-name" {
   description = "VPC-1: Security group para instancias no Target group 1 do ALB 1, Name"
-  value       = module.vpcs.sg-vpc-1-alb-1-tgrp-1.name
+  value       = module.vpcs.sg-vpc-1-alb-1-tgrp-1-name
 }
 
 output "sg-vpc-1-rds-1-id" {
   description = "VPC-1: Security group para RDS 1, ID"
-  value       = module.vpcs.sg-vpc-1-rds-1.id
+  value       = module.vpcs.sg-vpc-1-rds-1-id
 }
 
 output "sg-vpc-1-rds-1-name" {
   description = "VPC-1: Security group para RDS 1, Name"
-  value       = module.vpcs.sg-vpc-1-rds-1.name
+  value       = module.vpcs.sg-vpc-1-rds-1-name
 }
 
 output "sg-vpc-1-efs-1-mountpoints-id" {
   description = "VPC-1: Security group para EFS 1 mount points, ID"
-  value       = module.vpcs.sg-vpc-1-efs-1-mountpoints.id
+  value       = module.vpcs.sg-vpc-1-efs-1-mountpoints-id
 }
 
 output "sg-vpc-1-efs-1-mountpoints-name" {
   description = "VPC-1: Security group para EFS 1 mount points, Name"
-  value       = module.vpcs.sg-vpc-1-efs-1-mountpoints.name
+  value       = module.vpcs.sg-vpc-1-efs-1-mountpoints-name
 }
 
 output "sg-vpc-1-alb-1-id" {
   description = "VPC-1: Security group para ALB 1, ID"
-  value       = module.vpcs.sg-vpc-1-alb-1.id
+  value       = module.vpcs.sg-vpc-1-alb-1-id
 }
 
 output "sg-vpc-1-alb-1-name" {
   description = "VPC-1: Security group para ALB 1, Name"
-  value       = module.vpcs.sg-vpc-1-alb-1.name
+  value       = module.vpcs.sg-vpc-1-alb-1-name
 }
