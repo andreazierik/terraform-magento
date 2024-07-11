@@ -315,6 +315,12 @@ resource "aws_route_table_association" "rta-vpc-1-private-subnet-1b" {
 }
 
 # Security groups
+resource "aws_default_security_group" "default" {
+  tags = {
+    Name = "sg-${var.shortnameid}-vpc-1-default"
+  }
+}
+
 resource "aws_security_group" "sg-vpc-1-allow-all" {
   name        = "sg_${var.shortnameid}_vpc_1_allow_all"
   description = "Security group para permitir tudo"
