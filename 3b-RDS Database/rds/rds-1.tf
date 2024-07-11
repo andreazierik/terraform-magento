@@ -11,9 +11,9 @@ resource "aws_db_subnet_group" "subnet-group-rds-1" {
 }
 
 resource "aws_db_instance" "rds-1" {
-  db_name              = "magentodb"
-  username             = "magentoadmin"
-  password             = "pass123456789"
+  db_name              = "${var.rds-1-db-name}"
+  username             = "${var.rds-1-db-username}"
+  password             = "${var.rds-1-db-password}"
   allocated_storage    = 20  
   engine               = "mysql"
   engine_version       = "8.0"

@@ -8,6 +8,28 @@ variable "remote-state-bucket" {
   description = "Bucket name onde está o remote state"
 }
 
+variable "shortnameid" {
+  type = string
+  description = "Nome curto para identificacao dos recursos"
+}
+
+variable "domain-base" {
+  type        = string
+}
+
+variable "rds-1-db-name" {
+  type        = string
+}
+
+variable "rds-1-db-username" {
+  type        = string
+}
+
+variable "rds-1-db-password" {
+  type        = string
+  sensitive   = true
+}
+
 variable "magento-public-key" {
   type        = string
   sensitive = true
@@ -16,4 +38,25 @@ variable "magento-public-key" {
 variable "magento-private-key" {
   type        = string
   sensitive = true
+}
+
+variable "magento-admin-email" {
+  type        = string
+}
+ 
+variable "magento-admin-firstname" {
+  type        = string  
+}
+
+variable "magento-admin-lastname" {
+  type        = string  
+}
+
+variable "magento-admin-user" {
+  type        = string  
+}
+
+variable "magento-admin-password" {
+  type        = string  
+  sensitive   = true
 }

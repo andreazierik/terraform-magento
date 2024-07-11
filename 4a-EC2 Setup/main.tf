@@ -35,6 +35,16 @@ module "ec2-setup" {
   source = "./ec2-setup"
   regiao = var.regiao
   remote-state-bucket = var.remote-state-bucket
+  shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid  
+  domain-base = var.domain-base
+  rds-1-db-name = var.rds-1-db-name
+  rds-1-db-username = var.rds-1-db-username
+  rds-1-db-password = var.rds-1-db-password
   magento-public-key = var.magento-public-key
   magento-private-key = var.magento-private-key
+  magento-admin-email = var.magento-admin-email
+  magento-admin-firstname = var.magento-admin-firstname
+  magento-admin-lastname = var.magento-admin-lastname
+  magento-admin-user = var.magento-admin-user
+  magento-admin-password = var.magento-admin-password
 }
