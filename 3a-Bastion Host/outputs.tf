@@ -1,9 +1,9 @@
-output "ec2-bastion-id" {
-  description = "ID Bastion Host ID"
-  value       = module.vm-bastion.vm-bastion-id
+output "bastion-vpc-1-id" {
+  description = "VPC-1: Bastion Host, ID"
+  value       = module.ec2-bastion.bastion-vpc-1-id
 }
 
-output "ec2-bastion-public_ip" {
-  description = "ID Bastion Host IP"
-  value = module.vm-bastion.vm-bastion-public_ip
+output "bastion-vpc-1-public_ip" {
+  description = "VPC-1: Bastion Host, Public IP"
+  value       = module.ec2-bastion.bastion-vpc-1-public-ip
 }

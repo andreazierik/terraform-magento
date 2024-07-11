@@ -8,6 +8,11 @@ variable "remote-state-bucket" {
   description = "Bucket name onde está o remote state"
 }
 
+variable "shortnameid" {
+  type = string
+  description = "Nome curto para identificacao dos recursos"
+}
+
 variable "AWS_SSH_PRIVATE_KEY" {
   description = "Chave privada SSH para conexão"
   type        = string  

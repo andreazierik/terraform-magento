@@ -1,17 +1,13 @@
-resource "aws_instance" "vm-bastion" {
+resource "aws_instance" "bastion-vpc-1" {
   # Ubuntu Server 24.04 LTS (HVM), SSD Volume Type
   ami = "ami-04b70fa74e45c3917"
 
   instance_type = "t3a.large"
   key_name      = "aws-dev-console-admin"
-  subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-public-1a-id
-
-  # root_block_device {
-  #   volume_size = 30
-  # }
+  subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id  
 
   vpc_security_group_ids = [
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-sg-allow-all-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-allow-all-id
   ]
   associate_public_ip_address = true
 
@@ -23,7 +19,7 @@ resource "aws_instance" "vm-bastion" {
   )  
 
   tags = {
-    Name = "vm-bastion-host"
+    Name = "${var.shortnameid}-bastion-vpc-1"
   }
 }
 

@@ -31,9 +31,10 @@ provider "aws" {
   }
 }
 
-module "vm-bastion" {
-  source = "./vm-bastion"
+module "ec2-bastion" {
+  source = "./ec2-bastion"
   regiao = var.regiao
   remote-state-bucket = var.remote-state-bucket
+  shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid
   AWS_SSH_PRIVATE_KEY = var.AWS_SSH_PRIVATE_KEY
 }
