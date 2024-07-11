@@ -1,4 +1,4 @@
-name: 7-1 | Create | ELB
+name: 6-2 | Destroy | ELB
 on: 
   workflow_dispatch
 env:
@@ -9,7 +9,7 @@ env:
 
 jobs:
   main_job:
-    name: "Create: ELB"
+    name: "Destroy: ELB"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -17,14 +17,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4    
-    - name: "ELB: Setup backend, run terraform init and apply."
+    - name: "ELB: Setup backend, run terraform init and destroy."
       env:
         KEY_TF_STATE: "ELB/terraform.tfstate"
-        LOCAL_FOLDER: "7-ELB"
+        LOCAL_FOLDER: "6-ELB"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"
         terraform init -backend-config=./backend.tfvars
-        terraform apply -auto-approve \
+        terraform destroy -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
