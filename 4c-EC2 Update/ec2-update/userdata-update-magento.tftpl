@@ -7,6 +7,18 @@ rm /var/www/magento2/app/etc/env.php
 
 echo "#### Novo RDS endpoint: ${rds-endpoint}"
 
+# sudo -u www-data bin/magento -q setup:config:set \
+#   --db-host=${rds-endpoint} \
+#   2>&1 | sudo -u www-data tee magento_update_output.log
+
+# sudo -u www-data bin/magento -q setup:config:set \
+#   --db-host=terraform-20240711121732038900000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
+#   2>&1 | sudo -u www-data tee magento_update_output.log
+
+# sudo -u www-data bin/magento -q setup:config:set \
+#   --db-host=${rds-endpoint} \
+#   2>&1 | sudo -u www-data tee magento_update_output.log
+
 # sudo -u www-data bin/magento setup:install \
 #   --base-url=http://brunoferreira86dev.com \
 #   --db-host=terraform-20240711121732038900000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
@@ -50,18 +62,6 @@ sudo -u www-data bin/magento setup:install \
   --opensearch-port=9200 \
   --opensearch-index-prefix=magento2 \
   --opensearch-timeout=15 | sudo -u www-data tee magento_update2_output.log
-
-# sudo -u www-data bin/magento -q setup:config:set \
-#   --db-host=${rds-endpoint} \
-#   2>&1 | sudo -u www-data tee magento_update_output.log
-
-# sudo -u www-data bin/magento -q setup:config:set \
-#   --db-host=terraform-20240711121732038900000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
-#   2>&1 | sudo -u www-data tee magento_update_output.log
-
-# sudo -u www-data bin/magento -q setup:config:set \
-#   --db-host=${rds-endpoint} \
-#   2>&1 | sudo -u www-data tee magento_update_output.log
 
 sudo -u www-data bash -c 'echo $(cat magento_install_output.log |
   grep "\[SUCCESS\]: Magento Admin URI:" |
