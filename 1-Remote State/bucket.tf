@@ -18,6 +18,7 @@ resource "aws_s3_bucket_versioning" "versionamento-s3-remote-state" {
 
   lifecycle {
     ignore_changes = [
+      bucket,
       versioning_configuration
     ]
   }
