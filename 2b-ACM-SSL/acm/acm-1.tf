@@ -31,7 +31,7 @@ resource "aws_route53_record" "validation-records-certificate-1" {
       type   = dvo.resource_record_type
 
       tags = {
-        Name = "certificate-${var.shortnameid}-1-${resource_record_name}"
+        Name = "certificate-${var.shortnameid}-1-${dvo.resource_record_name}"
       }
     }
   }
