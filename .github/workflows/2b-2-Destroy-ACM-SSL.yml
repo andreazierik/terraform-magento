@@ -1,4 +1,4 @@
-name: 5-1 | Create | ACM-SSL
+name: 2b-2 | Destroy | ACM-SSL
 on: 
   workflow_dispatch
 env:
@@ -9,7 +9,7 @@ env:
 
 jobs:
   main_job:
-    name: "Create: ACM-SSL"
+    name: "Destroy: ACM-SSL"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -17,14 +17,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4    
-    - name: "ACM-SSL: Setup backend, run terraform init and apply."
+    - name: "ACM-SSL: Setup backend, run terraform init and destroy."
       env:
         KEY_TF_STATE: "ACM-SSL/terraform.tfstate"
-        LOCAL_FOLDER: "5-ACM-SSL"
+        LOCAL_FOLDER: "2b-ACM-SSL"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"
         terraform init -backend-config=./backend.tfvars
-        terraform apply -auto-approve \
+        terraform destroy -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
