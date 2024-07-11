@@ -31,8 +31,8 @@ provider "aws" {
   }
 }
 
-module "rds-database" {
-  source = "./rds-database"
+module "rds" {
+  source = "./rds"
   regiao = var.regiao
   remote-state-bucket = var.remote-state-bucket
   shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid
