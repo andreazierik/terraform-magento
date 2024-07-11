@@ -316,8 +316,18 @@ resource "aws_route_table_association" "rta-vpc-1-private-subnet-1b" {
 
 # Security groups
 resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.vpc-1.id
+
   tags = {
     Name = "sg-${var.shortnameid}-vpc-1-default"
+  }
+}
+
+resource "aws_default_route_table" "rt-vpc-1-default" {
+  default_route_table_id = aws_vpc.vpc-1.default_route_table_id
+
+  tags = {
+    Name = "rt-vpc-${var.shortnameid}-1-default"
   }
 }
 
