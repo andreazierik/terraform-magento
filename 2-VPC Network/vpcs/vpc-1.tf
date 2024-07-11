@@ -5,7 +5,7 @@ resource "aws_vpc" "vpc-1" {
   enable_dns_support   = true
 
   tags = {
-    Name = var.vpc-1-name
+    Name = "vpc-${var.shortnameid}-1"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_default_network_acl" "default" {
   default_network_acl_id = aws_vpc.vpc-1.default_network_acl_id
 
   tags = {
-    Name = "nacl-${var.vpc-1-name}-default"
+    Name = "nacl-vpc-${var.shortnameid}-1-default"
   }
 }
 
@@ -87,7 +87,7 @@ resource "aws_network_acl" "vpc-1-nacl-private-subnets" {
   }
 
   tags = {
-    Name = "nacl-${var.vpc-1-name}-private-subnets"
+    Name = "nacl-vpc-${var.shortnameid}-1-private-subnets"
   }
 }
 
@@ -187,7 +187,7 @@ resource "aws_network_acl" "vpc-1-nacl-public-subnets" {
   }
 
   tags = {
-    Name = "nacl-${var.vpc-1-name}-public-subnets"
+    Name = "nacl-vpc-${var.shortnameid}-1-public-subnets"
   }
 }
 
@@ -218,7 +218,7 @@ resource "aws_subnet" "vpc-1-subnet-public-1a" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = "${var.vpc-1-name}-subnet-public-1a"
+    Name = "subnet-vpc-${var.shortnameid}-1-public-1a"
   }
 }
 
@@ -229,7 +229,7 @@ resource "aws_subnet" "vpc-1-subnet-public-1b" {
   availability_zone = "us-east-1b"
 
   tags = {
-    Name = "${var.vpc-1-name}-subnet-public-1b"
+    Name = "subnet-vpc-${var.shortnameid}-1-public-1b"
   }
 }
 
@@ -240,7 +240,7 @@ resource "aws_subnet" "vpc-1-subnet-private-1a" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = "${var.vpc-1-name}-subnet-private-1a"
+    Name = "subnet-vpc-${var.shortnameid}-1-private-1a"
   }
 }
 
@@ -251,7 +251,7 @@ resource "aws_subnet" "vpc-1-subnet-private-1b" {
   availability_zone = "us-east-1b"
 
   tags = {
-    Name = "${var.vpc-1-name}-subnet-private-1b"
+    Name = "subnet-vpc-${var.shortnameid}-1-private-1b"
   }
 }
 
@@ -260,7 +260,7 @@ resource "aws_internet_gateway" "vpc-1-igw" {
   vpc_id = aws_vpc.vpc-1.id
 
   tags = {
-    Name = "igw-${var.vpc-1-name}"
+    Name = "igw-vpc-${var.shortnameid}-1"
   }
 }
 
@@ -269,7 +269,7 @@ resource "aws_default_route_table" "rt-vpc-1-default" {
   default_route_table_id = aws_vpc.vpc-1.default_route_table_id
 
   tags = {
-    Name = "rt-${var.vpc-1-name}-default"
+    Name = "rt-vpc-${var.shortnameid}-1-default"
   }
 }
 
@@ -282,7 +282,7 @@ resource "aws_route_table" "rt-vpc-1-public-subnet" {
   }
 
   tags = {
-    Name = "rt-${var.vpc-1-name}-public-subnet"
+    Name = "rt-vpc-${var.shortnameid}-1-public-subnets"
   }
 }
 
@@ -290,7 +290,7 @@ resource "aws_route_table" "rt-vpc-1-private-subnet" {
   vpc_id = aws_vpc.vpc-1.id  
 
   tags = {
-    Name = "rt-${var.vpc-1-name}-private-subnet"
+    Name = "rt-vpc-${var.shortnameid}-1-private-subnets"
   }
 }
 
@@ -315,8 +315,8 @@ resource "aws_route_table_association" "rta-vpc-1-private-subnet-1b" {
 }
 
 # Security groups
-resource "aws_security_group" "vpc-1-sg-allow-all" {
-  name        = "vpc_1_sg_allow_all"
+resource "aws_security_group" "sg-vpc-1-allow-all" {
+  name        = "sg_${var.shortnameid}_vpc_1_allow_all"
   description = "Security group para permitir tudo"
   vpc_id      = aws_vpc.vpc-1.id
 
@@ -336,12 +336,12 @@ resource "aws_security_group" "vpc-1-sg-allow-all" {
   }
 
   tags = {
-    Name = "${var.vpc-1-name}-sg-allow-all"
+    Name = "sg-${var.shortnameid}-vpc-1-allow-all"
   }
 }
 
-resource "aws_security_group" "vpc-1-sg-instances" {
-  name        = "vpc_1_sg_instances"
+resource "aws_security_group" "sg-vpc-1-alb-1-tgrp-1" {
+  name        = "sg_${var.shortnameid}_vpc_1_alb_1_tgrp_1"
   description = "Security group para instancias EC2"
   vpc_id      = aws_vpc.vpc-1.id
 
@@ -370,12 +370,12 @@ resource "aws_security_group" "vpc-1-sg-instances" {
   }
 
   tags = {
-    Name = "${var.vpc-1-name}-sg-instances"
+    Name = "sg-${var.shortnameid}-vpc-1-alb-1-tgrp-1"
   }
 }
 
-resource "aws_security_group" "vpc-1-sg-rds" {
-  name        = "vpc_1_sg_rds"
+resource "aws_security_group" "sg-vpc-1-rds-1" {
+  name        = "sg_${var.shortnameid}_vpc_1_rds_1"
   description = "Security group para o RDS"
   vpc_id      = aws_vpc.vpc-1.id
 
@@ -404,13 +404,13 @@ resource "aws_security_group" "vpc-1-sg-rds" {
   }
 
   tags = {
-    Name = "${var.vpc-1-name}-sg-rds"
+    Name = "sg-${var.shortnameid}-vpc-1-rds-1"
   }
 }
 
-resource "aws_security_group" "vpc-1-sg-efs-mountpoints" {
-  name        = "vpc_1_sg_efs_mountpoints"
-  description = "Security group para os EFS mount points"
+resource "aws_security_group" "sg-vpc-1-efs-1-mountpoints" {
+  name        = "sg_${var.shortnameid}_vpc_1_efs_1_mountpoints"
+  description = "Security group para os EFS 1 mount points"
   vpc_id      = aws_vpc.vpc-1.id
 
   # ByPass
@@ -438,13 +438,13 @@ resource "aws_security_group" "vpc-1-sg-efs-mountpoints" {
   }
 
   tags = {
-    Name = "${var.vpc-1-name}-sg-efs-mountpoints"
+    Name = "sg-${var.shortnameid}-vpc-1-efs-1-mountpoints"
   }
 }
 
-resource "aws_security_group" "vpc-1-sg-alb" {
-  name        = "vpc_1_sg_alb-odoo"
-  description = "Security group para os ALB Odoo"
+resource "aws_security_group" "sg-vpc-1-alb-1" {
+  name        = "sg_${var.shortnameid}_vpc_1_alb_1"
+  description = "Security group para o ALB 1"
   vpc_id      = aws_vpc.vpc-1.id
 
   # ByPass
@@ -472,12 +472,12 @@ resource "aws_security_group" "vpc-1-sg-alb" {
   }
 
   tags = {
-    Name = "${var.vpc-1-name}-sg-alb"
+    Name = "sg-${var.shortnameid}-vpc-1-alb-1"
   }
 }
 
-resource "aws_security_group" "vpc-1-sg-allow-ssh-by-ip" {
-  name        = "vpc_1_sg_allow_ssh_by_ip"
+resource "aws_security_group" "sg-vpc-1-allow-ssh-by-ip" {
+  name        = "sg_${var.shortnameid}_vpc_1_allow_ssh_by_ip"
   description = "Security group para permitir conexao ssh por um ip especifico"
   vpc_id      = aws_vpc.vpc-1.id
 
@@ -506,6 +506,6 @@ resource "aws_security_group" "vpc-1-sg-allow-ssh-by-ip" {
   }
 
   tags = {
-    Name = "${var.vpc-1-name}-sg-allow-ssh-by-ip"
+    Name = "sg-${var.shortnameid}-vpc-1-allow-ssh-by-ip"
   }
 }

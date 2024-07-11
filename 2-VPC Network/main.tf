@@ -33,9 +33,6 @@ provider "aws" {
 
 module "vpcs" {
   source = "./vpcs"
-
-  allowed-iplist = ["0.0.0.0/0"]
-
-  vpc-1-name = "vpc-magento"
+  shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid
+  allowed-iplist = ["0.0.0.0/0"]  
 }
-
