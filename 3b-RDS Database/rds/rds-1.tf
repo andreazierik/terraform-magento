@@ -1,12 +1,12 @@
 resource "aws_db_subnet_group" "subnet-group-rds-1" {
-  name = "subnet-group-rds-${shortnameid}-1"
+  name = "subnet-group-rds-${var.shortnameid}-1"
   subnet_ids = [
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1a-id,
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1b-id
   ]
 
   tags = {
-    Name = "subnet-group-rds-${shortnameid}-1"
+    Name = "subnet-group-rds-${var.shortnameid}-1"
   }
 }
 
@@ -28,6 +28,6 @@ resource "aws_db_instance" "rds-1" {
   ]
 
   tags = {
-    Name = "rds-${shortnameid}-1"
+    Name = "rds-${var.shortnameid}-1"
   }
 }
