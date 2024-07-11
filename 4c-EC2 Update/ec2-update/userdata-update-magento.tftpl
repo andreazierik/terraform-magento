@@ -1,8 +1,10 @@
 #!/bin/bash
-echo "### Iniciado user data ###"
+echo "#### Iniciado user data ####"
 
 
 cd /var/www/magento2
+
+echo "#### Novo RDS endpoint: ${rds-endpoint}"
 
 sudo -u www-data bin/magento setup:install \
   --base-url=${my-domain} \
