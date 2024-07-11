@@ -323,14 +323,6 @@ resource "aws_default_security_group" "default" {
   }
 }
 
-resource "aws_default_route_table" "rt-vpc-1-default" {
-  default_route_table_id = aws_vpc.vpc-1.default_route_table_id
-
-  tags = {
-    Name = "rt-vpc-${var.shortnameid}-1-default"
-  }
-}
-
 resource "aws_security_group" "sg-vpc-1-allow-all" {
   name        = "sg_${var.shortnameid}_vpc_1_allow_all"
   description = "Security group para permitir tudo"
