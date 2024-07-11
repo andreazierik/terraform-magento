@@ -355,7 +355,7 @@ resource "aws_security_group" "vpc-1-sg-instances" {
   }
 
   ingress {
-    description = "Allow Odoo access"
+    description = "Allow HTTP access"
     from_port   = 80
     to_port     = 80
     protocol    = "TCP"

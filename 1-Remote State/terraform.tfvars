@@ -9,3 +9,5 @@ cliente = "Cloud Treinamento"
 
 # Autor das edições
 autor = "Bruno Ferreira"
+
+shortnameid = "magento"

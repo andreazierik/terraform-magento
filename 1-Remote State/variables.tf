@@ -13,6 +13,11 @@ variable "autor" {
   description = "Autor de edição."
 }
 
+variable "shortnameid" {
+  type        = string
+  description = "Nome curto para identificação dos recursos na AWS"
+}
+
 variable "regiao" {
   type        = string
   description = "Região onde a infraestrutura será criada."
