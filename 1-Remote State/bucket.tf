@@ -21,7 +21,7 @@ resource "aws_s3_bucket" "s3-remote-state" {
 }
 
 resource "aws_s3_bucket_versioning" "versionamento-s3-remote-state" {
-  bucket = try(aws_s3_bucket.s3-remote-state.id, data.aws_s3_bucket.bucket-existente.id)
+  bucket = try(aws_s3_bucket.s3-remote-state.id, data.terraform_remote_state.bucket-existente.remote_state_bucket_name)  
 
   versioning_configuration {
     status = "Enabled"
