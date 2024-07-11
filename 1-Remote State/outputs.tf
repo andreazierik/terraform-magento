@@ -20,10 +20,15 @@ output "projeto" {
 
 output "cliente" {  
   description = "Cliente do projeto."
-  value       = "Cloud Treinamentos"
+  value       = var.cliente
 }
 
 output "autor" {  
   description = "Autor de edição."
-  value       = "Bruno Ferreira"
+  value       = var.autor
+}
+
+output "shortnameid" {  
+  description = "Nome curto para identificação dos recursos na AWS"
+  value       = var.shortnameid
 }
