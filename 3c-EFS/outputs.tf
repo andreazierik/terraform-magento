@@ -1,4 +1,4 @@
-output "efs-1-endpoint" {
-  description = "Endpoint do filesystem para montar /etc/opt"
-  value       = module.efs.fs-efs-1-dns
+output "efs-efs-1-dns-name" {
+  description = "DNS Name do filesystem para montar /etc/opt"
+  value       = module.efs.efs-1-dns-name
 }
