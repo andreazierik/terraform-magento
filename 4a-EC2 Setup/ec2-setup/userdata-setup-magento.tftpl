@@ -131,7 +131,7 @@ server {
 EOF'
 
 #chown -R www-data:www-data /var/www/magento2
-systemctl restart nginx
+
 
 # Desabilitar 2FA
 sudo -u www-data bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
