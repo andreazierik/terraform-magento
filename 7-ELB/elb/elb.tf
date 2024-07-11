@@ -1,8 +1,8 @@
 // Target group
 resource "aws_lb_target_group" "tgrp-alb-1" {
   name     = "tgrp-alb-1"
-  port     = 443
-  protocol = "HTTPS"
+  port     = 80
+  protocol = "HTTP"
   vpc_id   = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-id
 
   # stickiness {
@@ -14,14 +14,14 @@ resource "aws_lb_target_group" "tgrp-alb-1" {
     enabled             = true
     protocol            = "HTTP"    
     port                = 80
-    interval            = 20
-    timeout             = 10
+    interval            = 10
+    timeout             = 5
     healthy_threshold   = 2
     unhealthy_threshold = 3
     matcher = "200-404"
   }  
 
-  deregistration_delay = 60  
+  deregistration_delay = 15
 }
 
 // Application Load balancer
