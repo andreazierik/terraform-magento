@@ -18,7 +18,7 @@ resource "aws_lb_target_group" "tgrp-alb-1" {
     timeout             = 10
     healthy_threshold   = 2
     unhealthy_threshold = 3
-    matcher = "200-399"
+    matcher = "200-404"
   }  
 
   deregistration_delay = 60  
