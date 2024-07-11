@@ -29,8 +29,13 @@ output "vpcs-subnet-vpc-1-private-1b-id" {
   value       = module.vpcs.subnet-vpc-1-private-1b-id
 }
 
+output "sg-vpc-1-allow-all-id" {
+  description = "VPC-1: Security group tudo liberado, ID"
+  value       = module.vpcs.sg-vpc-1-allow-all-id
+}
+
 output "sg-vpc-1-allow-all-name" {
-  description = "VPC-1: Security group tudo liberado Name"
+  description = "VPC-1: Security group tudo liberado, Name"
   value       = module.vpcs.sg-vpc-1-allow-all-name
 }
 
