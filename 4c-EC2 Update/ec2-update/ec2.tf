@@ -1,6 +1,5 @@
 resource "aws_instance" "vm-1" {
-  # Ubuntu Server 24.04 LTS (HVM), SSD Volume Type
-  # Odoo preconfigurado
+  # AMI Base  
   ami           = data.terraform_remote_state.remote-ami.outputs.ami-ec2-ami-id
   instance_type = "t3a.large"
   key_name      = "aws-dev-console-admin"
@@ -18,6 +17,11 @@ resource "aws_instance" "vm-1" {
   user_data_replace_on_change = true
   user_data = templatefile(
     "${path.module}/userdata-update-magento.tftpl", {
+      rds-endpoint= split(":", data.terraform_remote_state.remote-state-rds.outputs.rds-database-rds-1-endpoint)[0]
+      magento-public-key = var.magento-public-key,
+      magento-private-key = var.magento-private-key,
+      my-domain = "http://brunoferreira86dev.com",
+      admin-email = "brunoferreira86dev@gmail.com",
     }
   )
 

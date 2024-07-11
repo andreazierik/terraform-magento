@@ -11,7 +11,7 @@ resource "aws_route53_record" "record_A" {
   zone_id         = data.aws_route53_zone.hosted_zone.zone_id
   name            = "brunoferreira86dev.com"
   type            = "A"
-  ttl             = 300
+  ttl             = 60
   records         = [aws_instance.vm-1.public_ip]
 }
 
@@ -22,6 +22,6 @@ resource "aws_route53_record" "record_WWW" {
   zone_id         = data.aws_route53_zone.hosted_zone.zone_id
   name            = "www.brunoferreira86dev.com"
   type            = "A"
-  ttl             = 300
+  ttl             = 60
   records         = [aws_instance.vm-1.public_ip]
 }

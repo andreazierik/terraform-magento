@@ -34,5 +34,7 @@ provider "aws" {
 module "ec2-update" {
   source = "./ec2-update"
   regiao = var.regiao
-  remote-state-bucket = var.remote-state-bucket  
+  remote-state-bucket = var.remote-state-bucket
+  magento-public-key = var.magento-public-key
+  magento-private-key = var.magento-private-key
 }
