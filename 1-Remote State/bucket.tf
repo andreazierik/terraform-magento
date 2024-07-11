@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "s3-remote-state" {
   lifecycle {
     prevent_destroy = true
     ignore_changes = [
-      bucket,      
+      bucket
     ]
   }
 }
@@ -18,7 +18,7 @@ resource "aws_s3_bucket_versioning" "versionamento-s3-remote-state" {
 
   lifecycle {
     ignore_changes = [
-      versioning_configuration,
+      versioning_configuration
     ]
   }
 }
