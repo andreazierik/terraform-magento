@@ -1,8 +1,8 @@
 // Target group
 resource "aws_lb_target_group" "tgrp-alb-1" {
   name     = "tgrp-alb-1"
-  port     = 80
-  protocol = "HTTP"
+  port     = 443
+  protocol = "HTTPS"
   vpc_id   = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-id
 
   # stickiness {
