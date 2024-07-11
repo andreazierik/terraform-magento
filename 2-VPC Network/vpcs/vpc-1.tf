@@ -18,7 +18,7 @@ resource "aws_default_network_acl" "default" {
   }
 }
 
-resource "aws_network_acl" "vpc-1-nacl-private-subnets" {
+resource "aws_network_acl" "nacl-vpc-1-private-subnets" {
   vpc_id = aws_vpc.vpc-1.id
 
   ingress {    
@@ -91,7 +91,7 @@ resource "aws_network_acl" "vpc-1-nacl-private-subnets" {
   }
 }
 
-resource "aws_network_acl" "vpc-1-nacl-public-subnets" {
+resource "aws_network_acl" "nacl-vpc-1-public-subnets" {
   vpc_id = aws_vpc.vpc-1.id
 
   ingress {    
@@ -192,27 +192,27 @@ resource "aws_network_acl" "vpc-1-nacl-public-subnets" {
 }
 
 # Network ACL associations
-resource "aws_network_acl_association" "nacl-association-subnet-private-1a" {
-  network_acl_id = aws_network_acl.vpc-1-nacl-private-subnets.id
-  subnet_id      = aws_subnet.vpc-1-subnet-private-1a.id
+resource "aws_network_acl_association" "nacl-association-vpc-1-subnet-private-1a" {
+  network_acl_id = aws_network_acl.nacl-vpc-1-private-subnets.id
+  subnet_id      = aws_subnet.subnet-vpc-1-private-1a.id
 }
-resource "aws_network_acl_association" "nacl-association-subnet-private-1b" {
-  network_acl_id = aws_network_acl.vpc-1-nacl-private-subnets.id
-  subnet_id      = aws_subnet.vpc-1-subnet-private-1b.id
+resource "aws_network_acl_association" "nacl-association-vpc-1-subnet-private-1b" {
+  network_acl_id = aws_network_acl.nacl-vpc-1-private-subnets.id
+  subnet_id      = aws_subnet.subnet-vpc-1-private-1b.id
 }
 
-resource "aws_network_acl_association" "nacl-association-subnet-public-1a" {
-  network_acl_id = aws_network_acl.vpc-1-nacl-public-subnets.id
-  subnet_id      = aws_subnet.vpc-1-subnet-public-1a.id
+resource "aws_network_acl_association" "nacl-association-vpc-1-subnet-public-1a" {
+  network_acl_id = aws_network_acl.nacl-vpc-1-public-subnets.id
+  subnet_id      = aws_subnet.subnet-vpc-1-public-1a.id
 }
-resource "aws_network_acl_association" "nacl-association-subnet-public-1b" {
-  network_acl_id = aws_network_acl.vpc-1-nacl-public-subnets.id
-  subnet_id      = aws_subnet.vpc-1-subnet-public-1b.id
+resource "aws_network_acl_association" "nacl-association-vpc-1-subnet-public-1b" {
+  network_acl_id = aws_network_acl.nacl-vpc-1-public-subnets.id
+  subnet_id      = aws_subnet.subnet-vpc-1-public-1b.id
 }
 
 
 # Public Subnet 1a
-resource "aws_subnet" "vpc-1-subnet-public-1a" {
+resource "aws_subnet" "subnet-vpc-1-public-1a" {
   vpc_id            = aws_vpc.vpc-1.id
   cidr_block        = "10.1.1.0/24"
   availability_zone = "us-east-1a"
@@ -223,7 +223,7 @@ resource "aws_subnet" "vpc-1-subnet-public-1a" {
 }
 
 # Public Subnet 1b
-resource "aws_subnet" "vpc-1-subnet-public-1b" {
+resource "aws_subnet" "subnet-vpc-1-public-1b" {
   vpc_id            = aws_vpc.vpc-1.id
   cidr_block        = "10.1.2.0/24"
   availability_zone = "us-east-1b"
@@ -234,7 +234,7 @@ resource "aws_subnet" "vpc-1-subnet-public-1b" {
 }
 
 # Private Subnet 1a
-resource "aws_subnet" "vpc-1-subnet-private-1a" {
+resource "aws_subnet" "subnet-vpc-1-private-1a" {
   vpc_id            = aws_vpc.vpc-1.id
   cidr_block        = "10.1.3.0/24"
   availability_zone = "us-east-1a"
@@ -245,7 +245,7 @@ resource "aws_subnet" "vpc-1-subnet-private-1a" {
 }
 
 # Private Subnet 1b
-resource "aws_subnet" "vpc-1-subnet-private-1b" {
+resource "aws_subnet" "subnet-vpc-1-private-1b" {
   vpc_id            = aws_vpc.vpc-1.id
   cidr_block        = "10.1.4.0/24"
   availability_zone = "us-east-1b"
@@ -256,7 +256,7 @@ resource "aws_subnet" "vpc-1-subnet-private-1b" {
 }
 
 # Internet Gateway
-resource "aws_internet_gateway" "vpc-1-igw" {
+resource "aws_internet_gateway" "igw-vpc-1" {
   vpc_id = aws_vpc.vpc-1.id
 
   tags = {
@@ -273,12 +273,12 @@ resource "aws_default_route_table" "rt-vpc-1-default" {
   }
 }
 
-resource "aws_route_table" "rt-vpc-1-public-subnet" {
+resource "aws_route_table" "rt-vpc-1-public-subnets" {
   vpc_id = aws_vpc.vpc-1.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.vpc-1-igw.id
+    gateway_id = aws_internet_gateway.igw-vpc-1.id
   }
 
   tags = {
@@ -286,7 +286,7 @@ resource "aws_route_table" "rt-vpc-1-public-subnet" {
   }
 }
 
-resource "aws_route_table" "rt-vpc-1-private-subnet" {
+resource "aws_route_table" "rt-vpc-1-private-subnets" {
   vpc_id = aws_vpc.vpc-1.id  
 
   tags = {
@@ -296,22 +296,22 @@ resource "aws_route_table" "rt-vpc-1-private-subnet" {
 
 # Router tables public subnets association
 resource "aws_route_table_association" "rta-vpc-1-public-subnet-1a" {
-  subnet_id      = aws_subnet.vpc-1-subnet-public-1a.id
-  route_table_id = aws_route_table.rt-vpc-1-public-subnet.id
+  subnet_id      = aws_subnet.subnet-vpc-1-public-1a.id
+  route_table_id = aws_route_table.rt-vpc-1-public-subnets.id
 }
 resource "aws_route_table_association" "rta-vpc-1-public-subnet-1b" {
-  subnet_id      = aws_subnet.vpc-1-subnet-public-1b.id
-  route_table_id = aws_route_table.rt-vpc-1-public-subnet.id
+  subnet_id      = aws_subnet.subnet-vpc-1-public-1b.id
+  route_table_id = aws_route_table.rt-vpc-1-public-subnets.id
 }
 
 # Router tables private subnets association
 resource "aws_route_table_association" "rta-vpc-1-private-subnet-1a" {
-  subnet_id      = aws_subnet.vpc-1-subnet-private-1a.id
-  route_table_id = aws_route_table.rt-vpc-1-private-subnet.id
+  subnet_id      = aws_subnet.subnet-vpc-1-private-1a.id
+  route_table_id = aws_route_table.rt-vpc-1-private-subnets.id
 }
 resource "aws_route_table_association" "rta-vpc-1-private-subnet-1b" {
-  subnet_id      = aws_subnet.vpc-1-subnet-private-1b.id
-  route_table_id = aws_route_table.rt-vpc-1-private-subnet.id
+  subnet_id      = aws_subnet.subnet-vpc-1-private-1b.id
+  route_table_id = aws_route_table.rt-vpc-1-private-subnets.id
 }
 
 # Security groups

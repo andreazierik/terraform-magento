@@ -5,76 +5,76 @@ output "vpc-1-name" {
 }
 
 output "vpc-1-id" {
-  description = "Nome da VPC-1"
+  description = "ID da VPC-1"
   value       = aws_vpc.vpc-1.id
 }
 
-output "vpc-1-subnet-public-1a-id" {
+output "subnet-vpc-1-public-1a-id" {
   description = "VPC-1: ID da subnet publica 1a"
-  value       = aws_subnet.vpc-1-subnet-public-1a.id
+  value       = aws_subnet.subnet-vpc-1-public-1a.id
 }
 
-output "vpc-1-subnet-public-1b-id" {
+output "subnet-vpc-1-public-1b-id" {
   description = "VPC-1: ID da subnet publica 1b"
-  value       = aws_subnet.vpc-1-subnet-public-1b.id
+  value       = aws_subnet.subnet-vpc-1-public-1b.id
 }
 
-output "vpc-1-subnet-private-1a-id" {
+output "subnet-vpc-1-private-1a-id" {
   description = "VPC-1: ID da subnet privada 1a"
-  value       = aws_subnet.vpc-1-subnet-private-1a.id
+  value       = aws_subnet.subnet-vpc-1-private-1a.id
 }
 
-output "vpc-1-subnet-private-1b-id" {
+output "subnet-vpc-1-private-1b-id" {
   description = "VPC-1: ID da subnet privada 1b"
-  value       = aws_subnet.vpc-1-subnet-private-1b.id
+  value       = aws_subnet.subnet-vpc-1-private-1b.id
 }
 
-output "vpc-1-sg-allow-all-id" {
+output "sg-vpc-1-allow-all-id" {
   description = "VPC-1: Security group tudo liberado ID"
-  value       = aws_security_group.vpc-1-sg-allow-all.id
+  value       = aws_security_group.sg-vpc-1-allow-all.id
 }
 
-output "vpc-1-sg-allow-all-name" {
+output "sg-vpc-1-allow-all-name" {
   description = "VPC-1: Security group tudo liberado Name"
-  value       = aws_security_group.vpc-1-sg-allow-all.name
+  value       = aws_security_group.sg-vpc-1-allow-all.name
 }
 
-output "vpc-1-sg-instances-id" {
-  description = "VPC-1: Security group para instancias, ID"
-  value       = aws_security_group.vpc-1-sg-instances.id
+output "sg-vpc-1-alb-1-tgrp-1-id" {
+  description = "VPC-1: Security group para instancias no Target group1 do ALB 1, ID"
+  value       = aws_security_group.sg-vpc-1-alb-1-tgrp-1.id
 }
 
-output "vpc-1-sg-instances-name" {
-  description = "VPC-1: Security group para instancias, Name"
-  value       = aws_security_group.vpc-1-sg-instances.name
+output "sg-vpc-1-alb-1-tgrp-1-name" {
+  description = "VPC-1: Security group para instancias no Target group 1 do ALB 1, Name"
+  value       = aws_security_group.sg-vpc-1-alb-1-tgrp-1.name
 }
 
-output "vpc-1-sg-rds-id" {
-  description = "VPC-1: Security group para RDS, ID"
-  value       = aws_security_group.vpc-1-sg-rds.id
+output "sg-vpc-1-rds-1-id" {
+  description = "VPC-1: Security group para RDS 1, ID"
+  value       = aws_security_group.sg-vpc-1-rds-1.id
 }
 
-output "vpc-1-sg-rds-name" {
-  description = "VPC-1: Security group para RDS, Name"
-  value       = aws_security_group.vpc-1-sg-rds.name
+output "sg-vpc-1-rds-1-name" {
+  description = "VPC-1: Security group para RDS 1, Name"
+  value       = aws_security_group.sg-vpc-1-rds-1.name
 }
 
-output "vpc-1-sg-efs-mountpoints-id" {
-  description = "VPC-1: Security group para EFS mount points, ID"
-  value       = aws_security_group.vpc-1-sg-efs-mountpoints.id
+output "sg-vpc-1-efs-1-mountpoints-id" {
+  description = "VPC-1: Security group para EFS 1 mount points, ID"
+  value       = aws_security_group.sg-vpc-1-efs-1-mountpoints.id
 }
 
-output "vpc-1-sg-efs-mountpoints-name" {
-  description = "VPC-1: Security group para EFS mount points, Name"
-  value       = aws_security_group.vpc-1-sg-efs-mountpoints.name
+output "sg-vpc-1-efs-1-mountpoints-name" {
+  description = "VPC-1: Security group para EFS 1 mount points, Name"
+  value       = aws_security_group.sg-vpc-1-efs-1-mountpoints.name
 }
 
-output "vpc-1-sg-alb-id" {
-  description = "VPC-1: Security group para ALB ID"
-  value       = aws_security_group.vpc-1-sg-alb.id
+output "sg-vpc-1-alb-1-id" {
+  description = "VPC-1: Security group para ALB 1, ID"
+  value       = aws_security_group.sg-vpc-1-alb-1.id
 }
 
-output "vpc-1-sg-alb-name" {
-  description = "VPC-1: Security group para ALB Name"
-  value       = aws_security_group.vpc-1-sg-alb.name
+output "sg-vpc-1-alb-1-name" {
+  description = "VPC-1: Security group para ALB 1, Name"
+  value       = aws_security_group.sg-vpc-1-alb-1.name
 }
