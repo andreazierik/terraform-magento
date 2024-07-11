@@ -36,4 +36,7 @@ module "rds" {
   regiao = var.regiao
   remote-state-bucket = var.remote-state-bucket
   shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid
+  rds-1-db-name = var.rds-1-db-name
+  rds-1-db-username = var.rds-1-db-username
+  rds-1-db-password = var.rds-1-db-password
 }
