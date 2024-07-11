@@ -7,7 +7,7 @@ resource "aws_instance" "bastion-vpc-1" {
   subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id  
 
   vpc_security_group_ids = [
-    data.terraform_remote_state.remote-state-vpc.outputs.sg-vpc-1-allow-all-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-allow-all-id
   ]
   associate_public_ip_address = true
 
