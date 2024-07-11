@@ -1,16 +1,16 @@
 // DNS
 data "aws_route53_zone" "hosted-zone" {
-  name         = "brunoferreira86dev.com"
+  name         = "${var.domain-base}"
   private_zone = false
 }
 
 // ACM SSL Certificate
 resource "aws_acm_certificate" "certificate-1" {
-  domain_name       = "brunoferreira86dev.com"
+  domain_name       = "${var.domain-base}"
   validation_method = "DNS"
 
   subject_alternative_names = [
-    "www.brunoferreira86dev.com"
+    "www.${var.domain-base}"
   ]
 
   lifecycle {
