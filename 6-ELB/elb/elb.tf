@@ -6,13 +6,21 @@ resource "aws_lb_target_group" "tgrp-1-alb-1" {
   vpc_id   = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-id
 
   # stickiness {
+  #   enabled = true
   #   type            = "lb_cookie"
   #   cookie_duration = 3600
   # }
 
+  stickiness {
+    enabled = true
+    type        = "application"
+    cookie_name = "PHPSESSID"    
+  }
+
   health_check {
     enabled             = true
     protocol            = "HTTP"
+    path                = "/health_check"
     port                = 80
     interval            = 10
     timeout             = 5
