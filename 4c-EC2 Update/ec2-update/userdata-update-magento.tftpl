@@ -6,7 +6,7 @@ cd /var/www/magento2
 # Remvoer arquivo env.php para evitar conflito na atualização
 rm /var/www/magento2/app/etc/env.php
 
-echo "#### Novo RDS endpoint: ${rds-endpoint}"
+echo "#### Novo RDS endpoint: ${rds-1-endpoint}"
 
 sudo -u www-data bin/magento setup:install \
   --base-url=http://${domain-base} \

@@ -21,25 +21,25 @@ resource "aws_cloudfront_cache_policy" "cache-policy-default" {
     }
 
     enable_accept_encoding_brotli = true
-    enable_accept_encoding_gzip = true    
+    enable_accept_encoding_gzip = true   
   }
-
 }
 
 // Cloudfront distribution
 resource "aws_cloudfront_distribution" "cloudfront-1" {
 
   // Settings
+  comment         = "cloudfront-${var.shortnameid}-1"
+
   enabled         = true
-  comment         = "cdn-odoo"
   price_class     = "PriceClass_All"
   http_version    = "http2and3"
   is_ipv6_enabled = true
   // Aliases = Alternate domains names
-  aliases = ["brunoferreira86dev.com", "www.brunoferreira86dev.com"]
+  aliases = ["${var.domain-base}", "www.${var.domain-base}"]
   // Custom SSL certificate
   viewer_certificate {
-    acm_certificate_arn      = data.terraform_remote_state.remote-ssl-certificate.outputs.acm-acm-odoo-certificate-arn
+    acm_certificate_arn      = data.terraform_remote_state.remote-ssl-certificate.outputs.acm-certificate-1-arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
