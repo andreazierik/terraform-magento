@@ -1,8 +1,8 @@
 // Cache policies
 resource "aws_cloudfront_cache_policy" "cache-policy-default" {
 
-  name    = "Odoo-CachePolicy-default"
-  comment = "Odoo-CachePolicy-default"
+  name    = "CachePolicy-${var.shortnameid}-default"
+  # comment = "CachePolicy-${var.shortnameid}-default"
 
   min_ttl     = 1
   default_ttl = 60
@@ -27,7 +27,7 @@ resource "aws_cloudfront_cache_policy" "cache-policy-default" {
 }
 
 // Cloudfront distribution
-resource "aws_cloudfront_distribution" "cloud-front-odoo" {
+resource "aws_cloudfront_distribution" "cloudfront-1" {
 
   // Settings
   enabled         = true
@@ -93,11 +93,7 @@ resource "aws_cloudfront_distribution" "cloud-front-odoo" {
 
     // Managed-AllViewer
     origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
-  }
-
-  tags = {
-    Environment = "production"
-  }
+  }  
 
   # Precedend 0 = /shop
   ordered_cache_behavior {
@@ -209,6 +205,10 @@ resource "aws_cloudfront_distribution" "cloud-front-odoo" {
 
     // Managed-AllViewer
     origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
+  }
+
+  tags = {
+    Environment = "production"
   }
 
 }
