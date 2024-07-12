@@ -9,5 +9,5 @@ variable "remote-state-bucket" {
 }
 
 variable "domain-base" {
-  type        = string
+  type = string
 }

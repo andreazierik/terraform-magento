@@ -9,49 +9,49 @@ variable "remote-state-bucket" {
 }
 
 variable "domain-base" {
-  type        = string
+  type = string
 }
 
 variable "rds-1-db-name" {
-  type        = string
+  type = string
 }
 
 variable "rds-1-db-username" {
-  type        = string
+  type = string
 }
 
 variable "rds-1-db-password" {
-  type        = string
-  sensitive   = true
+  type      = string
+  sensitive = true
 }
 
 variable "magento-public-key" {
-  type        = string
+  type      = string
   sensitive = true
 }
 
 variable "magento-private-key" {
-  type        = string
+  type      = string
   sensitive = true
 }
 
 variable "magento-admin-email" {
-  type        = string
+  type = string
 }
- 
+
 variable "magento-admin-firstname" {
-  type        = string  
+  type = string
 }
 
 variable "magento-admin-lastname" {
-  type        = string  
+  type = string
 }
 
 variable "magento-admin-user" {
-  type        = string  
+  type = string
 }
 
 variable "magento-admin-password" {
-  type        = string  
-  sensitive   = true
+  type      = string
+  sensitive = true
 }

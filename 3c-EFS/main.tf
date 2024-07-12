@@ -18,8 +18,8 @@ data "terraform_remote_state" "remote-state-information" {
   }
 }
 
-provider "aws" {  
-  region    = var.regiao 
+provider "aws" {
+  region = var.regiao
 
   default_tags {
     tags = {
@@ -32,8 +32,8 @@ provider "aws" {
 }
 
 module "efs" {
-  source = "./efs"
-  regiao = var.regiao
+  source              = "./efs"
+  regiao              = var.regiao
   remote-state-bucket = var.remote-state-bucket
-  shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid
+  shortnameid         = data.terraform_remote_state.remote-state-information.outputs.shortnameid
 }

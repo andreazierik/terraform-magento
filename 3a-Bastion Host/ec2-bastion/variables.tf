@@ -9,12 +9,12 @@ variable "remote-state-bucket" {
 }
 
 variable "shortnameid" {
-  type = string
+  type        = string
   description = "Nome curto para identificacao dos recursos"
 }
 
 variable "AWS_SSH_PRIVATE_KEY" {
   description = "Chave privada SSH para conexão"
-  type        = string  
-  sensitive = true
+  type        = string
+  sensitive   = true
 }

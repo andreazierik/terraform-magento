@@ -18,8 +18,8 @@ data "terraform_remote_state" "remote-state-information" {
   }
 }
 
-provider "aws" {  
-  region    = var.regiao 
+provider "aws" {
+  region = var.regiao
 
   default_tags {
     tags = {
@@ -32,11 +32,11 @@ provider "aws" {
 }
 
 module "rds" {
-  source = "./rds"
-  regiao = var.regiao
+  source              = "./rds"
+  regiao              = var.regiao
   remote-state-bucket = var.remote-state-bucket
-  shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid
-  rds-1-db-name = var.rds-1-db-name
-  rds-1-db-username = var.rds-1-db-username
-  rds-1-db-password = var.rds-1-db-password
+  shortnameid         = data.terraform_remote_state.remote-state-information.outputs.shortnameid
+  rds-1-db-name       = var.rds-1-db-name
+  rds-1-db-username   = var.rds-1-db-username
+  rds-1-db-password   = var.rds-1-db-password
 }

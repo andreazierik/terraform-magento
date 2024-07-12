@@ -1,12 +1,12 @@
 // DNS
 data "aws_route53_zone" "hosted-zone" {
-  name         = "${var.domain-base}"
+  name         = var.domain-base
   private_zone = false
 }
 
 // ACM SSL Certificate
 resource "aws_acm_certificate" "certificate-1" {
-  domain_name       = "${var.domain-base}"
+  domain_name       = var.domain-base
   validation_method = "DNS"
 
   subject_alternative_names = [
@@ -42,7 +42,7 @@ resource "aws_route53_record" "validation-records-certificate-1" {
   ttl             = 60
   type            = each.value.type
   zone_id         = data.aws_route53_zone.hosted-zone.zone_id
-  
+
 }
 
 // Certificate validation

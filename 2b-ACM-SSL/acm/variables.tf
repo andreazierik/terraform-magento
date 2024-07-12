@@ -14,7 +14,7 @@ variable "domain-base" {
 }
 
 variable "shortnameid" {
-  type = string
+  type        = string
   description = "Nome curto para identificacao dos recursos"
 }
 

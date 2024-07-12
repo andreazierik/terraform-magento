@@ -18,8 +18,8 @@ data "terraform_remote_state" "remote-state-information" {
   }
 }
 
-provider "aws" {  
-  region    = var.regiao 
+provider "aws" {
+  region = var.regiao
 
   default_tags {
     tags = {
@@ -32,9 +32,9 @@ provider "aws" {
 }
 
 module "ec2-bastion" {
-  source = "./ec2-bastion"
-  regiao = var.regiao
+  source              = "./ec2-bastion"
+  regiao              = var.regiao
   remote-state-bucket = var.remote-state-bucket
-  shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid
+  shortnameid         = data.terraform_remote_state.remote-state-information.outputs.shortnameid
   AWS_SSH_PRIVATE_KEY = var.AWS_SSH_PRIVATE_KEY
 }

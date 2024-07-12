@@ -17,27 +17,27 @@ resource "aws_instance" "ec2-setup" {
   user_data_replace_on_change = true
   user_data = templatefile(
     "${path.module}/userdata-setup-magento.tftpl", {
-      domain-base = var.domain-base,
-      rds-1-endpoint = split(":", data.terraform_remote_state.remote-state-rds.outputs.rds-rds-1-endpoint)[0],
-      rds-1-db-name = var.rds-1-db-name,
-      rds-1-db-username = var.rds-1-db-username,
-      rds-1-db-password = var.rds-1-db-password,
-      magento-public-key = var.magento-public-key,
-      magento-private-key = var.magento-private-key,
-      magento-admin-email = var.magento-admin-email,
+      domain-base             = var.domain-base,
+      rds-1-endpoint          = split(":", data.terraform_remote_state.remote-state-rds.outputs.rds-rds-1-endpoint)[0],
+      rds-1-db-name           = var.rds-1-db-name,
+      rds-1-db-username       = var.rds-1-db-username,
+      rds-1-db-password       = var.rds-1-db-password,
+      magento-public-key      = var.magento-public-key,
+      magento-private-key     = var.magento-private-key,
+      magento-admin-email     = var.magento-admin-email,
       magento-admin-firstname = var.magento-admin-firstname,
-      magento-admin-lastname = var.magento-admin-lastname,
-      magento-admin-user = var.magento-admin-user,
-      magento-admin-password = var.magento-admin-password
+      magento-admin-lastname  = var.magento-admin-lastname,
+      magento-admin-user      = var.magento-admin-user,
+      magento-admin-password  = var.magento-admin-password
     }
-  )  
+  )
 
   provisioner "remote-exec" {
     connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      host        = self.public_ip
-      timeout     = 600
+      type    = "ssh"
+      user    = "ubuntu"
+      host    = self.public_ip
+      timeout = 600
     }
 
     inline = [

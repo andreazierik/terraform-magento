@@ -12,7 +12,7 @@ resource "aws_lb_target_group" "tgrp-1-alb-1" {
   # }
 
   stickiness {
-    enabled = true
+    enabled     = true
     type        = "app_cookie"
     cookie_name = "PHPSESSID"
   }
@@ -26,8 +26,8 @@ resource "aws_lb_target_group" "tgrp-1-alb-1" {
     timeout             = 5
     healthy_threshold   = 2
     unhealthy_threshold = 3
-    matcher = "200-404"
-  }  
+    matcher             = "200-404"
+  }
 
   deregistration_delay = 15
 
@@ -52,7 +52,7 @@ resource "aws_lb" "alb-1" {
   enable_deletion_protection = false
 
   tags = {
-    Name        = "alb-${var.shortnameid}-1"
+    Name = "alb-${var.shortnameid}-1"
   }
 }
 
@@ -89,7 +89,7 @@ resource "aws_lb_listener" "listener-https-alb-1" {
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   certificate_arn   = data.terraform_remote_state.remote-ssl-certificate.outputs.acm-certificate-1-arn
 
-  default_action {    
+  default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.tgrp-1-alb-1.arn
   }
@@ -123,7 +123,7 @@ resource "aws_autoscaling_group" "asg-alb-1" {
   vpc_zone_identifier = [
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1a-id,
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1b-id
-  ]    
+  ]
 
   // Load balancing
   target_group_arns = [
@@ -131,7 +131,7 @@ resource "aws_autoscaling_group" "asg-alb-1" {
   ]
 
   // Health checks
-  health_check_type = "ELB"
+  health_check_type         = "ELB"
   health_check_grace_period = 60
 
   // Advanced configuration
@@ -147,5 +147,5 @@ resource "aws_autoscaling_group" "asg-alb-1" {
   ]
 
   metrics_granularity = "1Minute"
-  
+
 }

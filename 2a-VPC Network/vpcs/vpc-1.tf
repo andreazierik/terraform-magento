@@ -21,7 +21,7 @@ resource "aws_default_network_acl" "default" {
 resource "aws_network_acl" "nacl-vpc-1-private-subnets" {
   vpc_id = aws_vpc.vpc-1.id
 
-  ingress {    
+  ingress {
     rule_no    = 100
     protocol   = "tcp"
     from_port  = 80
@@ -30,13 +30,13 @@ resource "aws_network_acl" "nacl-vpc-1-private-subnets" {
     cidr_block = "0.0.0.0/0"
   }
 
-  ingress {    
+  ingress {
     rule_no    = 200
     protocol   = "tcp"
     from_port  = 3306
     to_port    = 3306
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
   # ingress {    
@@ -48,23 +48,23 @@ resource "aws_network_acl" "nacl-vpc-1-private-subnets" {
   #   cidr_block = "0.0.0.0/0"    
   # }
 
-  ingress {    
+  ingress {
     rule_no    = 10000
     protocol   = "tcp"
     from_port  = 1024
     to_port    = 65535
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
   # ByPass
-  ingress {    
+  ingress {
     rule_no    = 11111
     protocol   = "-1"
     from_port  = 0
     to_port    = 0
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
   egress {
@@ -73,17 +73,17 @@ resource "aws_network_acl" "nacl-vpc-1-private-subnets" {
     from_port  = 1024
     to_port    = 65535
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
   # ByPass
-  egress {    
+  egress {
     rule_no    = 11111
     protocol   = "-1"
     from_port  = 0
     to_port    = 0
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
   tags = {
@@ -94,50 +94,50 @@ resource "aws_network_acl" "nacl-vpc-1-private-subnets" {
 resource "aws_network_acl" "nacl-vpc-1-public-subnets" {
   vpc_id = aws_vpc.vpc-1.id
 
-  ingress {    
+  ingress {
     rule_no    = 100
     protocol   = "tcp"
     from_port  = 22
     to_port    = 22
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
-  ingress {    
+  ingress {
     rule_no    = 200
     protocol   = "tcp"
     from_port  = 80
     to_port    = 80
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
-  ingress {    
+  ingress {
     rule_no    = 300
     protocol   = "tcp"
     from_port  = 443
     to_port    = 443
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
-  ingress {    
+  ingress {
     rule_no    = 10000
     protocol   = "tcp"
     from_port  = 1024
     to_port    = 65535
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
   # ByPass
-  ingress {    
+  ingress {
     rule_no    = 11111
     protocol   = "-1"
     from_port  = 0
     to_port    = 0
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
   # egress {
@@ -149,23 +149,23 @@ resource "aws_network_acl" "nacl-vpc-1-public-subnets" {
   #   cidr_block = "0.0.0.0/0"    
   # }
 
-  egress {    
+  egress {
     rule_no    = 200
     protocol   = "tcp"
     from_port  = 80
     to_port    = 80
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
-  egress {    
+  egress {
     rule_no    = 300
     protocol   = "tcp"
     from_port  = 443
     to_port    = 443
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
-  }  
+    cidr_block = "0.0.0.0/0"
+  }
 
   egress {
     rule_no    = 10000
@@ -173,17 +173,17 @@ resource "aws_network_acl" "nacl-vpc-1-public-subnets" {
     from_port  = 1024
     to_port    = 65535
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
   # ByPass
-  egress {    
+  egress {
     rule_no    = 11111
     protocol   = "-1"
     from_port  = 0
     to_port    = 0
     action     = "allow"
-    cidr_block = "0.0.0.0/0"    
+    cidr_block = "0.0.0.0/0"
   }
 
   tags = {
@@ -287,7 +287,7 @@ resource "aws_route_table" "rt-vpc-1-public-subnets" {
 }
 
 resource "aws_route_table" "rt-vpc-1-private-subnets" {
-  vpc_id = aws_vpc.vpc-1.id  
+  vpc_id = aws_vpc.vpc-1.id
 
   tags = {
     Name = "rt-vpc-${var.shortnameid}-1-private-subnets"
@@ -394,7 +394,7 @@ resource "aws_security_group" "sg-vpc-1-rds-1" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-  }  
+  }
 
   ingress {
     description = "Allow PostgreSQL access"

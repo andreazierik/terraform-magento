@@ -18,8 +18,8 @@ data "terraform_remote_state" "remote-state-information" {
   }
 }
 
-provider "aws" {  
-  region    = var.regiao 
+provider "aws" {
+  region = var.regiao
 
   default_tags {
     tags = {
@@ -32,7 +32,7 @@ provider "aws" {
 }
 
 module "vpcs" {
-  source = "./vpcs"
-  shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid
-  allowed-iplist = ["0.0.0.0/0"]  
+  source         = "./vpcs"
+  shortnameid    = data.terraform_remote_state.remote-state-information.outputs.shortnameid
+  allowed-iplist = ["0.0.0.0/0"]
 }

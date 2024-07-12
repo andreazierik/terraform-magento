@@ -1,6 +1,6 @@
 // Hosted Zone
 data "aws_route53_zone" "hosted_zone" {
-  name         = "${var.domain-base}"
+  name         = var.domain-base
   private_zone = false
 }
 
@@ -9,7 +9,7 @@ resource "aws_route53_record" "odoo_record_A" {
 
   allow_overwrite = true
   zone_id         = data.aws_route53_zone.hosted_zone.zone_id
-  name            = "${var.domain-base}"
+  name            = var.domain-base
   type            = "A"
 
   alias {

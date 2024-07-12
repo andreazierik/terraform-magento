@@ -1,7 +1,7 @@
 // Cache policies
 resource "aws_cloudfront_cache_policy" "cache-policy-default" {
 
-  name    = "CachePolicy-${var.shortnameid}-default"
+  name = "CachePolicy-${var.shortnameid}-default"
   # comment = "CachePolicy-${var.shortnameid}-default"
 
   min_ttl     = 1
@@ -21,7 +21,7 @@ resource "aws_cloudfront_cache_policy" "cache-policy-default" {
     }
 
     enable_accept_encoding_brotli = true
-    enable_accept_encoding_gzip = true   
+    enable_accept_encoding_gzip   = true
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_cloudfront_cache_policy" "cache-policy-default" {
 resource "aws_cloudfront_distribution" "cloudfront-1" {
 
   // Settings
-  comment         = "cloudfront-${var.shortnameid}-1"
+  comment = "cloudfront-${var.shortnameid}-1"
 
   enabled         = true
   price_class     = "PriceClass_All"
@@ -91,7 +91,7 @@ resource "aws_cloudfront_distribution" "cloudfront-1" {
 
     // Managed-AllViewer
     origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
-  }  
+  }
 
   # Precedend 0 = /shop
   # ordered_cache_behavior {

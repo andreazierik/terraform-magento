@@ -48,7 +48,7 @@ resource "aws_launch_template" "ltplt-1" {
 
   monitoring {
     enabled = true
-  }  
+  }
 
   // ebs_optimized = true
 
