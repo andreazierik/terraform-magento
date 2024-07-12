@@ -13,7 +13,7 @@ resource "aws_lb_target_group" "tgrp-1-alb-1" {
 
   stickiness {
     enabled = true
-    type        = "application"
+    type        = "app_cookie"
     cookie_name = "PHPSESSID"
   }
 
