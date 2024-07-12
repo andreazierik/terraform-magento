@@ -48,14 +48,14 @@ resource "aws_cloudfront_distribution" "cloudfront-1" {
   restrictions {
     geo_restriction {
       restriction_type = "whitelist"
-      locations        = ["US", "BR", "NZ"]
+      locations        = ["US", "BR"]
     }
   }
 
   // Origins
   origin {
-    domain_name = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-dns-name
-    origin_id   = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-id
+    origin_id   = data.terraform_remote_state.remote-computing.outputs.elb-alb-1-id
+    domain_name = data.terraform_remote_state.remote-computing.outputs.elb-alb-1-dns-name
 
     custom_origin_config {
       origin_protocol_policy = "match-viewer"
@@ -70,12 +70,10 @@ resource "aws_cloudfront_distribution" "cloudfront-1" {
     }
   }
 
-  // Behaviors  
-
   // Default
   default_cache_behavior {
 
-    target_origin_id = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-id
+    target_origin_id = data.terraform_remote_state.remote-computing.outputs.elb-alb-1-id
     compress         = true
 
     // Settings
@@ -88,127 +86,37 @@ resource "aws_cloudfront_distribution" "cloudfront-1" {
     cached_methods  = ["GET", "HEAD"]
 
     // Managed-CachingDisabled
-    //cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
-    cache_policy_id = aws_cloudfront_cache_policy.cache-policy-odoo-default.id
+    cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+    //cache_policy_id = aws_cloudfront_cache_policy.cache-policy-default.id
 
     // Managed-AllViewer
     origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
   }  
 
   # Precedend 0 = /shop
-  ordered_cache_behavior {
-    path_pattern     = "/shop"
-    target_origin_id = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-id
-    compress         = false
+  # ordered_cache_behavior {
+  #   path_pattern     = "/shop"
+  #   target_origin_id = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-id
+  #   compress         = false
 
-    // Settings
-    viewer_protocol_policy = "redirect-to-https"
-    # min_ttl                = 0
-    # default_ttl            = 60
-    # max_ttl                = 120
+  #   // Settings
+  #   viewer_protocol_policy = "redirect-to-https"
+  #   # min_ttl                = 0
+  #   # default_ttl            = 60
+  #   # max_ttl                = 120
 
-    allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods  = ["GET", "HEAD"]
+  #   allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+  #   cached_methods  = ["GET", "HEAD"]
 
-    // Managed-CachingDisabled
-    cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+  #   // Managed-CachingDisabled
+  #   cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
 
-    // Managed-AllViewer
-    origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
-  }
-
-  # Precedend 1 = /shop/cart
-  ordered_cache_behavior {
-    path_pattern     = "/shop/cart"
-    target_origin_id = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-id
-    compress         = false
-
-    // Settings
-    viewer_protocol_policy = "redirect-to-https"
-    # min_ttl                = 0
-    # default_ttl            = 60
-    # max_ttl                = 120
-
-    allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods  = ["GET", "HEAD"]
-
-    // Managed-CachingDisabled
-    cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
-
-    // Managed-AllViewer
-    origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
-  }
-
-  # Precedend 2 = /shop/payment
-  ordered_cache_behavior {
-    path_pattern     = "/shop/payment"
-    target_origin_id = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-id
-    compress         = false
-
-    // Settings
-    viewer_protocol_policy = "redirect-to-https"
-    # min_ttl                = 0
-    # default_ttl            = 60
-    # max_ttl                = 120
-
-    allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods  = ["GET", "HEAD"]
-
-    // Managed-CachingDisabled
-    cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
-
-    // Managed-AllViewer
-    origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
-  }
-
-  # Precedend 3 = /payment/status
-  ordered_cache_behavior {
-    path_pattern     = "/payment/status"
-    target_origin_id = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-id
-    compress         = false
-
-    // Settings
-    viewer_protocol_policy = "redirect-to-https"
-    # min_ttl                = 0
-    # default_ttl            = 60
-    # max_ttl                = 120
-
-    allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods  = ["GET", "HEAD"]
-
-    // Managed-CachingDisabled
-    cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
-
-    // Managed-AllViewer
-    origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
-  }
-
-  # Precedend 4 = /payment/status/poll
-  ordered_cache_behavior {
-    path_pattern     = "/payment/status/poll"
-    target_origin_id = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-id
-    compress         = false
-
-    // Settings
-    //viewer_protocol_policy = "redirect-to-https"
-    viewer_protocol_policy = "allow-all"
-    # min_ttl                = 0
-    # default_ttl            = 60
-    # max_ttl                = 120
-
-    allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    //cached_methods  = ["GET", "HEAD"]
-    cached_methods  = ["GET", "HEAD"]
-
-    // Managed-CachingDisabled
-    cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
-
-    // Managed-AllViewer
-    origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
-  }
+  #   // Managed-AllViewer
+  #   origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
+  # }  
 
   tags = {
-    Environment = "production"
+    Name = "cloudfront-${var.shortnameid}-1"
   }
 
 }
