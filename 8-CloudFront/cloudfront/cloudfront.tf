@@ -113,11 +113,10 @@ resource "aws_cloudfront_distribution" "cloudfront-1" {
 
   #   // Managed-AllViewer
   #   origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
-  # }  
+  # }
 
   tags = {
     Name = "cloudfront-${var.shortnameid}-1"
   }
-
 }
 
