@@ -8,7 +8,7 @@ data "aws_route53_zone" "hosted_zone" {
 resource "aws_route53_record" "record_A" {
 
   allow_overwrite = true
-  zone_id         = data.aws_route53_zone.odoo_hosted_zone.zone_id
+  zone_id         = data.aws_route53_zone.hosted_zone.zone_id
   name            = "${var.domain-base}"
   type            = "A"
 
