@@ -130,6 +130,9 @@ server {
 }
 EOF'
 
+systemctl daemon-reload
+systemctl restart nginx
+
 # Desabilitar 2FA
 sudo -u www-data bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
 sudo -u www-data bin/magento cache:flush
