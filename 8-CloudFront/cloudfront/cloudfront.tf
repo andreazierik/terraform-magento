@@ -1,5 +1,5 @@
 // Cache policies
-resource "aws_cloudfront_cache_policy" "cache-policy-odoo-default" {
+resource "aws_cloudfront_cache_policy" "cache-policy-default" {
 
   name    = "Odoo-CachePolicy-default"
   comment = "Odoo-CachePolicy-default"

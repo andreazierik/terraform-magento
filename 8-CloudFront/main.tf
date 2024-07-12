@@ -31,8 +31,8 @@ provider "aws" {
   }
 }
 
-module "cdn" {
-  source = "./cdn"
+module "cloudfront" {
+  source = "./cloudfront"
   regiao = var.regiao
   remote-state-bucket = var.remote-state-bucket
   shortnameid = data.terraform_remote_state.remote-state-information.outputs.shortnameid
