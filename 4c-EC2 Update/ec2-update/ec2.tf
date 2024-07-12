@@ -1,32 +1,38 @@
-resource "aws_instance" "vm-1" {
-  # AMI Base  
+resource "aws_instance" "ec2-update" {
+  # AMI Base
   ami           = data.terraform_remote_state.remote-ami.outputs.ami-ec2-ami-id
   instance_type = "t3a.large"
   key_name      = "aws-dev-console-admin"
-  subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-public-1a-id
+  subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id
 
   root_block_device {
     volume_size = 30
   }
 
   vpc_security_group_ids = [
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-sg-allow-all-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-allow-all-id
   ]
   associate_public_ip_address = true
 
   user_data_replace_on_change = true
   user_data = templatefile(
     "${path.module}/userdata-update-magento.tftpl", {
-      rds-endpoint= split(":", data.terraform_remote_state.remote-state-rds.outputs.rds-database-rds-1-endpoint)[0]
+      domain-base = var.domain-base,
+      rds-1-endpoint = split(":", data.terraform_remote_state.remote-state-rds.outputs.rds-rds-1-endpoint)[0],
+      rds-1-db-name = var.rds-1-db-name,
+      rds-1-db-username = var.rds-1-db-username,
+      rds-1-db-password = var.rds-1-db-password,
       magento-public-key = var.magento-public-key,
       magento-private-key = var.magento-private-key,
-      my-domain = "http://brunoferreira86dev.com",
-      admin-email = "brunoferreira86dev@gmail.com",
+      magento-admin-email = var.magento-admin-email,
+      magento-admin-firstname = var.magento-admin-firstname,
+      magento-admin-lastname = var.magento-admin-lastname,
+      magento-admin-user = var.magento-admin-user,
+      magento-admin-password = var.magento-admin-password
     }
   )
 
-  provisioner "remote-exec" {
-  
+  provisioner "remote-exec" {  
     connection {
       type        = "ssh"
       user        = "ubuntu"      
@@ -43,6 +49,6 @@ resource "aws_instance" "vm-1" {
   }
 
   tags = {
-    Name = "vm-magento-update"
+    Name = "${var.shortnameid}-update"
   }
 }

@@ -33,10 +33,9 @@ resource "aws_instance" "ec2-setup" {
   )  
 
   provisioner "remote-exec" {
-  
     connection {
       type        = "ssh"
-      user        = "ubuntu"      
+      user        = "ubuntu"
       host        = self.public_ip
       timeout     = 600
     }
@@ -53,6 +52,3 @@ resource "aws_instance" "ec2-setup" {
     Name = "${var.shortnameid}-setup"
   }
 }
-
-
-

@@ -1,6 +1,6 @@
 // Target group
-resource "aws_lb_target_group" "tgrp-alb-1" {
-  name     = "tgrp-alb-1"
+resource "aws_lb_target_group" "tgrp-1-alb-1" {
+  name     = "tgrp-1-alb-${var.shortnameid}-1"
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-id
@@ -12,7 +12,7 @@ resource "aws_lb_target_group" "tgrp-alb-1" {
 
   health_check {
     enabled             = true
-    protocol            = "HTTP"    
+    protocol            = "HTTP"
     port                = 80
     interval            = 10
     timeout             = 5
@@ -22,26 +22,29 @@ resource "aws_lb_target_group" "tgrp-alb-1" {
   }  
 
   deregistration_delay = 15
+
+  tags = {
+    Name = "tgrp-1-alb-${var.shortnameid}-1"
+  }
 }
 
 // Application Load balancer
 resource "aws_lb" "alb-1" {
-  name               = "alb-1"
+  name               = "alb-${var.shortnameid}-1"
   internal           = false
   load_balancer_type = "application"
   security_groups = [
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-sg-alb-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-alb-1-id
   ]
   subnets = [
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-public-1a-id,
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-public-1b-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id,
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1b-id
   ]
 
   enable_deletion_protection = false
 
   tags = {
-    Name        = "alb-1"
-    Environment = "production"
+    Name        = "alb-${var.shortnameid}-1"
   }
 }
 
@@ -51,10 +54,11 @@ resource "aws_lb_listener" "listener-http-alb-1" {
   port              = "80"
   protocol          = "HTTP"
 
-  # default_action {    
+  # default_action {
   #   type             = "forward"
-  #   target_group_arn = aws_lb_target_group.tgrp-alb-1.arn  
+  #   target_group_arn = aws_lb_target_group.tgrp-alb-1.arn
   # }
+
   default_action {
     type = "redirect"
 
@@ -63,6 +67,10 @@ resource "aws_lb_listener" "listener-http-alb-1" {
       protocol    = "HTTPS"
       status_code = "HTTP_302"
     }
+  }
+
+  tags = {
+    Name = "listener-http-alb-${var.shortnameid}-1"
   }
 }
 
@@ -75,7 +83,11 @@ resource "aws_lb_listener" "listener-https-alb-1" {
 
   default_action {    
     type             = "forward"
-    target_group_arn = aws_lb_target_group.tgrp-alb-1.arn  
+    target_group_arn = aws_lb_target_group.tgrp-1-alb-1.arn
+  }
+
+  tags = {
+    Name = "listener-https-alb-${var.shortnameid}-1"
   }
 }
 
@@ -101,13 +113,13 @@ resource "aws_autoscaling_group" "asg-alb-1" {
 
   // Network
   vpc_zone_identifier = [
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-private-1a-id,
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-subnet-private-1b-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1a-id,
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1b-id
   ]    
 
   // Load balancing
   target_group_arns = [
-    aws_lb_target_group.tgrp-alb-1.arn
+    aws_lb_target_group.tgrp-1-alb-1.arn
   ]
 
   // Health checks

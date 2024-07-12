@@ -1,18 +1,16 @@
 // Hosted Zone
-data "aws_route53_zone" "odoo_hosted_zone" {
-  name         = "brunoferreira86dev.com"
+data "aws_route53_zone" "hosted_zone" {
+  name         = "${var.domain-base}"
   private_zone = false
 }
 
 // DNS Record - A
-resource "aws_route53_record" "odoo_record_A" {
+resource "aws_route53_record" "record_A" {
 
   allow_overwrite = true
   zone_id         = data.aws_route53_zone.odoo_hosted_zone.zone_id
-  name            = "brunoferreira86dev.com"
+  name            = "${var.domain-base}"
   type            = "A"
-  # ttl             = 300
-  # records         = [data.terraform_remote_state.remote-state-base-ec2.outputs.ec2-base-ami-public-ip]
 
   alias {
     name                   = aws_lb.alb-1.dns_name
@@ -22,14 +20,12 @@ resource "aws_route53_record" "odoo_record_A" {
 }
 
 // DNS Record - CNAME - www
-resource "aws_route53_record" "odoo_record_WWW" {
+resource "aws_route53_record" "record_WWW" {
 
   allow_overwrite = true
-  zone_id         = data.aws_route53_zone.odoo_hosted_zone.zone_id
-  name            = "www.brunoferreira86dev.com"
+  zone_id         = data.aws_route53_zone.hosted_zone.zone_id
+  name            = "www.${var.domain-base}"
   type            = "A"
-  # ttl             = 300
-  # records         = [data.terraform_remote_state.remote-state-base-ec2.outputs.ec2-base-ami-public-ip]
 
   alias {
     name                   = aws_lb.alb-1.dns_name

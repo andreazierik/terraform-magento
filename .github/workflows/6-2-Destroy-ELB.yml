@@ -27,4 +27,5 @@ jobs:
         terraform init -backend-config=./backend.tfvars
         terraform destroy -auto-approve \
           -var "regiao=${{env.REGION}}" \
-          -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
+          -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}" \
+          -var "domain-base=${{vars.DOMAIN_BASE}}"

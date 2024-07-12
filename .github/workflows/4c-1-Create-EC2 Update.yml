@@ -34,5 +34,14 @@ jobs:
         terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}" \
+          -var "domain-base=${{vars.DOMAIN_BASE}}" \
+          -var "rds-1-db-name=${{vars.RDS_1_DB_NAME}}" \
+          -var "rds-1-db-username=${{vars.RDS_1_DB_USERNAME}}" \
+          -var "rds-1-db-password=${{secrets.RDS_1_DB_PASSWORD}}" \
           -var "magento-public-key=${{secrets.MAGENTO_PUBLIC_KEY}}" \
-          -var "magento-private-key=${{secrets.MAGENTO_PRIVATE_KEY}}"
+          -var "magento-private-key=${{secrets.MAGENTO_PRIVATE_KEY}}" \
+          -var "magento-admin-email=${{vars.MAGENTO_ADMIN_EMAIL}}" \
+          -var "magento-admin-firstname=${{vars.MAGENTO_ADMIN_FIRSTNAME}}" \
+          -var "magento-admin-lastname=${{vars.MAGENTO_ADMIN_LASTNAME}}" \
+          -var "magento-admin-user=${{vars.MAGENTO_ADMIN_USER}}" \
+          -var "magento-admin-password=${{secrets.MAGENTO_ADMIN_PASSWORD}}"

@@ -1,58 +1,25 @@
 #!/bin/bash
 echo "#### Iniciado user data ####"
 
-
 cd /var/www/magento2
+
+# Remvoer arquivo env.php para evitar conflito na atualização
 rm /var/www/magento2/app/etc/env.php
 
 echo "#### Novo RDS endpoint: ${rds-endpoint}"
 
-# sudo -u www-data bin/magento -q setup:config:set \
-#   --db-host=${rds-endpoint} \
-#   2>&1 | sudo -u www-data tee magento_update_output.log
-
-# sudo -u www-data bin/magento -q setup:config:set \
-#   --db-host=terraform-20240711121732038900000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
-#   2>&1 | sudo -u www-data tee magento_update_output.log
-
-# sudo -u www-data bin/magento -q setup:config:set \
-#   --db-host=${rds-endpoint} \
-#   2>&1 | sudo -u www-data tee magento_update_output.log
-
-# sudo -u www-data bin/magento setup:install \
-#   --base-url=http://brunoferreira86dev.com \
-#   --db-host=terraform-20240711121732038900000001.c7otnxhdeoih.us-east-1.rds.amazonaws.com \
-#   --db-name=magentodb \
-#   --db-user=magentoadmin \
-#   --db-password=pass123456789 \
-#   --admin-firstname=bruno \
-#   --admin-lastname=ferreira \
-#   --admin-email=brunoferreira86dev@gmail.com \
-#   --admin-user=magentouser \
-#   --admin-password=pass12345678 \
-#   --backend-frontname=adminlkj987 \
-#   --language=pt_BR \
-#   --currency=BRL \
-#   --timezone=America/Sao_Paulo \
-#   --use-rewrites=1 \
-#   --search-engine=opensearch \
-#   --opensearch-host=localhost \
-#   --opensearch-port=9200 \
-#   --opensearch-index-prefix=magento2 \
-#   --opensearch-timeout=15 2>&1 | sudo -u www-data tee magento_update2_output.log
-
 sudo -u www-data bin/magento setup:install \
-  --base-url=${my-domain} \
-  --db-host=${rds-endpoint} \
-  --db-name=magentodb \
-  --db-user=magentoadmin \
-  --db-password=pass123456789 \
-  --admin-firstname=bruno \
-  --admin-lastname=ferreira \
-  --admin-email=${admin-email} \
-  --admin-user=magentouser \
-  --admin-password=pass12345678 \
-  --backend-frontname=adminlkj987 \
+  --base-url=http://${domain-base} \
+  --db-host=${rds-1-endpoint} \
+  --db-name=${rds-1-db-name} \
+  --db-user=${rds-1-db-username} \
+  --db-password=${rds-1-db-password} \
+  --admin-firstname=${magento-admin-firstname} \
+  --admin-lastname=${magento-admin-lastname} \
+  --admin-email=${magento-admin-email} \
+  --admin-user=${magento-admin-user} \
+  --admin-password=${magento-admin-password} \
+  --backend-frontname=lkj987 \
   --language=pt_BR \
   --currency=BRL \
   --timezone=America/Sao_Paulo \
@@ -61,15 +28,11 @@ sudo -u www-data bin/magento setup:install \
   --opensearch-host=localhost \
   --opensearch-port=9200 \
   --opensearch-index-prefix=magento2 \
-  --opensearch-timeout=15 | sudo -u www-data tee magento_update2_output.log
+  --opensearch-timeout=15 2>&1 | sudo -u www-data tee magento_update2_output.log
 
 sudo -u www-data bin/magento config:set web/secure/base_url https://brunoferreira86dev.com/
 sudo -u www-data bin/magento config:set web/secure/base_link_url https://brunoferreira86dev.com/
 sudo -u www-data bin/magento config:set web/url/redirect_to_base 0
-
-sudo -u www-data bash -c 'echo $(cat magento_install_output.log |
-  grep "\[SUCCESS\]: Magento Admin URI:" |
-  awk -F": " "{print \$3}" | sed "s#^/##") > update_admin_url_output.txt'
 
 systemctl daemon-reload
 systemctl restart nginx

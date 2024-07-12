@@ -1,12 +1,11 @@
-// Odoo launch template
+// Launch template 1
 resource "aws_launch_template" "ltplt-1" {
 
-  name                   = "ltplt-1"
+  name                   = "ltplt-${var.shortnameid}-1"
   update_default_version = true
 
-  // Application and OS Images (Amazon Machine Image) 
-  // AMI criada na etata de setup.
-  image_id = data.terraform_remote_state.remote-ami.outputs.ami-ec2-ami-id
+  // AMI
+  image_id = data.terraform_remote_state.remote-ami.outputs.ami-ami-id
 
   // Instance type
   instance_type = "c7a.medium"
@@ -16,26 +15,15 @@ resource "aws_launch_template" "ltplt-1" {
 
   // Network settings
   vpc_security_group_ids = [
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-sg-instances-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-alb-1-tgrp-1-id
   ]
-
-  # security_group_names = [
-  #   data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-sg-allow-all-name
-  # ]
-
-  # network_interfaces {
-  #   associate_public_ip_address = false
-  #   security_groups = [
-  #     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-sg-allow-all-id
-  #   ]
-  # }
 
   // Resource tags
   tag_specifications {
     resource_type = "instance"
 
     tags = {
-      Name = "elb-1"
+      Name = "ltplt-${var.shortnameid}-1"
     }
   }
 
@@ -43,7 +31,7 @@ resource "aws_launch_template" "ltplt-1" {
     resource_type = "volume"
 
     tags = {
-      Name = "ebs-elb-1"
+      Name = "ltplt-${var.shortnameid}-1-ebs"
     }
   }
 
@@ -51,7 +39,7 @@ resource "aws_launch_template" "ltplt-1" {
     resource_type = "network-interface"
 
     tags = {
-      Name = "eni-elb-1"
+      Name = "ltplt-${var.shortnameid}-1-eni"
     }
   }
 
@@ -63,5 +51,9 @@ resource "aws_launch_template" "ltplt-1" {
   }  
 
   // ebs_optimized = true
+
+  tags = {
+    Name = "ltplt-${var.shortnameid}-1"
+  }
 }
 
