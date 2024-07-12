@@ -1,6 +1,6 @@
 resource "aws_instance" "ec2-update" {
   # AMI Base
-  ami           = data.terraform_remote_state.remote-ami.outputs.ami-ec2-ami-id
+  ami           = data.terraform_remote_state.remote-ami.outputs.ami-ami-id
   instance_type = "t3a.large"
   key_name      = "aws-dev-console-admin"
   subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id

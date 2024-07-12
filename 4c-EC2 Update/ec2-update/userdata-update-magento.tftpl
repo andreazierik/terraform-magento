@@ -28,7 +28,7 @@ sudo -u www-data bin/magento setup:install \
   --opensearch-host=localhost \
   --opensearch-port=9200 \
   --opensearch-index-prefix=magento2 \
-  --opensearch-timeout=15 2>&1 | sudo -u www-data tee magento_update2_output.log
+  --opensearch-timeout=15 2>&1 | sudo -u www-data tee magento_update_output.log
 
 sudo -u www-data bin/magento config:set web/secure/base_url https://brunoferreira86dev.com/
 sudo -u www-data bin/magento config:set web/secure/base_link_url https://brunoferreira86dev.com/
