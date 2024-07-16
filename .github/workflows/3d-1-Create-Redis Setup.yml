@@ -18,6 +18,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Set up SSH agent
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.AWS_DEV_CLI_ADMIN_SSH_PRIVATE_KEY }}
+
     - name: "Redis Setup: Setup backend, run terraform init and apply."
       env:
         KEY_TF_STATE: "Redis Setup/terraform.tfstate"

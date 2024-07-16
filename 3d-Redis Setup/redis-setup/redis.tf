@@ -37,6 +37,6 @@ resource "aws_instance" "redis-setup" {
   }
 
   tags = {
-    Name = "${var.shortnameid}-setup"
+    Name = "${var.shortnameid}-redis-setup"
   }
 }
