@@ -1,4 +1,4 @@
-name: 4e-2 | Destroy | Redis Setup
+name: 3d-1 | Create | Redis Setup
 on: 
   workflow_dispatch
 env:
@@ -9,7 +9,7 @@ env:
 
 jobs:
   main_job:
-    name: "Destroy: Redis Setup"
+    name: "Create: Redis Setup"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,14 +18,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: "Redis Setup: Setup backend, run terraform init and destroy."
+    - name: "Redis Setup: Setup backend, run terraform init and apply."
       env:
         KEY_TF_STATE: "Redis Setup/terraform.tfstate"
-        LOCAL_FOLDER: "4e-Reds Setup"
+        LOCAL_FOLDER: "3d-Redis Setup"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"
         terraform init -backend-config=./backend.tfvars
-        terraform destroy -auto-approve \
+        terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
