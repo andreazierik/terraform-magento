@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "### Iniciado user data ###"
+
+# Atualizando linux
+apt update -y && apt upgrade -y
+
+
+# Informa fim do user data para autorizar Terraform a prosseguir instalação.
+echo "### Finalizado user data ###"
+sudo -u ubuntu touch /tmp/userdata_finished
