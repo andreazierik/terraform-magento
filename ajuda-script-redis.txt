@@ -1,0 +1,71 @@
+
+
+sudo apt update
+sudo apt upgrade -y
+sudo apt install redis-server -y
+
+sudo sed -i 's/^bind 127.0.0.1 ::1/bind 0.0.0.0/' /etc/redis/redis.conf
+sudo sed -i 's/^protected-mode yes/protected-mode no/' /etc/redis/redis.conf
+
+
+openssl rand 60 | openssl base64 -A
+supervised systemd
+requirepass mypassword
+
+sudo systemctl start redis
+sudo systemctl enable redis
+
+
+
+
+sudo systemctl restart redis
+#sudo systemctl status redis
+
+redis-cli ping
+
+
+
+# Criar um Script de Inicialização (User Data)
+
+#!/bin/bash
+
+# Atualizar pacotes e instalar Redis
+sudo apt update
+sudo apt upgrade -y
+sudo apt install redis-server -y
+
+# Definir variáveis
+ROLE=$(aws ec2 describe-tags --filters "Name=resource-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)" "Name=key,Values=Role" --query "Tags[0].Value" --output text)
+
+if [ "$ROLE" == "master" ]; then
+  # Configurar como master
+  sudo sed -i 's/^bind 127.0.0.1 ::1/bind 0.0.0.0/' /etc/redis/redis.conf
+  sudo sed -i 's/^protected-mode yes/protected-mode no/' /etc/redis/redis.conf
+else
+  # Configurar como réplica
+  MASTER_ENDPOINT=$(aws ssm get-parameter --name "RedisMasterEndpoint" --query "Parameter.Value" --output text)
+  echo "replicaof $MASTER_ENDPOINT 6379" | sudo tee -a /etc/redis/redis.conf
+  sudo sed -i 's/^bind 127.0.0.1 ::1/bind 0.0.0.0/' /etc/redis/redis.conf
+  sudo sed -i 's/^protected-mode yes/protected-mode no/' /etc/redis/redis.conf
+fi
+
+# Iniciar e habilitar Redis
+sudo systemctl start redis
+sudo systemctl enable redis
+
+
+
+# Configurando o Magento
+
+# Default caching
+bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=127.0.0.1 --cache-backend-redis-password=XXXX --cache-backend-redis-db=0
+
+# Page caching
+bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=127.0.0.1 --page-cache-redis-password=XXXX --page-cache-redis-db=1
+
+# Monitor
+# redis-cli -a XXXX monitor
+
+# Session storage
+bin/magento setup:config:set --session-save=redis --session-save-redis-host=127.0.0.1 --session-save-redis-log-level=3 /
+  --session-save-redis-max-concurrency=12 --session-save-redis-password=XXXX --session-save-redis-db=2
