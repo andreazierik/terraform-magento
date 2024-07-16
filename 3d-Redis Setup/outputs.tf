@@ -1,9 +1,9 @@
-output "redis-setup-ec2-setup-id" {
+output "redis-setup-redis-setup-id" {
   description = "ID do Redis base para criar a AMI"
-  value       = module.ec2-setup.ec2-setup-id
+  value       = module.redis-setup.redis-setup-id
 }
 
-output "redis-setup-ec2-setup-public-ip" {
+output "redis-setup-redis-setup-public-ip" {
   description = "IP público do Redis base para criar a AMI"
-  value       = module.ec2-setup.ec2-setup-public-ip
+  value       = module.redis-setup.redis-setup-public-ip
 }

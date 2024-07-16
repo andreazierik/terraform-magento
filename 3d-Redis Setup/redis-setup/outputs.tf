@@ -1,7 +1,7 @@
-output "ec2-setup-id" {
-  value = aws_instance.ec2-setup.id
+output "redis-setup-id" {
+  value = aws_instance.redis-setup.id
 }
 
-output "ec2-setup-public-ip" {
-  value = aws_instance.ec2-setup.public_ip
+output "redis-setup-public-ip" {
+  value = aws_instance.redis-setup.public_ip
 }

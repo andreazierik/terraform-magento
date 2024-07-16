@@ -1,4 +1,4 @@
-resource "aws_instance" "ec2-setup" {
+resource "aws_instance" "redis-setup" {
   # Ubuntu Server 24.04 LTS (HVM), SSD Volume Type
   ami           = "ami-04b70fa74e45c3917"
   instance_type = "t3a.large"
