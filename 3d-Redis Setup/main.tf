@@ -36,4 +36,5 @@ module "redis-setup" {
   regiao                  = var.regiao
   remote-state-bucket     = var.remote-state-bucket
   shortnameid             = data.terraform_remote_state.remote-state-information.outputs.shortnameid
+  redis-password          = var.redis-password
 }

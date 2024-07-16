@@ -4,20 +4,22 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install redis-server -y
 
-sudo sed -i 's/^bind 127.0.0.1 ::1/bind 0.0.0.0/' /etc/redis/redis.conf
-sudo sed -i 's/^protected-mode yes/protected-mode no/' /etc/redis/redis.conf
+sudo sed -i '/^bind /c\bind 0.0.0.0' /etc/redis/redis.conf
+sudo sed -i '/^protected-mode /c\protected-mode no' /etc/redis/redis.conf
+#sudo sed -i '/^# requirepass /c\requirepass '"$REDIS_PASSWORD" /etc/redis/redis.conf
+#sudo sed -i '/^requirepass /c\requirepass '"$REDIS_PASSWORD" /etc/redis/redis.conf
+sudo sed -i '/^# requirepass /c\requirepass '"iMm_acwyGsNpRweystsJ~atFX7V=CakE~xq--PXu__nTydoqYZnn~VyNka~M" /etc/redis/redis.conf
+#sudo sed -i '/^requirepass /c\requirepass '"iMm_acwyGsNpRweystsJ~atFX7V=CakE~xq--PXu__nTydoqYZnn~VyNka~M" /etc/redis/redis.conf
+sudo sed -i '/^# supervised /c\supervised systemd' /etc/redis/redis.conf
+#sudo sed -i '/^supervised /c\supervised systemd' /etc/redis/redis.conf
 
 
-openssl rand 60 | openssl base64 -A
-supervised systemd
-requirepass mypassword
+#openssl rand 60 | openssl base64 -A
 
-sudo systemctl start redis
-sudo systemctl enable redis
+#sudo systemctl start redis
+#sudo systemctl enable redis
 
-
-
-
+sudo systemctl daemon-reload
 sudo systemctl restart redis
 #sudo systemctl status redis
 

@@ -12,3 +12,8 @@ variable "shortnameid" {
   type        = string
   description = "Nome curto para identificacao dos recursos"
 }
+
+variable "redis-password" {
+  type        = string
+  sensitive   = true
+}

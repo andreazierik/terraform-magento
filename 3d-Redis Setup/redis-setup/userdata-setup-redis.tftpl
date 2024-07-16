@@ -3,7 +3,15 @@ echo "### Iniciado user data ###"
 
 # Atualizando linux
 apt update -y && apt upgrade -y
+apt install redis-server -y
 
+sed -i '/^bind /c\bind 0.0.0.0' /etc/redis/redis.conf
+sed -i '/^protected-mode /c\protected-mode no' /etc/redis/redis.conf
+sed -i '/^# requirepass /c\requirepass '"${redis-password}" /etc/redis/redis.conf
+sed -i '/^# supervised /c\supervised systemd' /etc/redis/redis.conf
+
+systemctl daemon-reload
+systemctl restart redis
 
 # Informa fim do user data para autorizar Terraform a prosseguir instalação.
 echo "### Finalizado user data ###"

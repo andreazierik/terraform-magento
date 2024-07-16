@@ -17,6 +17,7 @@ resource "aws_instance" "redis-setup" {
   user_data_replace_on_change = true
   user_data = templatefile(
     "${path.module}/userdata-setup-redis.tftpl", {
+      redis-password = "${var.redis-password}"
     }
   )
 
