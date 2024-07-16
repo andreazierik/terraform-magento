@@ -1,8 +1,8 @@
 resource "aws_instance" "redis-setup" {
   # Ubuntu Server 24.04 LTS (HVM), SSD Volume Type
   ami           = "ami-04b70fa74e45c3917"
-  #instance_type = "t3a.large"
-  instance_type = "t3.micro"
+  instance_type = "t3a.large"
+  # instance_type = "t3.micro"
   #key_name      = "aws-dev-console-admin"
   key_name      = "aws-services-ec2-ssh"
   subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id

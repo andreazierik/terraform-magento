@@ -8,8 +8,8 @@ resource "aws_launch_template" "ltplt-1" {
   image_id = data.terraform_remote_state.remote-ami.outputs.ami-ami-id
 
   // Instance type
-  #instance_type = "c7a.medium"
-  instance_type = "t3.micro"
+  instance_type = "c7a.medium"
+  # instance_type = "t3.micro"
 
   // Key pair (login)
   key_name = "aws-dev-console-admin"
