@@ -12,7 +12,8 @@ resource "aws_launch_template" "ltplt-1" {
   # instance_type = "t3.micro"
 
   // Key pair (login)
-  key_name = "aws-dev-console-admin"
+  # key_name = "aws-dev-console-admin"
+  key_name = "aws-services-ec2-ssh"
 
   // Network settings
   vpc_security_group_ids = [
