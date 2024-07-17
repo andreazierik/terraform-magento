@@ -1,4 +1,4 @@
-resource "aws_instance" "redis-setup" {
+resource "aws_instance" "redis-sentinel-setup" {
   # Ubuntu Server 24.04 LTS (HVM), SSD Volume Type
   ami           = "ami-04b70fa74e45c3917"
   # instance_type = "t3a.large"
@@ -18,7 +18,7 @@ resource "aws_instance" "redis-setup" {
 
   user_data_replace_on_change = true
   user_data = templatefile(
-    "${path.module}/userdata-setup-redis.tftpl", {
+    "${path.module}/userdata-setup-redis-sentinel.tftpl", {
       redis-password = "${var.redis-password}"
     }
   )
@@ -40,6 +40,6 @@ resource "aws_instance" "redis-setup" {
   }
 
   tags = {
-    Name = "${var.shortnameid}-redis-setup"
+    Name = "${var.shortnameid}-redis-sentinel-setup"
   }
 }

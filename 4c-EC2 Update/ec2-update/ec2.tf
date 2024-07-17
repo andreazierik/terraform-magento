@@ -8,7 +8,7 @@ resource "aws_instance" "ec2-update" {
   subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id
 
   root_block_device {
-    volume_size = 30
+    volume_size = 10
   }
 
   vpc_security_group_ids = [
