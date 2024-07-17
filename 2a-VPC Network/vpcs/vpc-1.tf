@@ -350,7 +350,7 @@ resource "aws_security_group" "sg-vpc-1-allow-all" {
 
 resource "aws_security_group" "sg-vpc-1-alb-1-tgrp-1" {
   name        = "sg_${var.shortnameid}_vpc_1_alb_1_tgrp_1"
-  description = "Security group para instancias EC2"
+  description = "Security group para instancias EC2 do Magento"
   vpc_id      = aws_vpc.vpc-1.id
 
   # ByPass
@@ -379,6 +379,84 @@ resource "aws_security_group" "sg-vpc-1-alb-1-tgrp-1" {
 
   tags = {
     Name = "sg-${var.shortnameid}-vpc-1-alb-1-tgrp-1"
+  }
+}
+
+resource "aws_security_group" "sg-vpc-1-alb-1-tgrp-2" {
+  name        = "sg_${var.shortnameid}_redis_master_vpc_1_alb_1_tgrp_2"
+  description = "Security group para instancias EC2 do Redis Master"
+  vpc_id      = aws_vpc.vpc-1.id
+
+  # ByPass
+  ingress {
+    description = "Permite tudo"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "sg-${var.shortnameid}-redis-master-vpc-1-alb-1-tgrp-2"
+  }
+}
+
+resource "aws_security_group" "sg-vpc-1-alb-1-tgrp-3" {
+  name        = "sg_${var.shortnameid}_redis_replicas_vpc_1_alb_1_tgrp_3"
+  description = "Security group para instancias EC2 do Redis Replicas"
+  vpc_id      = aws_vpc.vpc-1.id
+
+  # ByPass
+  ingress {
+    description = "Permite tudo"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "sg-${var.shortnameid}-redis-replicas-vpc-1-alb-1-tgrp-3"
+  }
+}
+
+resource "aws_security_group" "sg-vpc-1-alb-1-tgrp-4" {
+  name        = "sg_${var.shortnameid}_redis_sentinel_vpc_1_alb_1_tgrp_4"
+  description = "Security group para instancias EC2 do Redis Sentinel"
+  vpc_id      = aws_vpc.vpc-1.id
+
+  # ByPass
+  ingress {
+    description = "Permite tudo"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "sg-${var.shortnameid}-redis-sentinel-vpc-1-alb-1-tgrp-4"
   }
 }
 
