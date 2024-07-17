@@ -1,5 +1,6 @@
 // Target group
-resource "aws_lb_target_group" "tgrp-1-alb-1" {
+resource "aws_lb_target_group" "tgrp-1-alb-1" {  
+
   name     = "tgrp-1-alb-${var.shortnameid}-1"
   port     = 80
   protocol = "HTTP"
