@@ -2,19 +2,35 @@
 echo "### Iniciado user data ###"
 
 # Atualizando linux
-apt update -y
-apt upgrade -y
+sudo add-apt-repository ppa:redislabs/redis
+apt-get update -y
+apt-get upgrade -y
 
-apt install redis-server -y
+# Instalando Redis Server e Redis Sentinel
+apt-get install -y redis-server redis-sentinel net-tools
 
+# Parar o Redis Server e Sentinel antes de fazer as alterações
+systemctl stop redis-server
+systemctl stop redis-sentinel
+
+# Configuração do Redis
 sed -i '/^bind /c\bind 0.0.0.0' /etc/redis/redis.conf
 sed -i '/^protected-mode /c\protected-mode no' /etc/redis/redis.conf
 sed -i '/^# supervised /c\supervised systemd' /etc/redis/redis.conf
-#sed -i '/^# requirepass /c\requirepass '"${redis-password}" /etc/redis/redis.conf
 echo "user default on >${redis-password} allcommands allkeys" | sudo tee -a /etc/redis/redis.conf
+echo "masterauth ${redis-password}" | sudo tee -a /etc/redis/redis.conf
+echo "requirepass ${redis-password}" | sudo tee -a /etc/redis/redis.conf
 
-systemctl daemon-reload
-systemctl restart redis-server
+# Configuração do Redis Sentinel
+cat <<EOF > /etc/redis/sentinel.conf
+protected-mode no
+port 26379
+daemonize yes
+supervised systemd
+sentinel auth-pass redis-cluster ${redis-password}
+sentinel down-after-milliseconds redis-cluster 5000
+sentinel failover-timeout redis-cluster 60000
+EOF
 
 # Informa fim do user data para autorizar Terraform a prosseguir instalação.
 echo "#### Finalizado user data ####"

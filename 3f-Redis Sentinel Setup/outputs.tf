@@ -1,9 +1,9 @@
-output "redis-setup-redis-setup-id" {
-  description = "ID do Redis base para criar a AMI"
-  value       = module.redis-setup.redis-setup-id
+output "redis-sentinel-setup-redis-sentinel-setup-id" {
+  description = "ID do Redis Sentinel base para criar a AMI"
+  value       = module.redis-sentinel-setup.redis-sentinel-setup-id
 }
 
-output "redis-setup-redis-setup-public-ip" {
-  description = "IP público do Redis base para criar a AMI"
-  value       = module.redis-setup.redis-setup-public-ip
+output "redis-sentinel-setup-redis-sentinel-setup-public-ip" {
+  description = "IP público do Redis Sentinel base para criar a AMI"
+  value       = module.redis-sentinel-setup.redis-sentinel-setup-public-ip
 }
