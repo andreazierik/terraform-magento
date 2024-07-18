@@ -24,7 +24,7 @@ resource "aws_opensearch_domain" "opensearch-1" {
       data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1c-id,
     ]
     security_group_ids = [
-      data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-opensearch-1-id
+      data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-opensearch-1-id
     ]
   }
 
