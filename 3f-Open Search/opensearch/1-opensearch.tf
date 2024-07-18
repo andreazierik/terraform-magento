@@ -54,19 +54,31 @@ resource "aws_opensearch_domain" "opensearch-1" {
     }
   }
 
+  # access_policies = jsonencode({
+  #   Version = "2012-10-17",
+  #   Statement = [
+  #     {
+  #       Effect = "Allow",
+  #       Principal = {
+  #         AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${aws_iam_role.opensearch_access_role.name}"
+  #       },
+  #       Action = "es:*",
+  #       Resource = "arn:aws:es:us-east-1:${data.aws_caller_identity.current.account_id}:domain/opensearch-${var.shortnameid}-1/*"
+  #     }
+  #   ]
+  # })
+
   access_policies = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
+    "Version": "2012-10-17",
+    "Statement": [
       {
-        Effect = "Allow",
-        Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${aws_iam_role.opensearch_access_role.name}"
-        },
-        Action = "es:*",
-        Resource = "arn:aws:es:us-east-1:${data.aws_caller_identity.current.account_id}:domain/opensearch-${var.shortnameid}-1/*"
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": "es:*",
+        "Resource": "arn:aws:es:us-east-1:${data.aws_caller_identity.current.account_id}:domain/opensearch-${var.shortnameid}-1/*"        
       }
     ]
-  })  
+  })
 
   tags = {
     Name = "opensearch-${var.shortnameid}-1"
