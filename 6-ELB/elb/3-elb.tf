@@ -122,7 +122,8 @@ resource "aws_autoscaling_group" "asg-alb-1" {
   // Network
   vpc_zone_identifier = [
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1a-id,
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1b-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1b-id,
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1c-id,
   ]
 
   // Load balancing
