@@ -115,7 +115,7 @@ sudo -u www-data bin/magento setup:install \
   --timezone=America/Sao_Paulo \
   --use-rewrites=1 \
   --search-engine=opensearch \
-  --opensearch-host=${opensearch-endpoint} \
+  --opensearch-host=https://${opensearch-endpoint} \
   --opensearch-port=443 \
   --opensearch-index-prefix=magento2 \
   --opensearch-timeout=15 \
