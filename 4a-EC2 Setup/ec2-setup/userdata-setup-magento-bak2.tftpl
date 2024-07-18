@@ -118,19 +118,7 @@ sudo -u www-data bin/magento setup:install \
   --opensearch-host=${opensearch-endpoint} \
   --opensearch-port=443 \
   --opensearch-index-prefix=magento2 \
-  --opensearch-timeout=15 \
-  --cache-backend=redis \
-  --cache-backend-redis-server=${redis-endpoint} \
-  --cache-backend-redis-port=6379 \
-  --cache-backend-redis-db=0 \
-  --page-cache=redis \
-  --page-cache-redis-server=${redis-endpoint} \
-  --page-cache-redis-port=6379 \
-  --page-cache-redis-db=1 \
-  --session-save=redis \
-  --session-save-redis-host=${redis-endpoint} \
-  --session-save-redis-port=6379 \
-  --session-save-redis-db=2 2>&1 | sudo -u www-data tee magento_install_output.log
+  --opensearch-timeout=15 2>&1 | sudo -u www-data tee magento_install_output.log
 
 # Inicio alterações necessárias para o redirect 443 > 80 via ALB
 echo "#### Magento pos setup ####"
