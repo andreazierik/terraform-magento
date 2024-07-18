@@ -52,11 +52,11 @@ resource "aws_launch_template" "ltplt-nlb-1-trgp-1" {
     enabled = true
   }
 
-  user_data = templatefile(
+  user_data = base64encode(templatefile(
     "${path.module}/userdata-redis-master.tftpl", {
       master-dns = aws_lb.nlb-1.dns_name
     }
-  )
+  ))
 
   // ebs_optimized = true
 
@@ -66,9 +66,9 @@ resource "aws_launch_template" "ltplt-nlb-1-trgp-1" {
 }
 
 // Launch template Redis Replica
-resource "aws_launch_template" "ltplt-nlb-1-trgp-2" {
+resource "aws_launch_template" "ltplt-nlb-2-trgp-1" {
 
-  name                   = "ltplt-${var.shortnameid}-nlb-1-trgp-redis-replica-2"
+  name                   = "ltplt-${var.shortnameid}-nlb-2-trgp-redis-replica-1"
   update_default_version = true
 
   // AMI
@@ -92,7 +92,7 @@ resource "aws_launch_template" "ltplt-nlb-1-trgp-2" {
     resource_type = "instance"
 
     tags = {
-      Name = "ltplt-${var.shortnameid}-nlb-1-trgp-redis-replica-2"
+      Name = "ltplt-${var.shortnameid}-nlb-2-trgp-redis-replica-1"
     }
   }
 
@@ -100,7 +100,7 @@ resource "aws_launch_template" "ltplt-nlb-1-trgp-2" {
     resource_type = "volume"
 
     tags = {
-      Name = "ltplt-${var.shortnameid}-nlb-1-trgp-redis-replica-2-ebs"
+      Name = "ltplt-${var.shortnameid}-nlb-2-trgp-redis-replica-1-ebs"
     }
   }
 
@@ -108,7 +108,7 @@ resource "aws_launch_template" "ltplt-nlb-1-trgp-2" {
     resource_type = "network-interface"
 
     tags = {
-      Name = "ltplt-${var.shortnameid}-nlb-1-trgp-redis-replica-2-eni"
+      Name = "ltplt-${var.shortnameid}-nlb-2-trgp-redis-replica-1-eni"
     }
   }
 
@@ -119,17 +119,17 @@ resource "aws_launch_template" "ltplt-nlb-1-trgp-2" {
     enabled = true
   }
 
-  user_data = templatefile(
+  user_data = base64encode(templatefile(
     "${path.module}/userdata-redis-replica.tftpl", {
       master-dns = aws_lb.nlb-1.dns_name,
       redis-password = var.redis-password
     }
-  )
+  ))
 
   // ebs_optimized = true
 
   tags = {
-    Name = "ltplt-${var.shortnameid}-nlb-1-trgp-redis-replica-2"
+    Name = "ltplt-${var.shortnameid}-nlb-2-trgp-redis-replica-1"
   }
 }
 
