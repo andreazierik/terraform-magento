@@ -1,3 +1,4 @@
+
 resource "aws_opensearch_domain" "opensearch-1" {
   
   domain_name = "opensearch-${var.shortnameid}-1"
@@ -43,6 +44,20 @@ resource "aws_opensearch_domain" "opensearch-1" {
     enforce_https = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
   }
+
+  access_policies = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${aws_iam_role.opensearch_access_role.name}"
+        },
+        Action = "es:*",
+        Resource = "arn:aws:es:us-east-1:${data.aws_caller_identity.current.account_id}:domain/opensearch-${var.shortnameid}-1/*"
+      }
+    ]
+  })  
 
   tags = {
     Name = "opensearch-${var.shortnameid}-1"
