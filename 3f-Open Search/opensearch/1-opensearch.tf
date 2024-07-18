@@ -20,8 +20,7 @@ resource "aws_opensearch_domain" "opensearch-1" {
   vpc_options {
     subnet_ids = [
       data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1a-id,
-      data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1b-id,
-      data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1c-id,
+      data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1b-id      
     ]
     security_group_ids = [
       data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-opensearch-1-id
