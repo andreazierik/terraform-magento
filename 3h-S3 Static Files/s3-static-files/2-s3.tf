@@ -7,7 +7,7 @@ resource "aws_s3_bucket" "magento-static-files" {
 }
 
 resource "aws_s3_bucket_acl" "magento-static-files-acl" {
-  bucket = aws_s3_bucket.magento_static_files.id
+  bucket = aws_s3_bucket.magento-static-files.id
   acl    = "private"
 }
 
