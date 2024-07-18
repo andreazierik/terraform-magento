@@ -350,9 +350,9 @@ resource "aws_security_group" "sg-vpc-1-allow-all" {
 
 resource "aws_security_group" "sg-vpc-1-alb-1-tgrp-1" {
 
-  # lifecycle {
-  #   ignore_changes = [ description ]
-  # }
+  lifecycle {
+    ignore_changes = [ description ]
+  }
 
   name        = "sg_${var.shortnameid}_vpc_1_alb_1_tgrp_1"
   description = "Security group para instancias EC2 do Magento"

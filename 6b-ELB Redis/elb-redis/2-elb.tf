@@ -4,7 +4,7 @@ resource "aws_lb" "nlb-1" {
   internal           = false
   load_balancer_type = "network"
   security_groups = [
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-alb-1-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-nlb-1-id
   ]
   subnets = [
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id,
