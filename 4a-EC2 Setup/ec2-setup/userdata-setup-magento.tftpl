@@ -130,7 +130,12 @@ sudo -u www-data bin/magento setup:install \
   --session-save=redis \
   --session-save-redis-host=${redis-endpoint} \
   --session-save-redis-port=6379 \
-  --session-save-redis-db=2 2>&1 | sudo -u www-data tee magento_install_output.log
+  --session-save-redis-db=2 \
+  --remote-storage-driver=aws-s3 \
+  --remote-storage-prefix=magento2 \
+  --remote-storage-bucket=${static-files-bucket-name} \
+  --remote-storage-region=us-east-1 \
+  --remote-storage-path-style=1 2>&1 | sudo -u www-data tee magento_install_output.log
 
 # Inicio alterações necessárias para o redirect 443 > 80 via ALB
 echo "#### Magento pos setup ####"
