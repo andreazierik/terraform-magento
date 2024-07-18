@@ -12,7 +12,7 @@ resource "aws_s3_bucket_acl" "magento-static-files-acl" {
 }
 
 resource "aws_s3_bucket_public_access_block" "magento-static-files" {
-  bucket = aws_s3_bucket.magento_static_files.bucket
+  bucket = aws_s3_bucket.magento-static-files.bucket
 
   block_public_acls   = true
   block_public_policy = true
@@ -21,7 +21,7 @@ resource "aws_s3_bucket_public_access_block" "magento-static-files" {
 }
 
 resource "aws_s3_bucket_policy" "magento-static-files-policy" {
-  bucket = aws_s3_bucket.magento_static_files.id
+  bucket = aws_s3_bucket.magento-static-files.id
 
   policy = jsonencode({
     Version = "2012-10-17"
