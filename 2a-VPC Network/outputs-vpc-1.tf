@@ -78,3 +78,33 @@ output "vpcs-sg-vpc-1-alb-1-name" {
   description = "VPC-1: Security group para ALB 1, Name"
   value       = module.vpcs.sg-vpc-1-alb-1-name
 }
+
+output "vpcs-sg-vpc-1-nlb-1-id" {
+  description = "VPC-1: Security group para NLB 1, Redis, ID"
+  value       = module.vpcs.sg-vpc-1-nlb-1-id
+}
+
+output "vpcs-sg-vpc-1-nlb-1-name" {
+  description = "VPC-1: Security group para NLB 1, Redis Name"
+  value       = module.vpcs.sg-vpc-1-nlb-1-name
+}
+
+output "vpcs-sg-vpc-1-nlb-1-tgrp-1-id" {
+  description = "VPC-1: Security group para instancias no Target group 1, Redis Master,  do NLB 1, ID"
+  value       = module.vpcs.sg-vpc-1-nlb-1-tgrp-1-id
+}
+
+output "vpcs-sg-vpc-1-nlb-1-tgrp-1-name" {
+  description = "VPC-1: Security group para instancias no Target group 1, Redis Master, do NLB 1, Name"
+  value       = module.vpcs.sg-vpc-1-nlb-1-tgrp-1-name
+}
+
+output "vpcs-sg-vpc-1-nlb-1-tgrp-2-id" {
+  description = "VPC-1: Security group para instancias no Target group 2, Redis Replica,  do NLB 1, ID"
+  value       = module.vpcs.sg-vpc-1-nlb-1-tgrp-2-id
+}
+
+output "vpcs-sg-vpc-1-nlb-1-tgrp-2-name" {
+  description = "VPC-1: Security group para instancias no Target group 2, Redis Replica, do NLB 1, Name"
+  value       = module.vpcs.sg-vpc-1-nlb-1-tgrp-2-name
+}

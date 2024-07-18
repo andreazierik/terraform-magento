@@ -78,3 +78,27 @@ output "sg-vpc-1-alb-1-name" {
   description = "VPC-1: Security group para ALB 1, Name"
   value       = aws_security_group.sg-vpc-1-alb-1.name
 }
+
+output "sg-vpc-1-nlb-1-id" {
+  value       = aws_security_group.sg-vpc-1-nlb-1.id
+}
+
+output "sg-vpc-1-nlb-1-name" {
+  value       = aws_security_group.sg-vpc-1-nlb-1.name
+}
+
+output "sg-vpc-1-nlb-1-tgrp-1-id" {
+  value       = aws_security_group.sg-vpc-1-nlb-1-tgrp-1.id
+}
+
+output "sg-vpc-1-nlb-1-tgrp-1-name" {
+  value       = aws_security_group.sg-vpc-1-nlb-1-tgrp-1.name
+}
+
+output "sg-vpc-1-nlb-1-tgrp-2-id" {
+  value       = aws_security_group.sg-vpc-1-nlb-1-tgrp-2.id
+}
+
+output "sg-vpc-1-nlb-1-tgrp-2-name" {
+  value       = aws_security_group.sg-vpc-1-nlb-1-tgrp-2.name
+}
