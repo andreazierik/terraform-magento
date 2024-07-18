@@ -30,7 +30,6 @@ resource "aws_elasticache_cluster" "elasticcache-1" {
   port = 6379
 
   tags = {
-    Name = "elasticcache-${var.shortnameid}-redis-1"
-    Oi = "oi"
+    Name = "elasticcache-${var.shortnameid}-redis-1"    
   }
 }
