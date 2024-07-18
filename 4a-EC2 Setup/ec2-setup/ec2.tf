@@ -30,7 +30,8 @@ resource "aws_instance" "ec2-setup" {
       magento-admin-firstname = var.magento-admin-firstname,
       magento-admin-lastname  = var.magento-admin-lastname,
       magento-admin-user      = var.magento-admin-user,
-      magento-admin-password  = var.magento-admin-password
+      magento-admin-password  = var.magento-admin-password,
+      opensearch-endpoint     = data.terraform_remote_state.remote-state-opensearch.outputs.opensearch-opensearch-1-endpoint
     }
   )
 

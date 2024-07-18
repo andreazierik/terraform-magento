@@ -16,6 +16,15 @@ data "terraform_remote_state" "remote-state-rds" {
   }
 }
 
+data "terraform_remote_state" "remote-state-opensearch" {
+  backend = "s3"
+  config = {
+    region = var.regiao
+    bucket = var.remote-state-bucket
+    key    = "Open Search/terraform.tfstate"
+  }
+}
+
 # data "terraform_remote_state" "remote-state-efs" {
 #   backend = "s3"
 #   config = {

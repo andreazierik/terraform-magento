@@ -43,23 +43,23 @@ sed -i 's/^;\?max_execution_time\s*=.*/max_execution_time = 3600/' "$PHP_INI_PAT
 
 systemctl restart nginx
 
-# Instalando ElasticSearch
-echo "#### Instalando o ElasticSearch ####"
+# # Instalando ElasticSearch
+# echo "#### Instalando o ElasticSearch ####"
 
-cd /home/ubuntu
-sudo -u ubuntu wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
-sudo -u ubuntu echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
-apt update -y
-apt install -y elasticsearch
-systemctl daemon-reload
-systemctl start elasticsearch
-systemctl enable elasticsearch
+# cd /home/ubuntu
+# sudo -u ubuntu wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+# sudo -u ubuntu echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+# apt update -y
+# apt install -y elasticsearch
+# systemctl daemon-reload
+# systemctl start elasticsearch
+# systemctl enable elasticsearch
 
-# Replace the following setting with 'false' to disable Magento security features:
-# xpack.security.enabled: false
-sed -i 's/^;\?xpack.security.enabled\s*:.*/xpack.security.enabled: false/' /etc/elasticsearch/elasticsearch.yml
+# # Replace the following setting with 'false' to disable Magento security features:
+# # xpack.security.enabled: false
+# sed -i 's/^;\?xpack.security.enabled\s*:.*/xpack.security.enabled: false/' /etc/elasticsearch/elasticsearch.yml
 
-systemctl restart elasticsearch.service
+# systemctl restart elasticsearch.service
 
 # Instalando Composer
 echo "#### Instalando Composer ####"
