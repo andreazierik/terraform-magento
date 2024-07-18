@@ -9,3 +9,7 @@ output "elasticcache-1-configuration-endpoint" {
 output "elasticcache-1-cluster-id" {
   value = "${aws_elasticache_cluster.elasticcache-1.cluster_id}"
 }
+
+output "elasticcache-1-teste" {
+  value = aws_elasticache_cluster.elasticcache-1.cache_nodes[0]
+}
