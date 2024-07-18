@@ -29,9 +29,9 @@ jobs:
         # terraform refresh \
         #   -var "regiao=${{env.REGION}}" \
         #   -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
-        # terraform import module.vpcs.aws_security_group.sg-vpc-1-nlb-1 sg-06981872afb0c794f
-        # terraform import module.vpcs.aws_security_group.sg-vpc-1-nlb-1-tgrp-1 sg-0c7ba594e37710be0
-        # terraform import module.vpcs.aws_security_group.sg-vpc-1-nlb-1-tgrp-2 sg-0ff40278546836f11
+        terraform import module.vpcs.aws_security_group.sg-vpc-1-nlb-1 sg-06981872afb0c794f
+        terraform import module.vpcs.aws_security_group.sg-vpc-1-nlb-1-tgrp-1 sg-0c7ba594e37710be0
+        terraform import module.vpcs.aws_security_group.sg-vpc-1-nlb-1-tgrp-2 sg-0ff40278546836f11
         terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
