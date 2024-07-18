@@ -105,7 +105,7 @@ resource "aws_autoscaling_group" "asg-alb-1" {
 
   // Group Details  
   capacity_rebalance = true
-  desired_capacity   = 1
+  desired_capacity   = 2
   max_size           = 2
   min_size           = 1
 
