@@ -13,5 +13,5 @@ output "elasticcache-elasticcache-1-cluster-id" {
 }
 
 output "elasticcache-1-teste-x" {
-  value = module.elasticcache.elasticcache-1.elasticcache-1-teste
+  value = module.elasticcache.elasticcache-1-teste
 }
