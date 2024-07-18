@@ -43,11 +43,11 @@ data "terraform_remote_state" "remote-state-s3-static-files" {
   }
 }
 
-# data "terraform_remote_state" "remote-state-efs" {
-#   backend = "s3"
-#   config = {
-#     region = var.regiao
-#     bucket = var.remote-state-bucket
-#     key    = "EFS/terraform.tfstate"
-#   }
-# }
+data "terraform_remote_state" "remote-state-efs" {
+  backend = "s3"
+  config = {
+    region = var.regiao
+    bucket = var.remote-state-bucket
+    key    = "EFS/terraform.tfstate"
+  }
+}

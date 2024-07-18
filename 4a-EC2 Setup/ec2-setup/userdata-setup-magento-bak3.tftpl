@@ -1,0 +1,170 @@
+#!/bin/bash
+echo "#### Iniciado user data ####"
+
+# Atualizando linux
+echo "#### Atualizando o linux ####"
+apt update -y
+apt upgrade -y
+
+# Instalação inicial nginx
+echo "#### Instalando o nginx ####"
+apt install -y nginx
+systemctl start nginx
+systemctl enable nginx
+
+# Instalar PHP e PHP extensions
+echo "#### Instalando PHP ####"
+apt-get install -y php php-dev php-fpm php-bcmath php-intl php-soap php-zip php-curl php-mbstring php-mysql php-gd php-xml
+
+# Remover apache2
+echo "#### Removendo apache2 ####"
+systemctl stop apache2
+systemctl disable apache2
+apt-get remove apache2 -y
+
+# Atualizar php.ini
+echo "#### Atualizando o php.ini ####"
+
+# Recuperar local do arquivo de configuração e salvar como variável de ambiente.
+export PHP_INI_PATH=$(php --ini | grep "Loaded Configuration File" | awk '{print $4}')
+
+# Set file_uploads to On
+# Set allow_url_fopen to On
+# Set short_open_tag to On
+# Increase memory_limit to 512M
+# Set upload_max_filesize to 128M
+# Increase max_execution_time to 3600
+sed -i 's/^;\?file_uploads\s*=.*/file_uploads = On/' "$PHP_INI_PATH"
+sed -i 's/^;\?allow_url_fopen\s*=.*/allow_url_fopen = On/' "$PHP_INI_PATH"
+sed -i 's/^;\?short_open_tag\s*=.*/short_open_tag = On/' "$PHP_INI_PATH"
+sed -i 's/^;\?memory_limit\s*=.*/memory_limit = 512M/' "$PHP_INI_PATH"
+sed -i 's/^;\?upload_max_filesize\s*=.*/upload_max_filesize = 128M/' "$PHP_INI_PATH"
+sed -i 's/^;\?max_execution_time\s*=.*/max_execution_time = 3600/' "$PHP_INI_PATH"
+
+systemctl restart nginx
+
+# # Instalando ElasticSearch
+# echo "#### Instalando o ElasticSearch ####"
+
+# cd /home/ubuntu
+# sudo -u ubuntu wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+# sudo -u ubuntu echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+# apt update -y
+# apt install -y elasticsearch
+# systemctl daemon-reload
+# systemctl start elasticsearch
+# systemctl enable elasticsearch
+
+# # Replace the following setting with 'false' to disable Magento security features:
+# # xpack.security.enabled: false
+# sed -i 's/^;\?xpack.security.enabled\s*:.*/xpack.security.enabled: false/' /etc/elasticsearch/elasticsearch.yml
+
+# systemctl restart elasticsearch.service
+
+# Instalando Composer
+echo "#### Instalando Composer ####"
+export HOME=/home/ubuntu
+cd /home/ubuntu
+
+sudo -u ubuntu curl -sS https://getcomposer.org/installer | sudo -u ubuntu php
+mv composer.phar /usr/local/bin/composer
+chmod +x /usr/local/bin/composer
+
+# Instalando Magento
+echo "#### Instalando o Magento ####"
+
+# 1. Installing Magento using the Marketplace by creating an access key is recommended.
+# 2. Generate Access keys by navigating to: My profile > Marketplace > My products > Access Keys.
+apt install -y unzip
+rm -rf /var/www/*
+
+echo "#### chown ubuntu ####"
+chown -R ubuntu:ubuntu /var/www
+chmod -R 755 /var/www
+
+echo "#### Composer config ####"
+sudo -u ubuntu composer config --global http-basic.repo.magento.com ${magento-public-key} ${magento-private-key}
+
+echo "#### Composer create-project ####"
+# Usando versão mais recente - compative com php 8.3
+sudo -u ubuntu composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition /var/www/magento2 --no-interaction
+
+echo "#### Magento chmods ####"
+cd /var/www/magento2
+sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
+sudo -u ubuntu find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
+
+chown -R www-data:www-data /var/www
+chmod u+x bin/magento
+
+echo "#### Magento setup:install ####"
+sudo -u www-data bin/magento setup:install \
+  --base-url=http://${domain-base} \
+  --db-host=${rds-1-endpoint} \
+  --db-name=${rds-1-db-name} \
+  --db-user=${rds-1-db-username} \
+  --db-password=${rds-1-db-password} \
+  --admin-firstname=${magento-admin-firstname} \
+  --admin-lastname=${magento-admin-lastname} \
+  --admin-email=${magento-admin-email} \
+  --admin-user=${magento-admin-user} \
+  --admin-password=${magento-admin-password} \
+  --backend-frontname=lkj987 \
+  --language=pt_BR \
+  --currency=BRL \
+  --timezone=America/Sao_Paulo \
+  --use-rewrites=1 \
+  --search-engine=opensearch \
+  --opensearch-host=https://${opensearch-endpoint} \
+  --opensearch-port=443 \
+  --opensearch-index-prefix=magento2 \
+  --opensearch-timeout=15 \
+  --cache-backend=redis \
+  --cache-backend-redis-server=${redis-endpoint} \
+  --cache-backend-redis-port=6379 \
+  --cache-backend-redis-db=0 \
+  --page-cache=redis \
+  --page-cache-redis-server=${redis-endpoint} \
+  --page-cache-redis-port=6379 \
+  --page-cache-redis-db=1 \
+  --session-save=redis \
+  --session-save-redis-host=${redis-endpoint} \
+  --session-save-redis-port=6379 \
+  --session-save-redis-db=2 \
+  --remote-storage-driver=aws-s3 \
+  --remote-storage-prefix=magento2 \
+  --remote-storage-bucket=${static-files-bucket-name} \
+  --remote-storage-region=us-east-1 \
+  --remote-storage-path-style=1 2>&1 | sudo -u www-data tee magento_install_output.log
+
+# Inicio alterações necessárias para o redirect 443 > 80 via ALB
+echo "#### Magento pos setup ####"
+# sudo -u www-data bin/magento config:set web/secure/base_url https://${domain-base}/
+# sudo -u www-data bin/magento config:set web/secure/base_link_url https://${domain-base}/
+sudo -u www-data bin/magento config:set web/url/redirect_to_base 0
+# Fim alterações necessárias para o redirect 443 > 80 via ALB
+
+echo "#### Configurar nginx para magento"
+bash -c 'cat <<EOF > /etc/nginx/conf.d/magento2.conf
+upstream fastcgi_backend {
+  server unix:/run/php/php8.3-fpm.sock;
+}
+
+server {
+  listen 80;
+  server_name ${domain-base} www.${domain-base};
+  set \$MAGE_ROOT /var/www/magento2;
+  include /var/www/magento2/nginx.conf.sample;
+}
+EOF'
+
+systemctl daemon-reload
+systemctl restart nginx
+
+# Desabilitar 2FA
+sudo -u www-data bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
+sudo -u www-data bin/magento cache:flush
+
+# Informa fim do user data para autorizar Terraform a prosseguir instalação.
+echo "### Finalizado user data ###"
+sudo -u ubuntu touch /tmp/userdata_finished
