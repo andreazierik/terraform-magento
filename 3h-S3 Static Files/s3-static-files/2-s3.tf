@@ -32,13 +32,23 @@ resource "aws_s3_bucket_policy" "magento-static-files-policy" {
   bucket = aws_s3_bucket.magento-static-files.id
 
   policy = jsonencode({
-    Version = "2012-10-17"
+    Version = "2012-10-17",
     Statement = [
       {
-        Action = "s3:GetObject"
-        Effect = "Allow"
-        Resource = "${aws_s3_bucket.magento-static-files.arn}/*"
-        Principal = "*"
+        Effect = "Allow",
+        Principal = {
+          AWS = "${aws_iam_role.magento_s3_role.arn}"
+        },
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:DeleteObject"
+        ],
+        Resource = [
+          "${aws_s3_bucket.magento_static_files.arn}",
+          "${aws_s3_bucket.magento_static_files.arn}/*"
+        ]
       }
     ]
   })
