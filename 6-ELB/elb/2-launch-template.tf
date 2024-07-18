@@ -15,6 +15,10 @@ resource "aws_launch_template" "ltplt-1" {
   # key_name = "aws-dev-console-admin"
   key_name = "aws-services-ec2-ssh"
 
+  iam_instance_profile {
+    name = aws_iam_instance_profile.magento-instance-profile.name
+  }
+
   // Network settings
   vpc_security_group_ids = [
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-alb-1-tgrp-1-id
