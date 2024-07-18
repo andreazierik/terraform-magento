@@ -31,8 +31,8 @@ provider "aws" {
   }
 }
 
-module "open-search" {
-  source              = "./open-search"
+module "opensearch" {
+  source              = "./opensearch"
   regiao              = var.regiao
   remote-state-bucket = var.remote-state-bucket
   shortnameid         = data.terraform_remote_state.remote-state-information.outputs.shortnameid
