@@ -200,6 +200,10 @@ resource "aws_network_acl_association" "nacl-association-vpc-1-subnet-private-1b
   network_acl_id = aws_network_acl.nacl-vpc-1-private-subnets.id
   subnet_id      = aws_subnet.subnet-vpc-1-private-1b.id
 }
+resource "aws_network_acl_association" "nacl-association-vpc-1-subnet-private-1c" {
+  network_acl_id = aws_network_acl.nacl-vpc-1-private-subnets.id
+  subnet_id      = aws_subnet.subnet-vpc-1-private-1c.id
+}
 
 resource "aws_network_acl_association" "nacl-association-vpc-1-subnet-public-1a" {
   network_acl_id = aws_network_acl.nacl-vpc-1-public-subnets.id
@@ -208,6 +212,10 @@ resource "aws_network_acl_association" "nacl-association-vpc-1-subnet-public-1a"
 resource "aws_network_acl_association" "nacl-association-vpc-1-subnet-public-1b" {
   network_acl_id = aws_network_acl.nacl-vpc-1-public-subnets.id
   subnet_id      = aws_subnet.subnet-vpc-1-public-1b.id
+}
+resource "aws_network_acl_association" "nacl-association-vpc-1-subnet-public-1c" {
+  network_acl_id = aws_network_acl.nacl-vpc-1-public-subnets.id
+  subnet_id      = aws_subnet.subnet-vpc-1-public-1c.id
 }
 
 
@@ -233,6 +241,17 @@ resource "aws_subnet" "subnet-vpc-1-public-1b" {
   }
 }
 
+# Public Subnet 1c
+resource "aws_subnet" "subnet-vpc-1-public-1c" {
+  vpc_id            = aws_vpc.vpc-1.id
+  cidr_block        = "10.1.5.0/24"
+  availability_zone = "us-east-1c"
+
+  tags = {
+    Name = "subnet-vpc-${var.shortnameid}-1-public-1c"
+  }
+}
+
 # Private Subnet 1a
 resource "aws_subnet" "subnet-vpc-1-private-1a" {
   vpc_id            = aws_vpc.vpc-1.id
@@ -252,6 +271,17 @@ resource "aws_subnet" "subnet-vpc-1-private-1b" {
 
   tags = {
     Name = "subnet-vpc-${var.shortnameid}-1-private-1b"
+  }
+}
+
+# Private Subnet 1c
+resource "aws_subnet" "subnet-vpc-1-private-1c" {
+  vpc_id            = aws_vpc.vpc-1.id
+  cidr_block        = "10.1.6.0/24"
+  availability_zone = "us-east-1c"
+
+  tags = {
+    Name = "subnet-vpc-${var.shortnameid}-1-private-1c"
   }
 }
 
@@ -303,6 +333,11 @@ resource "aws_route_table_association" "rta-vpc-1-public-subnet-1b" {
   subnet_id      = aws_subnet.subnet-vpc-1-public-1b.id
   route_table_id = aws_route_table.rt-vpc-1-public-subnets.id
 }
+resource "aws_route_table_association" "rta-vpc-1-public-subnet-1c" {
+  subnet_id      = aws_subnet.subnet-vpc-1-public-1c.id
+  route_table_id = aws_route_table.rt-vpc-1-public-subnets.id
+}
+
 
 # Router tables private subnets association
 resource "aws_route_table_association" "rta-vpc-1-private-subnet-1a" {
@@ -311,6 +346,10 @@ resource "aws_route_table_association" "rta-vpc-1-private-subnet-1a" {
 }
 resource "aws_route_table_association" "rta-vpc-1-private-subnet-1b" {
   subnet_id      = aws_subnet.subnet-vpc-1-private-1b.id
+  route_table_id = aws_route_table.rt-vpc-1-private-subnets.id
+}
+resource "aws_route_table_association" "rta-vpc-1-private-subnet-1c" {
+  subnet_id      = aws_subnet.subnet-vpc-1-private-1c.id
   route_table_id = aws_route_table.rt-vpc-1-private-subnets.id
 }
 
@@ -590,6 +629,32 @@ resource "aws_security_group" "sg-vpc-1-nlb-2" {
 
   tags = {
     Name = "sg-${var.shortnameid}-vpc-1-nlb-2"
+  }
+}
+
+resource "aws_security_group" "sg-vpc-1-opensearch-1" {
+  name        = "sg_${var.shortnameid}_opensearch_1"
+  description = "Security group para o Open Search 1"
+  vpc_id      = aws_vpc.vpc-1.id
+
+  # ByPass
+  ingress {
+    description = "Permite tudo"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "sg-${var.shortnameid}-opensearch-1"
   }
 }
 
