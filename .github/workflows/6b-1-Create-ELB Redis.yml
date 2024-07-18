@@ -28,4 +28,4 @@ jobs:
         terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}" \
-          -var "domain-base=${{secrets.REDIS_PASSWORD}}"
+          -var "redis-password=${{secrets.REDIS_PASSWORD}}"
