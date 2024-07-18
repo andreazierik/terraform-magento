@@ -45,6 +45,15 @@ resource "aws_opensearch_domain" "opensearch-1" {
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
   }
 
+  off_peak_window_options {
+    off_peak_window {
+      window_start_time {
+        hours = 11
+        minutes = 00
+      }
+    }
+  }
+
   access_policies = jsonencode({
     Version = "2012-10-17",
     Statement = [
