@@ -138,3 +138,13 @@ output "vpcs-sg-vpc-1-opensearch-1-name" {
   description = "VPC-1: Security group para instancias no Open Search 1, Name"
   value       = module.vpcs.sg-vpc-1-opensearch-1-name
 }
+
+output "vpcs-sg-vpc-1-elasticcache-1-id" {
+  description = "VPC-1: Security group para instancias no Elastic Cache 1, ID"
+  value       = module.vpcs.sg-vpc-1-elasticcache-1-id
+}
+
+output "vpcs-sg-vpc-1-elasticcache-1-name" {
+  description = "VPC-1: Security group para instancias no Elastic Cache 1, Name"
+  value       = module.vpcs.sg-vpc-1-elasticcache-1-name
+}

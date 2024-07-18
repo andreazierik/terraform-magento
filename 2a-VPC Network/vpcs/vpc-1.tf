@@ -658,6 +658,32 @@ resource "aws_security_group" "sg-vpc-1-opensearch-1" {
   }
 }
 
+resource "aws_security_group" "sg-vpc-1-elasticcache-1" {
+  name        = "sg_${var.shortnameid}elasticcache"
+  description = "Security group para o elastic Cache 1"
+  vpc_id      = aws_vpc.vpc-1.id
+
+  # ByPass
+  ingress {
+    description = "Permite tudo"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "sg-${var.shortnameid}-elasticcache-1"
+  }
+}
+
 
 resource "aws_security_group" "sg-vpc-1-allow-ssh-by-ip" {
   name        = "sg_${var.shortnameid}_vpc_1_allow_ssh_by_ip"

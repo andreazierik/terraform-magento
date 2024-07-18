@@ -129,3 +129,11 @@ output "sg-vpc-1-opensearch-1-name" {
   value       = aws_security_group.sg-vpc-1-opensearch-1.name
 }
 
+output "sg-vpc-1-elasticcache-1-id" {
+  value       = aws_security_group.sg-vpc-1-elasticcache-1.id
+}
+
+output "sg-vpc-1-elasticcache-1-name" {
+  value       = aws_security_group.sg-vpc-1-elasticcache-1.name
+}
+
