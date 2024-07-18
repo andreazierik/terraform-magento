@@ -18,6 +18,7 @@ resource "aws_elasticache_parameter_group" "parameter-group-elasticcache-1" {
 }
 
 resource "aws_elasticache_cluster" "elasticcache-1" {
+  depends_on = [ aws_elasticache_subnet_group.subnet-group-elasticcache-1 ]
   cluster_id = "redis-cluster-1"
   engine = "redis"
   node_type = "cache.t3.micro"
