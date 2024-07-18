@@ -22,8 +22,8 @@ resource "aws_elasticache_cluster" "elasticcache-1" {
   engine = "redis"
   node_type = "cache.t3.micro"
   num_cache_nodes = 1
-  parameter_group_name = aws_elasticache_parameter_group.parameter-group-elasticcache-1
-  subnet_group_name = aws_elasticache_subnet_group.subnet-group-elasticcache-1
+  parameter_group_name = "param-group-elasticcache-redis-1"
+  subnet_group_name = "subnet-group-elasticcache-redis-1"
   security_group_ids = [
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-elasticcache-1-id
   ]
