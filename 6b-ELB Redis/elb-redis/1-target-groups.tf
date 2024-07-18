@@ -1,7 +1,7 @@
 // Target group
 resource "aws_lb_target_group" "tgrp-1-nlb-1" {  
 
-  name     = "tgrp-redis-master-1-nlb-${var.shortnameid}-1"
+  name     = "tgrp-1-nlb-${var.shortnameid}-1"
   port     = 6379
   protocol = "TCP"
   vpc_id   = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-id
@@ -25,7 +25,7 @@ resource "aws_lb_target_group" "tgrp-1-nlb-1" {
 
 resource "aws_lb_target_group" "tgrp-2-nlb-1" {  
 
-  name     = "tgrp-redis-replica-2-nlb-${var.shortnameid}-1"
+  name     = "tgrp-2-nlb-${var.shortnameid}-1"
   port     = 6379
   protocol = "TCP"
   vpc_id   = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-id
