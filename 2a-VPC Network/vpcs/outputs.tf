@@ -19,6 +19,11 @@ output "subnet-vpc-1-public-1b-id" {
   value       = aws_subnet.subnet-vpc-1-public-1b.id
 }
 
+output "subnet-vpc-1-public-1c-id" {
+  description = "VPC-1: ID da subnet publica 1c"
+  value       = aws_subnet.subnet-vpc-1-public-1c.id
+}
+
 output "subnet-vpc-1-private-1a-id" {
   description = "VPC-1: ID da subnet privada 1a"
   value       = aws_subnet.subnet-vpc-1-private-1a.id
@@ -27,6 +32,11 @@ output "subnet-vpc-1-private-1a-id" {
 output "subnet-vpc-1-private-1b-id" {
   description = "VPC-1: ID da subnet privada 1b"
   value       = aws_subnet.subnet-vpc-1-private-1b.id
+}
+
+output "subnet-vpc-1-private-1c-id" {
+  description = "VPC-1: ID da subnet privada 1c"
+  value       = aws_subnet.subnet-vpc-1-private-1c.id
 }
 
 output "sg-vpc-1-allow-all-id" {
@@ -110,3 +120,12 @@ output "sg-vpc-1-nlb-2-tgrp-1-id" {
 output "sg-vpc-1-nlb-2-tgrp-1-name" {
   value       = aws_security_group.sg-vpc-1-nlb-2-tgrp-1.name
 }
+
+output "sg-vpc-1-opensearch-1-id" {
+  value       = aws_security_group.sg-vpc-1-opensearch-1.id
+}
+
+output "sg-vpc-1-opensearch-1-name" {
+  value       = aws_security_group.sg-vpc-1-opensearch-1.name
+}
+

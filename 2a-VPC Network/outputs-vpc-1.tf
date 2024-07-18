@@ -19,6 +19,11 @@ output "vpcs-subnet-vpc-1-public-1b-id" {
   value       = module.vpcs.subnet-vpc-1-public-1b-id
 }
 
+output "vpcs-subnet-vpc-1-public-1c-id" {
+  description = "VPC-1: ID da subnet publica 1c"
+  value       = module.vpcs.subnet-vpc-1-public-1c-id
+}
+
 output "vpcs-subnet-vpc-1-private-1a-id" {
   description = "VPC-1: ID da subnet privada 1a"
   value       = module.vpcs.subnet-vpc-1-private-1a-id
@@ -27,6 +32,11 @@ output "vpcs-subnet-vpc-1-private-1a-id" {
 output "vpcs-subnet-vpc-1-private-1b-id" {
   description = "VPC-1: ID da subnet privada 1b"
   value       = module.vpcs.subnet-vpc-1-private-1b-id
+}
+
+output "vpcs-subnet-vpc-1-private-1c-id" {
+  description = "VPC-1: ID da subnet privada 1c"
+  value       = module.vpcs.subnet-vpc-1-private-1c-id
 }
 
 output "vpcs-sg-vpc-1-allow-all-id" {
@@ -117,4 +127,14 @@ output "vpcs-sg-vpc-1-nlb-2-tgrp-1-id" {
 output "vpcs-sg-vpc-1-nlb-2-tgrp-1-name" {
   description = "VPC-1: Security group para instancias no Target group 1, Redis Replica, do NLB 2, Name"
   value       = module.vpcs.sg-vpc-1-nlb-2-tgrp-1-name
+}
+
+output "vpcs-sg-vpc-1-opensearch-1-id" {
+  description = "VPC-1: Security group para instancias no Open Search 1, ID"
+  value       = module.vpcs.sg-vpc-1-opensearch-1-id
+}
+
+output "vpcs-sg-vpc-1-opensearch-1-name" {
+  description = "VPC-1: Security group para instancias no Open Search 1, Name"
+  value       = module.vpcs.sg-vpc-1-opensearch-1-name
 }
