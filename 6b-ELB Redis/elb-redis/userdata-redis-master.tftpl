@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "sentinel monitor redis-cluster ${master-dns} 6379 2" | sudo tee -a /etc/redis/sentinel.conf
+systemctl start redis-server
+systemctl start redis-sentinel

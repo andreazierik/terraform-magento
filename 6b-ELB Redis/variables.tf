@@ -8,7 +8,7 @@ variable "remote-state-bucket" {
   description = "Bucket name onde está o remote state"
 }
 
-variable "domain-base" {
+variable "redis-password" {
   type        = string
-  description = "Domínio base da aplicação"
+  sensitive   = true
 }

@@ -13,7 +13,7 @@ variable "shortnameid" {
   description = "Nome curto para identificacao dos recursos"
 }
 
-variable "domain-base" {
+variable "redis-password" {
   type        = string
-  description = "Domínio base da aplicação"
+  sensitive   = true
 }
