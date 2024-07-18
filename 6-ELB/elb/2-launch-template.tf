@@ -16,7 +16,7 @@ resource "aws_launch_template" "ltplt-1" {
   key_name = "aws-services-ec2-ssh"
 
   iam_instance_profile {
-    name = aws_iam_instance_profile.magento-instance-profile.name
+    name = aws_iam_instance_profile.magento-instance-profile-ltpl.name
   }
 
   // Network settings
