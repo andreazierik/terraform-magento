@@ -43,4 +43,4 @@ resource "aws_s3_bucket_policy" "magento-static-files-policy" {
     ]
   })
 }
-  
+

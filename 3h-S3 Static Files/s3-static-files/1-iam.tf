@@ -25,7 +25,13 @@ resource "aws_iam_policy" "magento-s3-policy" {
         Action = [
           "s3:PutObject",
           "s3:GetObject",
-          "s3:ListBucket"
+          "s3:ListBucket",
+          "s3:PutBucketPolicy",
+          "s3:GetBucketPolicy",
+          "s3:DeleteBucketPolicy",
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:DeleteObject"
         ]
         Effect = "Allow"
         Resource = [
