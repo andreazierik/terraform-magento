@@ -37,7 +37,7 @@ resource "aws_s3_bucket_policy" "magento-static-files-policy" {
       {
         Effect = "Allow",
         Principal = {
-          AWS = "${aws_iam_role.magento_s3_role.arn}"
+          AWS = "${aws_iam_role.magento-s3-role.arn}"
         },
         Action = [
           "s3:PutObject",
@@ -46,8 +46,8 @@ resource "aws_s3_bucket_policy" "magento-static-files-policy" {
           "s3:DeleteObject"
         ],
         Resource = [
-          "${aws_s3_bucket.magento_static_files.arn}",
-          "${aws_s3_bucket.magento_static_files.arn}/*"
+          "${aws_s3_bucket.magento-static-files.arn}",
+          "${aws_s3_bucket.magento-static-files.arn}/*"
         ]
       }
     ]
