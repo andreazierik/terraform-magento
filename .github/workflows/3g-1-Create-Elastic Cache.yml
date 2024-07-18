@@ -29,4 +29,4 @@ jobs:
         terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}"
-        terrform output
+        terraform output
