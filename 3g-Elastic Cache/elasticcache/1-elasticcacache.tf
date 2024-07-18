@@ -31,5 +31,6 @@ resource "aws_elasticache_cluster" "elasticcache-1" {
 
   tags = {
     Name = "elasticcache-${var.shortnameid}-redis-1"
+    Oi = "oi"
   }
 }
