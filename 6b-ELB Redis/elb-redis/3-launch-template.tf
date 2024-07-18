@@ -54,7 +54,7 @@ resource "aws_launch_template" "ltplt-nlb-1-trgp-1" {
 
   user_data = templatefile(
     "${path.module}/userdata-redis-master.tftpl", {
-      master_dns = aws_lb.nlb-1.dns_name
+      master-dns = aws_lb.nlb-1.dns_name
     }
   )
 
