@@ -12,6 +12,6 @@ output "elasticcache-elasticcache-1-cluster-id" {
   value = "${module.elasticcache.elasticcache-1-cluster-id}"
 }
 
-output "elasticcache-1-teste-x" {
-  value = module.elasticcache.elasticcache-1-teste
+output "elasticcache-elasticcache-1-cache-nodes-0-address" {
+  value = module.elasticcache.elasticcache-1-cache-nodes-0-address
 }
