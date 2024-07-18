@@ -47,7 +47,8 @@ resource "aws_lb" "alb-1" {
   ]
   subnets = [
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id,
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1b-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1b-id,
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1c-id,
   ]
 
   enable_deletion_protection = false
