@@ -6,21 +6,6 @@ echo "#### Atualizando o linux ####"
 apt update -y
 apt upgrade -y
 
-# Instalação EFS Utils
-cd /home/ubuntu
-apt-get -y install git binutils rustc cargo pkg-config libssl-dev
-git clone https://github.com/aws/efs-utils
-cd efs-utils
-./build-deb.sh
-apt-get -y install ./build/amazon-efs-utils*deb
-
-mkdir -p /mnt/efs/var
-mkdir -p /mnt/efs/generated
-mkdir -p /mnt/efs/pub/static
-
-mount -t efs fs-030d7a0a832c5f577.efs.us-east-1.amazonaws.com:/ /mnt/efs
-echo "fs-030d7a0a832c5f577.efs.us-east-1.amazonaws.com:/ /mnt/efs efs defaults,_netdev 0 0" >> /etc/fstab
-
 # Instalação inicial nginx
 echo "#### Instalando o nginx ####"
 apt install -y nginx
@@ -57,6 +42,24 @@ sed -i 's/^;\?upload_max_filesize\s*=.*/upload_max_filesize = 128M/' "$PHP_INI_P
 sed -i 's/^;\?max_execution_time\s*=.*/max_execution_time = 3600/' "$PHP_INI_PATH"
 
 systemctl restart nginx
+
+# # Instalando ElasticSearch
+# echo "#### Instalando o ElasticSearch ####"
+
+# cd /home/ubuntu
+# sudo -u ubuntu wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+# sudo -u ubuntu echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+# apt update -y
+# apt install -y elasticsearch
+# systemctl daemon-reload
+# systemctl start elasticsearch
+# systemctl enable elasticsearch
+
+# # Replace the following setting with 'false' to disable Magento security features:
+# # xpack.security.enabled: false
+# sed -i 's/^;\?xpack.security.enabled\s*:.*/xpack.security.enabled: false/' /etc/elasticsearch/elasticsearch.yml
+
+# systemctl restart elasticsearch.service
 
 # Instalando Composer
 echo "#### Instalando Composer ####"
@@ -161,19 +164,6 @@ systemctl restart nginx
 # Desabilitar 2FA
 sudo -u www-data bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
 sudo -u www-data bin/magento cache:flush
-
-# Links EFS
-shopt -s dotglob
-mv /var/www/magento2/var/* /mnt/efs/var/
-mv /var/www/magento2/generated/* /mnt/efs/generated/
-mv /var/www/magento2/pub/static/* /mnt/efs/pub/static/
-rmdir /var/www/magento2/var
-rmdir /var/www/magento2/generated
-rmdir /var/www/magento2/pub/static
-chown -R www-data:www-data /mnt/efs
-sudo -u www-data ln -s /mnt/efs/var /var/www/magento2/var
-sudo -u www-data ln -s /mnt/efs/generated /var/www/magento2/generated
-sudo -u www-data ln -s /mnt/efs/pub/static /var/www/magento2/pub/static
 
 # Informa fim do user data para autorizar Terraform a prosseguir instalação.
 echo "### Finalizado user data ###"
