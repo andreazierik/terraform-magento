@@ -6,6 +6,19 @@ echo "#### Atualizando o linux ####"
 apt update -y
 apt upgrade -y
 
+# Instalação EFS Utils
+cd /home/ubuntu
+apt-get -y install git binutils rustc cargo pkg-config libssl-dev
+git clone https://github.com/aws/efs-utils
+cd efs-utils
+./build-deb.sh
+apt-get -y install ./build/amazon-efs-utils*deb
+
+mkdir -p /var/www/magento2
+
+mount -t efs fs-030d7a0a832c5f577.efs.us-east-1.amazonaws.com:/ /var/www/magento2
+echo "fs-030d7a0a832c5f577.efs.us-east-1.amazonaws.com:/ /var/www/magento2 efs defaults,_netdev 0 0" >> /etc/fstab
+
 # Instalação inicial nginx
 echo "#### Instalando o nginx ####"
 apt install -y nginx
@@ -42,24 +55,6 @@ sed -i 's/^;\?upload_max_filesize\s*=.*/upload_max_filesize = 128M/' "$PHP_INI_P
 sed -i 's/^;\?max_execution_time\s*=.*/max_execution_time = 3600/' "$PHP_INI_PATH"
 
 systemctl restart nginx
-
-# # Instalando ElasticSearch
-# echo "#### Instalando o ElasticSearch ####"
-
-# cd /home/ubuntu
-# sudo -u ubuntu wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
-# sudo -u ubuntu echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
-# apt update -y
-# apt install -y elasticsearch
-# systemctl daemon-reload
-# systemctl start elasticsearch
-# systemctl enable elasticsearch
-
-# # Replace the following setting with 'false' to disable Magento security features:
-# # xpack.security.enabled: false
-# sed -i 's/^;\?xpack.security.enabled\s*:.*/xpack.security.enabled: false/' /etc/elasticsearch/elasticsearch.yml
-
-# systemctl restart elasticsearch.service
 
 # Instalando Composer
 echo "#### Instalando Composer ####"
