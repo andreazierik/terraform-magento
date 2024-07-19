@@ -2,7 +2,8 @@ resource "aws_elasticache_subnet_group" "subnet-group-elasticcache-1" {
   name = "subnet-group-elasticcache-redis-1"
   subnet_ids = [
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1a-id,
-    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1b-id
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1b-id,
+    data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-private-1c-id
   ]
 }
 
