@@ -32,7 +32,8 @@ resource "aws_instance" "ec2-setup" {
       magento-admin-lastname  = var.magento-admin-lastname,
       magento-admin-user      = var.magento-admin-user,
       magento-admin-password  = var.magento-admin-password,
-      opensearch-endpoint     = data.terraform_remote_state.remote-state-opensearch.outputs.opensearch-opensearch-1-endpoint,
+      # opensearch-endpoint     = data.terraform_remote_state.remote-state-opensearch.outputs.opensearch-opensearch-1-endpoint,
+      opensearch-endpoint     = "vpc-opensearch-magento-1-hh6kg7jdj7h5yoheodxeqaqmbm.us-east-1.es.amazonaws.com"
       redis-endpoint          = data.terraform_remote_state.remote-state-elasticcache.outputs.elasticcache-elasticcache-1-cache-nodes-0-address,
       static-files-bucket-name= data.terraform_remote_state.remote-state-s3-static-files.outputs.s3-static-files-magento-static-files-bucket,
       efs-dns-name            = data.terraform_remote_state.remote-state-efs.outputs.efs-efs-1-dns-name
