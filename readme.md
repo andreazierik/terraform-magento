@@ -29,3 +29,16 @@ Com isso é possível criar e destruir os recursos de forma individual.
 | RDS_1_DB_USERNAME               | magentoadmin                      |
 | REGIAO                          | us-east-1                         |
 | REMOTE_STATE_BUCKET             | myuser-remote-state-magento       |
+
+### Github Secrets
+| Variável                                | Exemplo                           |
+| :---                                    |                              ---: |
+| AWS_DEV_CLI_ADMIN_KEY                   |                                   |
+| AWS_DEV_CLI_ADMIN_SECRET                |                                   |
+| AWS_DEV_CLI_ADMIN_SSH_PRIVATE_KEY       |                                   |
+| AWS_DEV_CLI_ADMIN_SSH_PUBLIC_KEY        |                                   |
+| AWS_DEV_CLI_ADMIN_SSH_PUBLIC_KEY        |                                   |
+| MAGENTO_PRIVATE_KEY                     |                                   |
+| MAGENTO_PUBLIC_KEY                      |                                   |
+| RDS_1_DB_PASSWORD                       |                                   |
+| REDIS_PASSWORD                          |                                   |
