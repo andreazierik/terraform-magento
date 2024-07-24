@@ -119,7 +119,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
               "AWS/ApplicationELB",
               "RequestCount",
               "TargetGroup",
-              "tgrp-1-alb-${var.shortnameid}-1",
+              aws_lb_target_group.tgrp-1-alb-1.arn_suffix,
               "LoadBalancer",
               "alb-${var.shortnameid}-1"
             ]
