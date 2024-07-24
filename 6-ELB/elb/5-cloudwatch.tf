@@ -56,7 +56,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
         height = 1
 
         properties = {
-          markdown = "Magento Dashboard"
+          markdown = "## Magento Dashboard"
         }
       },
       {
