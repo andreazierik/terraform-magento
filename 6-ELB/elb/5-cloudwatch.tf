@@ -115,8 +115,11 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
             [
               "AWS/ElastiCache",
               "CurrConnections",
+              "",
+              "CacheClusterId",
+              data.terraform_remote_state.remote-state-elasticcache.outputs.elasticcache-elasticcache-1-cluster-id,
               "CacheNodeId",
-              data.terraform_remote_state.remote-state-elasticcache.outputs.elasticcache-elasticcache-1-cache-nodes-0-address
+              "0001"
             ]
           ]
           period = 60
