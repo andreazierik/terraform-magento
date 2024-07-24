@@ -50,7 +50,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
       {
         type   = "metric"
         x      = 0
-        y      = 3
+        y      = 1
         width  = 12
         height = 6
 
@@ -73,8 +73,8 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
         type   = "text"
         x      = 0
         y      = 0
-        width  = 3
-        height = 3
+        width  = 24
+        height = 1
 
         properties = {
           markdown = "Magento Dashboard"
