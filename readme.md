@@ -18,8 +18,14 @@ Com isso é possível criar e destruir os recursos de forma individual.
 
 ## Variavéis e Secrets configuradas no Github Actions
 ### Github Vars
-| Variável              | Exemplo                       |
-| :---                  |               ---:            |
-| DOMAIN_BASE           | brunoferreira86dev.com        |
-
-
+| Variável                        | Exemplo                           |
+| :---                            |                              ---: |
+| DOMAIN_BASE                     | brunoferreira86dev.com            |
+| MAGENTO_ADMIN_EMAIL             | brunoferreira86dev@gmail.com      |
+| MAGENTO_ADMIN_FIRSTNAME         | Bruno                             |
+| MAGENTO_ADMIN_LASTNAME          | Ferreira                          |
+| MAGENTO_ADMIN_USER              | magentouser                       |
+| RDS_1_DB_NAME                   | magentodb                         |
+| RDS_1_DB_USERNAME               | magentoadmin                      |
+| REGIAO                          | us-east-1                         |
+| REMOTE_STATE_BUCKET             | myuser-remote-state-magento       |
