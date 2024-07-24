@@ -51,8 +51,8 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
         type   = "metric"
         x      = 0
         y      = 1
-        width  = 12
-        height = 6
+        width  = 6
+        height = 4
 
         properties = {
           metrics = [
@@ -63,7 +63,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
               aws_autoscaling_group.asg-alb-1.name
             ]
           ]
-          period = 300
+          period = 60
           stat   = "Average"
           region = "us-east-1"
           title  = "Auto Scaling Group - CPU Utilization"
