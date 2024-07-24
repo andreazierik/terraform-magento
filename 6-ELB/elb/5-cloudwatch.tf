@@ -46,6 +46,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
   dashboard_name = "Magento-Dashboard"
 
   dashboard_body = jsonencode({
+    period = 60,
     widgets = [
       {
         type   = "metric"
