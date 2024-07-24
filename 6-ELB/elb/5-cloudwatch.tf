@@ -98,7 +98,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
             ]
           ]
           period = 60
-          stat   = "Average"
+          stat   = "SampleCount"
           region = "us-east-1"
           title  = "Auto Scaling Group - Group Total Instances"
         }
