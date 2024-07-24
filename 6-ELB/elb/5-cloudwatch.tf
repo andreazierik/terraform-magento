@@ -46,7 +46,6 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
   dashboard_name = "Magento-Dashboard"
 
   dashboard_body = jsonencode({
-    period = 60,
     widgets = [
       {
         type   = "text"
@@ -104,17 +103,17 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
         }
       },
       {
-        title  = "Redis - Node Current Connections"        
         type   = "metric"
         x      = 0
         y      = 7
         width  = 6
         height = 4
-
-        region = "us-east-1"
-        stat   = "Average"
-        period = 60
+        
         properties = {
+          title  = "Redis - Node Current Connections"
+          region = "us-east-1"
+          stat   = "Average"
+          period = 60
           metrics = [
             [
               "AWS/ElastiCache",
