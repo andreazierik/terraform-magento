@@ -121,7 +121,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
               "TargetGroup",
               aws_lb_target_group.tgrp-1-alb-1,
               "LoadBalancer",
-              aws_lb.abl-1
+              aws_lb.abl-1.name
             ]
           ]
         }
