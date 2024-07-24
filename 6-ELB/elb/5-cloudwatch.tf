@@ -125,7 +125,30 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
             ]
           ]
         }
-      },
+      }
+      ,
+      {
+        type   = "metric"
+        x      = 18
+        y      = 1
+        width  = 6
+        height = 4
+
+        properties = {
+          metrics = [
+            [
+              "AWS/EC2",
+              "NetworkIn",
+              "AutoScalingGroupName",
+              aws_autoscaling_group.asg-alb-1.name
+            ]
+          ]
+          period = 60
+          stat   = "Average"
+          region = "us-east-1"
+          title  = "Auto Scaling Group - Network In"
+        }
+      },      
       {
         type   = "metric"
         x      = 0
