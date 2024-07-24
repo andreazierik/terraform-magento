@@ -115,7 +115,6 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
             [
               "AWS/ElastiCache",
               "CurrConnections",
-              "",
               "CacheClusterId",
               data.terraform_remote_state.remote-state-elasticcache.outputs.elasticcache-elasticcache-1-cluster-id,
               "CacheNodeId",
@@ -125,7 +124,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
           period = 60
           stat   = "SampleCount"
           region = "us-east-1"
-          title  = "Auto Scaling Group - Group Total Instances"
+          title  = "Redis - Node Current Connections"
         }
       },
       
