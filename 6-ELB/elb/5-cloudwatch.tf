@@ -4,11 +4,14 @@ resource "aws_cloudwatch_metric_alarm" "alarm-cpu-bigger-than-limit" {
   evaluation_periods        = 2
   metric_name               = "CPUUtilization"
   namespace                 = "AWS/EC2"
-  period                    = 120
+  period                    = 20
   statistic                 = "Average"
   threshold                 = 70
   alarm_description         = "Uso da CPU maior que o limite."
-  insufficient_data_actions = []
+  
+  dimensions = {
+    LoadBalancer = aws_lb.alb-1.arn_suffix
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "alarm-cpu-lower-than-limit" {
