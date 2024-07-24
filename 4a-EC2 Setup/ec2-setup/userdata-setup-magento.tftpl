@@ -7,6 +7,7 @@ apt update -y
 apt upgrade -y
 
 # Instalação EFS Utils
+echo "#### Instalação EFS Utils ####"
 cd /home/ubuntu
 apt-get -y install git binutils rustc cargo pkg-config libssl-dev
 git clone https://github.com/aws/efs-utils
@@ -15,6 +16,7 @@ cd efs-utils
 apt-get -y install ./build/amazon-efs-utils*deb
 
 # Montagem sistema de arquivos do EFS
+echo "#### Montagem do sistema de arquivos EFS ####"
 mkdir -p /var/www/magento2
 mount -t efs ${efs-dns-name}:/ /var/www/magento2
 echo "${efs-dns-name}:/ /var/www/magento2 efs defaults,_netdev 0 0" >> /etc/fstab
@@ -58,23 +60,6 @@ sed -i 's/^;\?max_execution_time\s*=.*/max_execution_time = 3600/' "$PHP_INI_PAT
 
 systemctl restart nginx
 
-# # Instalando ElasticSearch
-# echo "#### Instalando o ElasticSearch ####"
-
-# cd /home/ubuntu
-# sudo -u ubuntu wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
-# sudo -u ubuntu echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
-# apt update -y
-# apt install -y elasticsearch
-# systemctl daemon-reload
-# systemctl start elasticsearch
-# systemctl enable elasticsearch
-
-# # Replace the following setting with 'false' to disable Magento security features:
-# # xpack.security.enabled: false
-# sed -i 's/^;\?xpack.security.enabled\s*:.*/xpack.security.enabled: false/' /etc/elasticsearch/elasticsearch.yml
-
-# systemctl restart elasticsearch.service
 
 # Instalando Composer
 echo "#### Instalando Composer ####"
@@ -87,7 +72,6 @@ chmod +x /usr/local/bin/composer
 
 # Instalando Magento
 echo "#### Instalando o Magento ####"
-
 # 1. Installing Magento using the Marketplace by creating an access key is recommended.
 # 2. Generate Access keys by navigating to: My profile > Marketplace > My products > Access Keys.
 apt install -y unzip
