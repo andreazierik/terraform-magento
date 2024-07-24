@@ -91,8 +91,8 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
         properties = {
           metrics = [
             [
-              "AWS/EC2",
-              "CPUUtilization",
+              "AWS/AutoScaling",
+              "GroupTotalInstances",
               "AutoScalingGroupName",
               aws_autoscaling_group.asg-alb-1.name
             ]
