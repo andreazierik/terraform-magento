@@ -103,6 +103,30 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
           title  = "Auto Scaling Group - Group Total Instances"
         }
       },
+      {
+        type   = "metric"
+        x      = 0
+        y      = 7
+        width  = 6
+        height = 4
+
+        properties = {
+          metrics = [
+            [
+              "AWS/ElastiCache",
+              "CurrConnections",
+              "CacheClusterId",
+              data.terraform_remote_state.remote-state-elasticcache.outputs.elasticcache-elasticcache-1-cluster-address,
+              "CacheNodeId",
+              data.terraform_remote_state.remote-state-elasticcache.outputs.elasticcache-elasticcache-1-cache-nodes-0-address
+            ]
+          ]
+          period = 60
+          stat   = "SampleCount"
+          region = "us-east-1"
+          title  = "Auto Scaling Group - Group Total Instances"
+        }
+      },
       
     ]
   })
