@@ -49,6 +49,17 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
     period = 60,
     widgets = [
       {
+        type   = "text"
+        x      = 0
+        y      = 0
+        width  = 24
+        height = 1
+
+        properties = {
+          markdown = "Magento Dashboard"
+        }
+      },
+      {
         type   = "metric"
         x      = 0
         y      = 1
@@ -71,16 +82,28 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
         }
       },
       {
-        type   = "text"
-        x      = 0
-        y      = 0
-        width  = 24
-        height = 1
+        type   = "metric"
+        x      = 6
+        y      = 1
+        width  = 6
+        height = 4
 
         properties = {
-          markdown = "Magento Dashboard"
+          metrics = [
+            [
+              "AWS/EC2",
+              "CPUUtilization",
+              "AutoScalingGroupName",
+              aws_autoscaling_group.asg-alb-1.name
+            ]
+          ]
+          period = 60
+          stat   = "Average"
+          region = "us-east-1"
+          title  = "Auto Scaling Group - CPU Utilization"
         }
-      }
+      },
+      
     ]
   })
 }
