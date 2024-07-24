@@ -37,5 +37,8 @@ resource "aws_cloudwatch_metric_alarm" "alarm-cpu-lower-than-limit" {
     AutoScalingGroupName = aws_autoscaling_group.asg-alb-1.name
   }
 
+  alarm_actions = [
+    aws_autoscaling_policy.cpu-limit-remove-instance.arn
+  ]
   
 }
