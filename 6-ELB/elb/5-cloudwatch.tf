@@ -18,7 +18,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm-cpu-bigger-than-limit" {
   }
 
   alarm_actions = [
-    aws_autoscaling_policy.cpu-limit-add-instance
+    aws_autoscaling_policy.cpu-limit-add-instance.arn
   ]
 }
 
