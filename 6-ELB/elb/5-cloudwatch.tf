@@ -9,8 +9,12 @@ resource "aws_cloudwatch_metric_alarm" "alarm-cpu-bigger-than-limit" {
   threshold                 = 70
   alarm_description         = "Uso da CPU maior que o limite."
   
+  # dimensions = {
+  #   LoadBalancer = aws_lb.alb-1.arn_suffix
+  # }
+
   dimensions = {
-    LoadBalancer = aws_lb.alb-1.arn_suffix
+    AutoScaling = aws_autoscaling_group.asg-alb-1.arn
   }
 }
 
