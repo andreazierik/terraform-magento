@@ -1,6 +1,6 @@
 # Sobre o projeto
 ## Descrição
-Implementação de sitema Magento na AWS usando IaC Terraform e repositório no 
+Implementação de sistema Magento na AWS usando IaC Terraform e repositório no 
 Github.<br>
 Execução dos scripts Terraform através do Github Actions.
 
