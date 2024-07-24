@@ -43,7 +43,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm-cpu-lower-than-limit" {
 }
 
 resource "aws_cloudwatch_dashboard" "dashboard-1" {
-  dashboard_name = "Magento Dashboard"
+  dashboard_name = "Magento-Dashboard"
 
   dashboard_body = jsonencode({
     widgets = [
@@ -77,7 +77,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
         height = 3
 
         properties = {
-          markdown = "Hello world"
+          markdown = "Magento Dashboard"
         }
       }
     ]
