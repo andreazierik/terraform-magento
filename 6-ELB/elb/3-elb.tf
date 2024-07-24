@@ -23,8 +23,8 @@ resource "aws_lb_target_group" "tgrp-1-alb-1" {
     protocol            = "HTTP"
     path                = "/health_check"
     port                = 80
-    interval            = 10
-    timeout             = 5
+    interval            = 60
+    timeout             = 20
     healthy_threshold   = 2
     unhealthy_threshold = 3
     matcher             = "200-404"
