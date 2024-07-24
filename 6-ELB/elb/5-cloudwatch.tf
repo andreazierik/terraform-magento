@@ -104,6 +104,30 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
       },
       {
         type   = "metric"
+        x      = 12
+        y      = 1
+        width  = 6
+        height = 4
+        
+        properties = {
+          title  = "ELB - Requests"
+          region = "us-east-1"
+          stat   = "SampleCount"
+          period = 60
+          metrics = [
+            [
+              "AWS/ApplicationELB",
+              "RequestCount",
+              "TargetGroup",
+              aws_lb_target_group.tgrp-1-alb-1,
+              "LoadBalancer",
+              aws_lb.abl-1
+            ]
+          ]
+        }
+      },
+      {
+        type   = "metric"
         x      = 0
         y      = 7
         width  = 6
