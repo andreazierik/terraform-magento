@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm-cpu-bigger-than-limit" {
   # }
 
   dimensions = {
-    AutoScaling = aws_autoscaling_group.asg-alb-1.arn
+    AutoScalingGroupName = aws_autoscaling_group.asg-alb-1.name
   }
 }
 
