@@ -112,7 +112,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
         properties = {
           title  = "ELB - Requests"
           region = "us-east-1"
-          stat   = "SampleCount"
+          stat   = "Sum"
           period = 60
           metrics = [
             [
