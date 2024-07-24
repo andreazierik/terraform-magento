@@ -1,7 +1,8 @@
 # Sobre o projeto
 ## Descrição
-Implementação de sitema Magento na AWS com IaC Terraform com repositório no 
-Github. Execução dos scripts Terraform através do Github Actions.
+Implementação de sitema Magento na AWS usando IaC Terraform e repositório no 
+Github. 
+Execução dos scripts Terraform através do Github Actions.
 
 ## Estrutura
 O projeto conta com vários **'sub-projetos'** Terraform, os quais se comunicam 
