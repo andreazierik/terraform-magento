@@ -40,5 +40,5 @@ Com isso é possível criar e destruir os recursos de forma individual.
 | AWS_DEV_CLI_ADMIN_SSH_PUBLIC_KEY        |                                   |
 | MAGENTO_PRIVATE_KEY                     |                                   |
 | MAGENTO_PUBLIC_KEY                      |                                   |
-| RDS_1_DB_PASSWORD                       |                                   |
-| REDIS_PASSWORD                          |                                   |
+| RDS_1_DB_PASSWORD                       | your-password                     |
+| REDIS_PASSWORD                          | your-password                     |
