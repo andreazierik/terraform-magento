@@ -3,7 +3,6 @@ resource "aws_instance" "ec2-setup" {
   ami           = "ami-04b70fa74e45c3917"
   instance_type = "t3a.large"
   # instance_type = "t3.micro"
-  # key_name      = "aws-dev-console-admin"
   key_name             = "aws-services-ec2-ssh"
   subnet_id            = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id
   # iam_instance_profile = aws_iam_instance_profile.magento-instance-profile.name
