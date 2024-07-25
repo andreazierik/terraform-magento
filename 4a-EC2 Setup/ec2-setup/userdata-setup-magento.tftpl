@@ -162,10 +162,10 @@ sudo -u www-data php -d memory_limit=-1 bin/magento sampledata:deploy
 # Copiar tema
 # sudo -u www-data unzip m2-bizkick_v2.0.5.zip
 
-# Habilitar Loja e tema
+# # Habilitar Loja e tema
 sudo -u www-data php -d memory_limit=-1 bin/magento setup:upgrade
-sudo -u www-data php -d memory_limit=-1 bin/magento setup:di:compile
-sudo -u www-data php -d memory_limit=-1 bin/magento setup:static-content:deploy -f
+# sudo -u www-data php -d memory_limit=-1 bin/magento setup:di:compile
+# sudo -u www-data php -d memory_limit=-1 bin/magento setup:static-content:deploy -f
 
 # Sincronizar S3
 sudo -u www-data bin/magento remote-storage:sync
@@ -186,6 +186,11 @@ sudo -u www-data bin/magento config:set general/region/state_required BR
 sudo -u www-data bin/magento config:set customer/address/street_lines 4
 sudo -u www-data bin/magento config:set customer/address/taxvat_show req
 sudo -u www-data bin/magento config:set customer/create_account/vat_frontend_visibility 1
+
+# Habilitar Loja e tema
+# sudo -u www-data php -d memory_limit=-1 bin/magento setup:upgrade
+# sudo -u www-data php -d memory_limit=-1 bin/magento setup:di:compile
+# sudo -u www-data php -d memory_limit=-1 bin/magento setup:static-content:deploy -f
 
 # Limpar cache
 sudo -u www-data bin/magento cache:flush
