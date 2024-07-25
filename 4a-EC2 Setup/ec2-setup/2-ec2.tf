@@ -6,7 +6,8 @@ resource "aws_instance" "ec2-setup" {
   # key_name      = "aws-dev-console-admin"
   key_name             = "aws-services-ec2-ssh"
   subnet_id            = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id
-  iam_instance_profile = aws_iam_instance_profile.magento-instance-profile.name
+  # iam_instance_profile = aws_iam_instance_profile.magento-instance-profile.name
+  iam_instance_profile = data.terraform_remote_state.remote-state-s3-static-files.outputs.s3-static-files-magento-ec2-s3-profile-name
 
   root_block_device {
     volume_size = 10
