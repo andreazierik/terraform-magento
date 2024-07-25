@@ -16,7 +16,8 @@ resource "aws_launch_template" "ltplt-1" {
   key_name = "aws-services-ec2-ssh"
 
   iam_instance_profile {
-    name = aws_iam_instance_profile.magento-instance-profile-ltpl.name
+    # name = aws_iam_instance_profile.magento-instance-profile-ltpl.name
+    name = data.terraform_remote_state.remote-state-s3-static-files.outputs.s3-static-files-magento-ec2-s3-profile-name
   }
 
   // Network settings
