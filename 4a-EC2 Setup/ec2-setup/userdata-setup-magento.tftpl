@@ -163,14 +163,16 @@ sudo -u www-data bin/magento cache:flush
 
 # Instalar Loja Demo
 echo "#### Deploy sample data ####"
-sudo -u www-data php -d memory_limit=-1 bin/magento sampledata:deploy
+sudo -u www-data bin/magento sampledata:deploy
+# sudo -u www-data php -d memory_limit=-1 bin/magento sampledata:deploy
 
 # Copiar tema
 # sudo -u www-data unzip m2-bizkick_v2.0.5.zip
 
 # # Habilitar Loja e tema
 echo "#### Habilitar Loja e Temas ####"
-sudo -u www-data php -d memory_limit=-1 bin/magento setup:upgrade
+sudo -u www-data bin/magento setup:upgrade
+# sudo -u www-data php -d memory_limit=-1 bin/magento setup:upgrade
 # sudo -u www-data php -d memory_limit=-1 bin/magento setup:di:compile
 # sudo -u www-data php -d memory_limit=-1 bin/magento setup:static-content:deploy -f
 
