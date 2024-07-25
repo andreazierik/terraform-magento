@@ -14,4 +14,8 @@ output "magento-s3-role-name" {
   value = aws_iam_role.magento-s3-role.name
 }
 
+output "magento-ec2-s3-profile-name" {
+  value = aws_iam_instance_profile.magento-ec2-s3-profile.name
+}
+
 
