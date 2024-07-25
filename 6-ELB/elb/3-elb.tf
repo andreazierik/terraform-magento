@@ -21,7 +21,7 @@ resource "aws_lb_target_group" "tgrp-1-alb-1" {
   health_check {
     enabled             = true
     protocol            = "HTTP"
-    path                = "/health_check"
+    path                = "/"
     port                = 80
     interval            = 60
     timeout             = 20
@@ -75,7 +75,7 @@ resource "aws_lb_listener" "listener-http-alb-1" {
     redirect {
       port        = "443"
       protocol    = "HTTPS"
-      status_code = "HTTP_302"
+      status_code = "HTTP_301"
     }
   }
 
