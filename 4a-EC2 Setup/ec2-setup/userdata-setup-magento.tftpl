@@ -160,6 +160,7 @@ EOF'
 sudo -u www-data php -d memory_limit=-1 bin/magento sampledata:deploy
 
 # Copiar tema
+# sudo -u www-data unzip m2-bizkick_v2.0.5.zip
 
 # Habilitar Loja e tema
 sudo -u www-data php -d memory_limit=-1 bin/magento setup:upgrade
