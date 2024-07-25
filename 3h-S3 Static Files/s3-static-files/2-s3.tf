@@ -28,31 +28,31 @@ resource "aws_s3_bucket_public_access_block" "magento-static-files-access-block"
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_policy" "magento-static-files-policy" {
-  bucket = aws_s3_bucket.magento-static-files.id
+# resource "aws_s3_bucket_policy" "magento-static-files-policy" {
+#   bucket = aws_s3_bucket.magento-static-files.id
 
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Principal = {
-          AWS = "${aws_iam_role.magento-s3-role.arn}"
-        },
-        Action = [
-          "s3:PutObject",
-          "s3:GetObject",
-          "s3:ListBucket",
-          "s3:DeleteObject"
-        ],
-        Resource = [
-          "${aws_s3_bucket.magento-static-files.arn}",
-          "${aws_s3_bucket.magento-static-files.arn}/*"
-        ]
-      }
-    ]
-  })
-}
+#   policy = jsonencode({
+#     Version = "2012-10-17",
+#     Statement = [
+#       {
+#         Effect = "Allow",
+#         Principal = {
+#           AWS = "${aws_iam_role.magento-s3-role.arn}"
+#         },
+#         Action = [
+#           "s3:PutObject",
+#           "s3:GetObject",
+#           "s3:ListBucket",
+#           "s3:DeleteObject"
+#         ],
+#         Resource = [
+#           "${aws_s3_bucket.magento-static-files.arn}",
+#           "${aws_s3_bucket.magento-static-files.arn}/*"
+#         ]
+#       }
+#     ]
+#   })
+# }
 
 resource "aws_iam_role" "magento-s3-role" {
   name = "magento-s3-role"
@@ -81,7 +81,8 @@ resource "aws_iam_policy" "magento-s3-policy" {
         Action = [
           "s3:PutObject",
           "s3:GetObject",
-          "s3:ListBucket"
+          "s3:ListBucket",
+          "s3:DeleteBucket",
         ]
         Effect = "Allow"
         Resource = [
