@@ -5,8 +5,8 @@ resource "aws_instance" "bastion-vpc-1" {
   #instance_type = "t3a.large"
   instance_type = "t3.micro"
   #key_name      = "aws-dev-console-admin"
-  key_name      = "aws-services-ec2-ssh"
-  subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id
+  key_name  = "aws-services-ec2-ssh"
+  subnet_id = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id
 
   vpc_security_group_ids = [
     data.terraform_remote_state.remote-state-vpc.outputs.vpcs-sg-vpc-1-allow-all-id

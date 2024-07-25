@@ -4,8 +4,8 @@ resource "aws_instance" "ec2-setup" {
   instance_type = "t3a.large"
   # instance_type = "t3.micro"
   # key_name      = "aws-dev-console-admin"
-  key_name      = "aws-services-ec2-ssh"
-  subnet_id     = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id
+  key_name             = "aws-services-ec2-ssh"
+  subnet_id            = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-subnet-vpc-1-public-1a-id
   iam_instance_profile = aws_iam_instance_profile.magento-instance-profile.name
 
   root_block_device {
@@ -34,9 +34,9 @@ resource "aws_instance" "ec2-setup" {
       magento-admin-password  = var.magento-admin-password,
       opensearch-endpoint     = data.terraform_remote_state.remote-state-opensearch.outputs.opensearch-opensearch-1-endpoint,
       # opensearch-endpoint     = "vpc-opensearch-magento-1-hh6kg7jdj7h5yoheodxeqaqmbm.us-east-1.es.amazonaws.com"
-      redis-endpoint          = data.terraform_remote_state.remote-state-elasticcache.outputs.elasticcache-elasticcache-1-cache-nodes-0-address,
-      static-files-bucket-name= data.terraform_remote_state.remote-state-s3-static-files.outputs.s3-static-files-magento-static-files-bucket,
-      efs-dns-name            = data.terraform_remote_state.remote-state-efs.outputs.efs-efs-1-dns-name
+      redis-endpoint           = data.terraform_remote_state.remote-state-elasticcache.outputs.elasticcache-elasticcache-1-cache-nodes-0-address,
+      static-files-bucket-name = data.terraform_remote_state.remote-state-s3-static-files.outputs.s3-static-files-magento-static-files-bucket,
+      efs-dns-name             = data.terraform_remote_state.remote-state-efs.outputs.efs-efs-1-dns-name
     }
   )
 

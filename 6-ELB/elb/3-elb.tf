@@ -1,5 +1,5 @@
 // Target group
-resource "aws_lb_target_group" "tgrp-1-alb-1" {  
+resource "aws_lb_target_group" "tgrp-1-alb-1" {
 
   name     = "tgrp-1-alb-${var.shortnameid}-1"
   port     = 80
@@ -7,7 +7,7 @@ resource "aws_lb_target_group" "tgrp-1-alb-1" {
   vpc_id   = data.terraform_remote_state.remote-state-vpc.outputs.vpcs-vpc-1-id
 
   stickiness {
-    enabled = true
+    enabled         = true
     type            = "lb_cookie"
     cookie_duration = 3600
   }

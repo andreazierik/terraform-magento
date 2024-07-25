@@ -90,50 +90,50 @@ output "sg-vpc-1-alb-1-name" {
 }
 
 output "sg-vpc-1-nlb-1-id" {
-  value       = aws_security_group.sg-vpc-1-nlb-1.id
+  value = aws_security_group.sg-vpc-1-nlb-1.id
 }
 
 output "sg-vpc-1-nlb-1-name" {
-  value       = aws_security_group.sg-vpc-1-nlb-1.name
+  value = aws_security_group.sg-vpc-1-nlb-1.name
 }
 
 output "sg-vpc-1-nlb-2-id" {
-  value       = aws_security_group.sg-vpc-1-nlb-2.id
+  value = aws_security_group.sg-vpc-1-nlb-2.id
 }
 
 output "sg-vpc-1-nlb-2-name" {
-  value       = aws_security_group.sg-vpc-1-nlb-2.name
+  value = aws_security_group.sg-vpc-1-nlb-2.name
 }
 
 output "sg-vpc-1-nlb-1-tgrp-1-id" {
-  value       = aws_security_group.sg-vpc-1-nlb-1-tgrp-1.id
+  value = aws_security_group.sg-vpc-1-nlb-1-tgrp-1.id
 }
 
 output "sg-vpc-1-nlb-1-tgrp-1-name" {
-  value       = aws_security_group.sg-vpc-1-nlb-1-tgrp-1.name
+  value = aws_security_group.sg-vpc-1-nlb-1-tgrp-1.name
 }
 
 output "sg-vpc-1-nlb-2-tgrp-1-id" {
-  value       = aws_security_group.sg-vpc-1-nlb-2-tgrp-1.id
+  value = aws_security_group.sg-vpc-1-nlb-2-tgrp-1.id
 }
 
 output "sg-vpc-1-nlb-2-tgrp-1-name" {
-  value       = aws_security_group.sg-vpc-1-nlb-2-tgrp-1.name
+  value = aws_security_group.sg-vpc-1-nlb-2-tgrp-1.name
 }
 
 output "sg-vpc-1-opensearch-1-id" {
-  value       = aws_security_group.sg-vpc-1-opensearch-1.id
+  value = aws_security_group.sg-vpc-1-opensearch-1.id
 }
 
 output "sg-vpc-1-opensearch-1-name" {
-  value       = aws_security_group.sg-vpc-1-opensearch-1.name
+  value = aws_security_group.sg-vpc-1-opensearch-1.name
 }
 
 output "sg-vpc-1-elasticcache-1-id" {
-  value       = aws_security_group.sg-vpc-1-elasticcache-1.id
+  value = aws_security_group.sg-vpc-1-elasticcache-1.id
 }
 
 output "sg-vpc-1-elasticcache-1-name" {
-  value       = aws_security_group.sg-vpc-1-elasticcache-1.name
+  value = aws_security_group.sg-vpc-1-elasticcache-1.name
 }
 

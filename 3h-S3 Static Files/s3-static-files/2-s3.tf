@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "magento-static-files" {
-  bucket = "brunoferreira86services-magento-static-files"  
+  bucket = "brunoferreira86services-magento-static-files"
 
   tags = {
-    Name        = "brunoferreira86services-magento-static-files"
+    Name = "brunoferreira86services-magento-static-files"
   }
 }
 
@@ -22,9 +22,9 @@ resource "aws_s3_bucket" "magento-static-files" {
 resource "aws_s3_bucket_public_access_block" "magento-static-files-access-block" {
   bucket = aws_s3_bucket.magento-static-files.bucket
 
-  block_public_acls   = true
-  block_public_policy = true
-  ignore_public_acls  = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
   restrict_public_buckets = true
 }
 

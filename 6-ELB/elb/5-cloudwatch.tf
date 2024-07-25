@@ -1,14 +1,14 @@
 resource "aws_cloudwatch_metric_alarm" "alarm-cpu-bigger-than-limit" {
-  alarm_name                = "cpu-bigger-than-limit"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 3
-  metric_name               = "CPUUtilization"
-  namespace                 = "AWS/EC2"
-  period                    = 10
-  statistic                 = "Average"
-  threshold                 = 70
-  alarm_description         = "Uso da CPU maior que o limite."
-  
+  alarm_name          = "cpu-bigger-than-limit"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 3
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = 10
+  statistic           = "Average"
+  threshold           = 70
+  alarm_description   = "Uso da CPU maior que o limite."
+
   # dimensions = {
   #   LoadBalancer = aws_lb.alb-1.arn_suffix
   # }
@@ -23,15 +23,15 @@ resource "aws_cloudwatch_metric_alarm" "alarm-cpu-bigger-than-limit" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "alarm-cpu-lower-than-limit" {
-  alarm_name                = "cpu-lower-than-limit"
-  comparison_operator       = "LessThanOrEqualToThreshold"
-  evaluation_periods        = 2
-  metric_name               = "CPUUtilization"
-  namespace                 = "AWS/EC2"
-  period                    = 60
-  statistic                 = "Average"
-  threshold                 = 30
-  alarm_description         = "Uso da CPU menor que o limite."  
+  alarm_name          = "cpu-lower-than-limit"
+  comparison_operator = "LessThanOrEqualToThreshold"
+  evaluation_periods  = 2
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = 60
+  statistic           = "Average"
+  threshold           = 30
+  alarm_description   = "Uso da CPU menor que o limite."
 
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.asg-alb-1.name
@@ -108,7 +108,7 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
         y      = 1
         width  = 6
         height = 4
-        
+
         properties = {
           title  = "ELB - Requests"
           region = "us-east-1"
@@ -148,14 +148,14 @@ resource "aws_cloudwatch_dashboard" "dashboard-1" {
           region = "us-east-1"
           title  = "Auto Scaling Group - Network In"
         }
-      },      
+      },
       {
         type   = "metric"
         x      = 0
         y      = 7
         width  = 6
         height = 4
-        
+
         properties = {
           title  = "Redis - Node Current Connections"
           region = "us-east-1"
