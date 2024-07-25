@@ -158,7 +158,15 @@ EOF'
 
 # Instalar Loja Demo
 sudo -u www-data php -d memory_limit=-1 bin/magento sampledata:deploy
+
+# Copiar tema
+
+# Habilitar Loja e tema
 sudo -u www-data php -d memory_limit=-1 bin/magento setup:upgrade
+sudo -u www-data php -d memory_limit=-1 bin/magento setup:di:compile
+sudo -u www-data php -d memory_limit=-1 bin/magento setup:static-content:deploy -f
+
+# Sincronizar S3
 sudo -u www-data bin/magento remote-storage:sync
 
 # Remover dados de autenticação necessários para instalar loja demo (por segurança)
