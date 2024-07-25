@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "magento-static-files" {
-  bucket = "brunoferreira86services-magento-static-files"
+  bucket = "andreazierik-magento-static-files"
 
   tags = {
-    Name = "brunoferreira86services-magento-static-files"
+    Name = "andreazierik-magento-static-files"
   }
 }
 
