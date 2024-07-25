@@ -151,12 +151,15 @@ echo "#### Magento pos setup ####"
 sudo -u www-data bin/magento config:set web/secure/base_url https://${domain-base}/
 sudo -u www-data bin/magento config:set web/secure/base_link_url https://${domain-base}/
 sudo -u www-data bin/magento config:set web/url/redirect_to_base 0
-sudo -u www-data bin/magento config:set system/media_storage_configuration/media_database 0
+# sudo -u www-data bin/magento config:set system/media_storage_configuration/media_database 0
 # Fim alterações necessárias para o redirect 443 > 80 via ALB
 
 # Desabilitar 2FA
 echo "#### Desabilitar 2FA ####"
 sudo -u www-data bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth Magento_TwoFactorAuth
+
+# Limpar cache
+sudo -u www-data bin/magento cache:flush
 
 # Instalar Loja Demo
 echo "#### Deploy sample data ####"
@@ -192,9 +195,6 @@ sudo -u www-data bash -c 'cat <<EOF > /var/www/magento2/var/composer_home/auth.j
 {
 }
 EOF'
-
-# Limpar cache
-sudo -u www-data bin/magento cache:flush
 
 # Configurar Nginx
 echo "#### Configurar nginx para magento"
