@@ -81,8 +81,9 @@ resource "aws_iam_policy" "magento-s3-policy" {
         Action = [
           "s3:PutObject",
           "s3:GetObject",
+          "s3:DeleteObject",
           "s3:ListBucket",
-          "s3:DeleteBucket",
+          "s3:DeleteBucket"
         ]
         Effect = "Allow"
         Resource = [
@@ -102,6 +103,5 @@ resource "aws_iam_role_policy_attachment" "magento-s3-attachment" {
 resource "aws_iam_instance_profile" "magento-ec2-s3-profile" {
 
   name = "magento-ec2-s3-profile"
-  # role = data.terraform_remote_state.remote-state-s3-static-files.outputs.s3-static-files-magento-s3-role-name  
   role = aws_iam_role.magento-s3-role.name
 }
