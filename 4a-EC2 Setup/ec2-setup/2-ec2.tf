@@ -10,7 +10,7 @@ resource "aws_instance" "ec2-setup" {
   iam_instance_profile = data.terraform_remote_state.remote-state-s3-static-files.outputs.s3-static-files-magento-ec2-s3-profile-name
 
   root_block_device {
-    volume_size = 10
+    volume_size = 20
   }
 
   vpc_security_group_ids = [
