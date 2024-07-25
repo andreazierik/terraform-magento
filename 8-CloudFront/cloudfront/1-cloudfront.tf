@@ -39,7 +39,7 @@ resource "aws_cloudfront_distribution" "cloudfront-1" {
   aliases = ["${var.domain-base}", "www.${var.domain-base}"]
   // Custom SSL certificate
   viewer_certificate {
-    acm_certificate_arn      = data.terraform_remote_state.remote-ssl-certificate.outputs.acm-certificate-1-arn
+    acm_certificate_arn      = data.terraform_remote_state.remote-acm-ssl.outputs.acm-certificate-1-arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
@@ -54,8 +54,8 @@ resource "aws_cloudfront_distribution" "cloudfront-1" {
 
   // Origins
   origin {
-    origin_id   = data.terraform_remote_state.remote-computing.outputs.elb-alb-1-id
-    domain_name = data.terraform_remote_state.remote-computing.outputs.elb-alb-1-dns-name
+    origin_id   = data.terraform_remote_state.remote-elb.outputs.elb-alb-1-id
+    domain_name = data.terraform_remote_state.remote-elb.outputs.elb-alb-1-dns-name
 
     custom_origin_config {
       origin_protocol_policy = "match-viewer"
@@ -73,7 +73,7 @@ resource "aws_cloudfront_distribution" "cloudfront-1" {
   // Default
   default_cache_behavior {
 
-    target_origin_id = data.terraform_remote_state.remote-computing.outputs.elb-alb-1-id
+    target_origin_id = data.terraform_remote_state.remote-elb.outputs.elb-alb-1-id
     compress         = true
 
     // Settings
@@ -96,7 +96,7 @@ resource "aws_cloudfront_distribution" "cloudfront-1" {
   # Precedend 0 = /shop
   # ordered_cache_behavior {
   #   path_pattern     = "/shop"
-  #   target_origin_id = data.terraform_remote_state.remote-computing.outputs.elb-alb-odoo-ecommerce-id
+  #   target_origin_id = data.terraform_remote_state.remote-elb.outputs.elb-alb-odoo-ecommerce-id
   #   compress         = false
 
   #   // Settings
