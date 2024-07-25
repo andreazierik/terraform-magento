@@ -159,6 +159,17 @@ EOF'
 # Instalar Loja Demo
 sudo -u www-data php -d memory_limit=-1 bin/magento sampledata:deploy
 
+# Configurações para Brasil
+sudo -u www-data bin/magento config:set general/country/default BR
+sudo -u www-data bin/magento config:set general/country/destinations BR
+sudo -u www-data bin/magento config:set general/single_store_mode/enabled 0
+sudo -u www-data bin/magento config:set general/country/allow BR
+sudo -u www-data bin/magento config:set general/locale/weight_unit kgs
+sudo -u www-data bin/magento config:set general/region/state_required BR
+sudo -u www-data bin/magento config:set customer/address/street_lines 4
+sudo -u www-data bin/magento config:set customer/address/taxvat_show req
+sudo -u www-data bin/magento config:set customer/create_account/vat_frontend_visibility 1
+
 # Copiar tema
 # sudo -u www-data unzip m2-bizkick_v2.0.5.zip
 
@@ -175,22 +186,6 @@ sudo -u www-data bash -c 'cat <<EOF > /var/www/magento2/var/composer_home/auth.j
 {
 }
 EOF'
-
-# Configurações para Brasil
-sudo -u www-data bin/magento config:set general/country/default BR
-sudo -u www-data bin/magento config:set general/country/destinations BR
-sudo -u www-data bin/magento config:set general/single_store_mode/enabled 0
-sudo -u www-data bin/magento config:set general/country/allow BR
-sudo -u www-data bin/magento config:set general/locale/weight_unit kgs
-sudo -u www-data bin/magento config:set general/region/state_required BR
-sudo -u www-data bin/magento config:set customer/address/street_lines 4
-sudo -u www-data bin/magento config:set customer/address/taxvat_show req
-sudo -u www-data bin/magento config:set customer/create_account/vat_frontend_visibility 1
-
-# Habilitar Loja e tema
-# sudo -u www-data php -d memory_limit=-1 bin/magento setup:upgrade
-# sudo -u www-data php -d memory_limit=-1 bin/magento setup:di:compile
-# sudo -u www-data php -d memory_limit=-1 bin/magento setup:static-content:deploy -f
 
 # Limpar cache
 sudo -u www-data bin/magento cache:flush
