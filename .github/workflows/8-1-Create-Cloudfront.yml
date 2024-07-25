@@ -20,7 +20,7 @@ jobs:
     - name: "Cloudfront: Setup backend, run terraform init and apply."
       env:
         KEY_TF_STATE: "Cloudfront/terraform.tfstate"
-        LOCAL_FOLDER: "8-Cloudfront"
+        LOCAL_FOLDER: "8-CloudFront"
       run: |
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"
