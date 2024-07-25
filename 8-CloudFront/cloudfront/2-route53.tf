@@ -5,7 +5,7 @@ data "aws_route53_zone" "hosted_zone" {
 }
 
 // DNS Record - A
-resource "aws_route53_record" "odoo_record_A" {
+resource "aws_route53_record" "record_A" {
 
   allow_overwrite = true
   zone_id         = data.aws_route53_zone.hosted_zone.zone_id

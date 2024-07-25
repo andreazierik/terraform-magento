@@ -12,8 +12,7 @@ resource "aws_launch_template" "ltplt-1" {
   # instance_type = "c7a.medium"
   # instance_type = "t3.micro"
 
-  // Key pair (login)
-  # key_name = "aws-dev-console-admin"
+  // Key pair (ec2 ssh login)  
   key_name = "aws-services-ec2-ssh"
 
   iam_instance_profile {
