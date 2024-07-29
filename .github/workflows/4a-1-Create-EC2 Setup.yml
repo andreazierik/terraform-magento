@@ -46,3 +46,4 @@ jobs:
           -var "magento-admin-lastname=${{vars.MAGENTO_ADMIN_LASTNAME}}" \
           -var "magento-admin-user=${{vars.MAGENTO_ADMIN_USER}}" \
           -var "magento-admin-password=${{secrets.MAGENTO_ADMIN_PASSWORD}}"
+
