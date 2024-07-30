@@ -5,7 +5,7 @@ resource "aws_launch_template" "ltplt-1" {
   update_default_version = true
 
   // AMI
-  image_id = data.terraform_remote_state.remote-ami.outputs.ami-ami-id
+  image_id = "ami-09289c0ca2ad4e2c7" ##data.terraform_remote_state.remote-ami.outputs.ami-ami-id
 
   // Instance type
   instance_type = "t3a.xlarge"
