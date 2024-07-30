@@ -13,7 +13,7 @@ resource "aws_launch_template" "ltplt-1" {
   # instance_type = "t3.micro"
 
   // Key pair (ec2 ssh login)  
-  key_name = "aws-services-ec2-ssh"
+  key_name = "estudos"
 
   iam_instance_profile {
     # name = aws_iam_instance_profile.magento-instance-profile-ltpl.name
