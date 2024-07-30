@@ -31,7 +31,6 @@ jobs:
         chmod 755 ./generate_backend.sh && ./generate_backend.sh
         cd "./${{env.LOCAL_FOLDER}}"
         terraform init -backend-config=./backend.tfvars
-        terraform state list
         terraform apply -auto-approve \
           -var "regiao=${{env.REGION}}" \
           -var "remote-state-bucket=${{env.REMOTE_STATE_BUCKET}}" \
@@ -46,4 +45,3 @@ jobs:
           -var "magento-admin-lastname=${{vars.MAGENTO_ADMIN_LASTNAME}}" \
           -var "magento-admin-user=${{vars.MAGENTO_ADMIN_USER}}" \
           -var "magento-admin-password=${{secrets.MAGENTO_ADMIN_PASSWORD}}"
-
